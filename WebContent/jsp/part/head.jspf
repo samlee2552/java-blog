@@ -27,51 +27,63 @@
 <script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
 
-<title>장희성 블로그</title>
+<title>이상범 블로그</title>
 </head>
 
 <body>
-	<div class="mobile-top-bar visible-on-sm-down flex">
-		<a href="#" class="btn-toggle-mobile-side-bar flex flex-ai-c"> <i
-			class="fas fa-bars"></i> <i class="fas fa-times"></i>
-		</a> <a href="${pageContext.request.contextPath}/s/home/main"
-			class="logo absolute-center absolute-middle flex flex-ai-c"> <i
-			class="fas fa-award"></i>
-		</a>
-	</div>
-	<div class="mobile-side-bar flex flex-ai-c visible-on-sm-down">
-		<nav class="menu-box-1 flex-grow-1">
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
-				<li><a href="#" class="block">Articles</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">AboutMe</a></li>
-				<li>
-					<a href="#" class="block">SNS</a>
-					<ul>
-						<li><a href="https://github.com/jhs512" target="_blank" class="block">GITHUB</a></li>
-						<li><a href="https://github.com/jhs512" target="_blank" class="block">INSTA</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	<div class="top-bar visible-on-md-up">
-		<div class="con flex flex-jc-sb height-100p">
-			<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"> <i class="fas fa-award"></i>
-			</a>
+    <div class="top-logo visible-on-md-up "><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png" alt=""></div>
+  
+    <div class="top-bar visible-on-md-up">
+        <div class="con height-100p flex flex-jc-sb">
+            <a href="#" class="logo flex flex-ai-c">
+                <i class="fas fa-dragon">
+                  <div class="new-bar"></div>
+                </i>
+            </a>
 
-			<nav class="menu-box-1">
-				<ul class="flex height-100p">
-					<li><a href="${pageContext.request.contextPath}/s/home/main" class="flex height-100p flex-ai-c">Home</a></li>
-					<li><a href="#" class="flex height-100p flex-ai-c">Articles</a></li>
-					<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="flex height-100p flex-ai-c">AboutMe</a></li>
-					<li><a href="#" class="flex height-100p flex-ai-c">SNS</a>
-						<ul>
-							<li><a href="https://github.com/jhs512" target="_blank" class="block">GITHUB</a></li>
-							<li><a href="https://github.com/jhs512" target="_blank" class="block">INSTA</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
+            <nav class="menu-box-1">
+                <ul class="flex height-100p">
+                    <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c flex">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
+                    <li>
+                        <a href="#" class="height-100p flex flex-ai-c">SNS</a>
+                        <ul>
+                            <li><a class="block" href="https://github.com" target="_blank" >GITHUB</a></li>
+                            <li><a class="block" href="https://youtube.com" target="_blank" >YOUTUBE</a></li>
+                            <li><a class="block" href="https://instagram.com" target="_blank" >INSTAGRAM</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+      <div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
+        <a href="#" class="btn-toggle-mobile-side-bar">
+            <div></div>
+            <div></div>
+            <div></div>
+        </a>
+        <a href="#" class="logo flex flex-ai-c absolute-center absolute-middle">
+            <i class="fas fa-dragon"></i>
+        </a>
+    </div>
+
+    <div class="mobile-side-bar visible-on-sm-down">
+        <nav class="menu-box-1">
+            <ul>
+                <li><a href="#" class="block">Home</a></li>
+                <li><a href="#" class="block">Articles</a></li>
+                <li><a href="#" class="block">About Me</a></li>
+                <li>
+                    <a href="#" class="block">SNS</a>
+                    <ul>
+                        <li><a class="block" href="#">GITHUB</a></li>
+                        <li><a class="block" href="#">FACEBOOK</a></li>
+                        <li><a class="block" href="#">INSTAGRAM</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
