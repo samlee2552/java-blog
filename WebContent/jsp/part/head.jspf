@@ -14,13 +14,12 @@
 	rel="stylesheet">
 
 <!-- 폰트어썸 불러오기 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
+<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/home/main.css">  -->
 
-<!-- 제이쿼리 불러오기 -->
+<!-- 제이쿼리 불러오기 <--></-->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -44,12 +43,20 @@
             <nav class="menu-box-1">
                 <ul class="flex height-100p">
                     <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c flex">Home</a></li>
-                    <li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a></li>
+                    <li>
+                    	<a href="#" class="height-100p flex flex-ai-c">Articles</a>
+                    	<ul>
+                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1" >STUDY PLANS</a></li>
+                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1" >EVERYDAY LIFE</a></li>
+                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1" >FRONT END</a></li>
+                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1" >BACK END</a></li>
+                        </ul>	
+                    </li>
                     <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
                     <li>
                         <a href="#" class="height-100p flex flex-ai-c">SNS</a>
                         <ul>
-                            <li><a class="block" href="https://github.com" target="_blank" >GITHUB</a></li>
+                            <li><a class="block" href="https://github.com/samlee2552" target="_blank" >GITHUB</a></li>
                             <li><a class="block" href="https://youtube.com" target="_blank" >YOUTUBE</a></li>
                             <li><a class="block" href="https://instagram.com" target="_blank" >INSTAGRAM</a></li>
                         </ul>

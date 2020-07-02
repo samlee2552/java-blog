@@ -525,6 +525,15 @@ label[for] {
 }
 
 .top-logo {
-  text-align:center;  
+  text-align:center;
   padding:10px 0;
+}
+
+.top-logo > img {
+  transition: 0.5s;
+}
+
+.top-logo > img:hover {
+  transform: rotate(20deg);
+/* transform:translate(200px,0); */
 }
