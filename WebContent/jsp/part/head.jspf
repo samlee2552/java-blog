@@ -14,83 +14,103 @@
 	rel="stylesheet">
 
 <!-- 폰트어썸 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/common.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resource/css/common.css">
 <!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/home/main.css">  -->
 
-<!-- 제이쿼리 불러오기 <--></-->
+<!-- 제이쿼리 불러오기 <-->
+</-->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
 
 <title>이상범 블로그</title>
 </head>
 
 <body>
-    <div class="top-logo visible-on-md-up "><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png" alt=""></div>
-  
-    <div class="top-bar visible-on-md-up">
-        <div class="con height-100p flex flex-jc-sb">
-            <a href="#" class="logo flex flex-ai-c">
-                <i class="fas fa-dragon">
-                  <div class="new-bar"></div>
-                </i>
-            </a>
+	<div class="top-logo visible-on-md-up ">
+		<img
+			src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png"
+			alt="">
+	</div>
 
-            <nav class="menu-box-1">
-                <ul class="flex height-100p">
-                    <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c flex">Home</a></li>
-                    <li>
-                    	<a href="#" class="height-100p flex flex-ai-c">Articles</a>
-                    	<ul>
-                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1" >STUDY PLANS</a></li>
-                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1" >EVERYDAY LIFE</a></li>
-                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1" >FRONT END</a></li>
-                            <li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1" >BACK END</a></li>
-                        </ul>	
-                    </li>
-                    <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
-                    <li>
-                        <a href="#" class="height-100p flex flex-ai-c">SNS</a>
-                        <ul>
-                            <li><a class="block" href="https://github.com/samlee2552" target="_blank" >GITHUB</a></li>
-                            <li><a class="block" href="https://youtube.com" target="_blank" >YOUTUBE</a></li>
-                            <li><a class="block" href="https://instagram.com" target="_blank" >INSTAGRAM</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+	<div class="top-bar visible-on-md-up">
+		<div class="con height-100p flex flex-jc-sb">
+			<a href="${pageContext.request.contextPath}/s/home/main"
+				class="logo flex flex-ai-c"> <img
+				src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FcfUDiQ%2FbtqFlkktAG2%2FRiFoBxAeVOQ19AkLijy3Lk%2Fimg.png"
+				style="width: 100px" />
+				<div class="new-bar"></div>
+			</a>
 
-      <div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
-        <a href="#" class="btn-toggle-mobile-side-bar">
-            <div></div>
-            <div></div>
-            <div></div>
-        </a>
-        <a href="#" class="logo flex flex-ai-c absolute-center absolute-middle">
-            <i class="fas fa-dragon"></i>
-        </a>
-    </div>
+			<nav class="menu-box-1">
+				<ul class="flex height-100p">
+					<li><a href="${pageContext.request.contextPath}/s/home/main"
+						class="height-100p flex flex-ai-c flex">Home</a></li>
+					<li><a href="#" class="height-100p flex flex-ai-c">Articles</a>
+						<ul>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1">STUDY
+									PLANS</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1">EVERYDAY
+									LIFE</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1">FRONT
+									END</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1">BACK
+									END</a></li>
+						</ul></li>
+					<li><a
+						href="${pageContext.request.contextPath}/s/home/aboutMe"
+						class="height-100p flex flex-ai-c">About Me</a></li>
+					<li><a href="#" class="height-100p flex flex-ai-c">SNS</a>
+						<ul>
+							<li><a class="block" href="https://github.com/samlee2552"
+								target="_blank">GITHUB</a></li>
+							<li><a class="block" href="https://youtube.com"
+								target="_blank">YOUTUBE</a></li>
+							<li><a class="block" href="https://instagram.com"
+								target="_blank">INSTAGRAM</a></li>
+						</ul></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 
-    <div class="mobile-side-bar visible-on-sm-down">
-        <nav class="menu-box-1">
-            <ul>
-                <li><a href="#" class="block">Home</a></li>
-                <li><a href="#" class="block">Articles</a></li>
-                <li><a href="#" class="block">About Me</a></li>
-                <li>
-                    <a href="#" class="block">SNS</a>
-                    <ul>
-                        <li><a class="block" href="#">GITHUB</a></li>
-                        <li><a class="block" href="#">FACEBOOK</a></li>
-                        <li><a class="block" href="#">INSTAGRAM</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
+	<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
+		<a href="#" class="btn-toggle-mobile-side-bar">
+			<div></div>
+			<div></div>
+			<div></div>
+		</a> <a href="#"
+			class="logo flex flex-ai-c absolute-center absolute-middle"> <i
+			class="fas fa-dragon"></i>
+		</a>
+	</div>
+
+	<div class="mobile-side-bar visible-on-sm-down">
+		<nav class="menu-box-1">
+			<ul>
+				<li><a href="#" class="block">Home</a></li>
+				<li><a href="#" class="block">Articles</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
+				<li><a href="#" class="block">SNS</a>
+					<ul>
+						<li><a class="block" href="#"
+							>GITHUB</a></li>
+						<li><a class="block" href="#"
+							t>YOUTUBE</a></li>
+						<li><a class="block" href="#"
+							>INSTAGRAM</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</div>

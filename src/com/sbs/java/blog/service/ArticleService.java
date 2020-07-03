@@ -27,4 +27,9 @@ public class ArticleService {
 	public int getArticlesCount(int cateItemId) {
 		return articleDao.getArticlesCount(cateItemId);
 	}
+
+
+	public String getBoardName(int cateItemId) {
+		return articleDao.getBoardName(cateItemId);
+	}
 }

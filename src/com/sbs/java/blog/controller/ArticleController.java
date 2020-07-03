@@ -49,10 +49,13 @@ public class ArticleController extends Controller {
 			page = Integer.parseInt(req.getParameter("page"));
 		}
 		
+		String boardName = articleService.getBoardName(cateItemId);
+		
 		int itemsPerPage = 10;
 		int totalCount = articleService.getArticlesCount(cateItemId);
 		int totalPage = (int)Math.ceil(totalCount / (double)itemsPerPage);
 		
+		req.setAttribute("boardName", boardName);
 		req.setAttribute("totalCount", totalCount); //게시물 갯수
 		req.setAttribute("totalPage", totalPage); //페이지 개수
 		req.setAttribute("page", page); // 현재 페이지

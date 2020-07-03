@@ -214,6 +214,26 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	color:#0082c8
 }
 
+.slider-footer {
+	text-align: center;
+	padding:30px;
+	animation: fadein 5s;
+	animation-delay: 2s;
+	animation-iteration-count: infinite;
+	margin-bottom:100px;
+}
+
+.slider-footer > span {
+	font-size:3rem;
+}
+.slider-footer > span:first-child {
+	color:#0082c8;
+}
+
+.slider-footer > span:last-child {
+	color:#134E5E;
+}
+
 </style>
 
 <%@ include file="/jsp/part/head.jspf"%>
@@ -229,9 +249,9 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	</div>
 </div>
 
-<div class="slider">
+<div class="slider visible-on-md-up">
 	<div class="slider-header">
-		<span>MY PERSONAL </span> <span>RECOMMENDATION</span>
+		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>
 
 	<ul class="slides">
@@ -315,5 +335,9 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 			id="img-dot-5"></label> <label for="img-6" class="nav-dot"
 			id="img-dot-6"></label></li>
 	</ul>
+	<div class="slider-footer ">
+		<span>PLENTY TO PLAY, </span> <span>BUT GOT NO TIME 😭</span>
+	</div>
 </div>
+
 <%@ include file="/jsp/part/foot.jspf"%>

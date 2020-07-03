@@ -8,12 +8,15 @@
 
 .table-box > table {
 	width:100%;
+	border-top:3px solid black;
+	border-bottom:3px solid black;
 	border-collapse:collapse;
 	text-align:center;
 }
 
 .table-box > table th, .table-box > table td {
-	border:1px solid black;
+	border-top:1px solid black;
+	border-bottom:1px solid black;
 }
 
 .table-box > table th {
@@ -24,6 +27,7 @@
 #paging {
   text-align:center;
   margin: 20px 0;
+  margin-bottom:100px;
 }
 
 #paging ul {
@@ -57,26 +61,32 @@
   border-radius:15%;
   padding:0 10px;
 }
+
+.con > h1 {
+	margin-top:5%;
+}
 <!-- 
 </style>
 <%
 	List<Article> articles = (List<Article>) request.getAttribute("articles");
 	int totalPage = (int) request.getAttribute("totalPage");
 	int paramPage = (int) request.getAttribute("page");
+
 %>	
 	<div class="con">
-	<h2>총 게시물 수 : ${totalCount}</h2>
+	<h1 class="text-align-center">📋 게시판 : ${boardName}</h1>
+		<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
 	</div>
-	<h1 class="con" style="padding:30px 0">게시물 리스트</h1>
 
 	<div class="article-list-box-1 con table-box">
 	<table>
 		<thead>
 			<tr height="50">
-				<th>번호</th>
-				<th>등록일</th>
-				<th>수정일</th>
-				<th>제목</th>
+				<th>🇳🇴</th>
+				<th>📅 등록일</th>
+				<th>📆 수정일</th>
+				<th>🔤 제목</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -87,7 +97,8 @@
 				<td><%=article.getId()%></td>
 				<td><%=article.getRegDate()%></td>
 				<td><%=article.getUpdateDate()%></td>
-				<td width="60%"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
+				<td width="40%" style="font-weight:bold"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
+				<td>1</td>
 			</tr>
 			<%
 				}

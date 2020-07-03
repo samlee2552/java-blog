@@ -66,4 +66,15 @@ public class ArticleDao {
 		int count = DBUtil.selectRowIntValue(dbConn, sql);
 		return count;
 	}
+
+	public String getBoardName(int cateItemId) {
+		String sql = "";
+		
+		sql += String.format("SELECT `name` ");
+		sql += String.format("FROM cateItem ");
+		sql += String.format("WHERE id = %d;", cateItemId);
+		
+		String name = DBUtil.selectRowStringValue(dbConn, sql);
+		return name;
+	}
 }
