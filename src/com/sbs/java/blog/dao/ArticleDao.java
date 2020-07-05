@@ -43,16 +43,15 @@ public class ArticleDao {
 	public Article getForPrintArticle(int id) {
 		String sql = "";
 		
-		sql += String.format("SELECT * ");
+		sql += String.format("SELECT *, '이상범' AS extra__writer ");
 		sql += String.format("FROM article ");
-		sql += String.format("WHERE displayStatus = 1 ");
-		sql += String.format("AND id = %d;", id);
-
-		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-		
-		return new Article(row);
+		sql += String.format("WHERE 1 ");
+		sql += String.format("AND id = %d ", id);
+		sql += String.format("AND displayStatus = 1 ");
+	
+		return new Article(DBUtil.selectRow(dbConn, sql));
 	}
-
+		
 	public int getArticlesCount(int cateItemId) {
 		String sql = "";
 		

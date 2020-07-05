@@ -8,6 +8,7 @@ public class Article extends Dto {
 	private String updateDate;
 	private String title;
 	private String body;
+
 	
 	public Article(Map<String, Object> row) {
 		super(row);
@@ -17,11 +18,13 @@ public class Article extends Dto {
 		this.cateItemId = (int)row.get("cateItemId");
 	}
 	
+
 	@Override
 	public String toString() {
-		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
-				+ body + ", getId()=" + getId() + ", getRegDate()=" + getRegDate() + "]";
+		return "Article [cateItemId=" + cateItemId + ", updateDate=" + updateDate + ", title=" + title + ", body="
+				+ body + ", toString()=" + super.toString() + "]";
 	}
+
 
 	public String getUpdateDate() {
 		return updateDate;
