@@ -1,4 +1,3 @@
-
 package com.sbs.java.blog.util;
 
 import java.sql.Connection;
@@ -12,17 +11,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public class DBUtil {
+	private HttpServletRequest req;
+	private HttpServletResponse resp;
+	public DBUtil(HttpServletRequest req, HttpServletResponse resp) {
+		this.req=req;
+		this.resp= resp;
+	}
+
+	public Map<String, Object> selectRow(Connection connection,String sql) {
+		List<Map<String, Object>> rows = selectRows(connection,sql);
+		
+		if (rows.size() == 0) {
+			return new HashMap<String, Object>();
+		}
+		
+		return rows.get(0);
+	}
 	
-	//데이터 여러개 선택
-	public static List<Map<String, Object>> selectRows(Connection conn, String sql) {
+	public List<Map<String, Object>> selectRows(Connection connection,String sql) {
 		List<Map<String, Object>> rows = new ArrayList<>();
 
 		Statement stmt = null;
 		ResultSet rs = null;
-
+		
 		try {
-			stmt = conn.createStatement();
+			stmt = connection.createStatement();
 			rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnSize = metaData.getColumnCount();
@@ -49,117 +66,57 @@ public class DBUtil {
 				rows.add(row);
 			}
 		} catch (SQLException e) {
-			System.err.println("[SQLException 예외]");
-			System.err.println("msg : " + e.getMessage());
-		} finally {
-			if (stmt != null) {
+			Util.printEx("[SQL 예외, SQL : " +sql, resp,e);
+			e.printStackTrace();
+		}finally {
+			if( stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					System.err.println("[SQLException 예외]");
-					System.err.println("msg : " + e.getMessage());
+					Util.printEx("SQL 예외, stmt 닫기",resp,e);
 				}
 			}
-
-			if (rs != null) {
+			if ( rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					System.err.println("[SQLException 예외]");
-					System.err.println("msg : " + e.getMessage());
+					Util.printEx("SQL 예외, rs 닫기",resp,e);
 				}
 			}
 		}
 
 		return rows;
 	}
-	
-	//단일 데이터 선택
-	public static Map<String, Object> selectRow(Connection conn, String sql) {
-		List<Map<String, Object>> rows = selectRows(conn, sql);
 
-		if (rows.size() == 0) {
-			return new HashMap<String, Object>();
-		}
-
-		return rows.get(0);
-	}
-	
-	//데이터 안에 int 선택
-	public static int selectRowIntValue(Connection conn, String sql) {
-		Map<String, Object> row = selectRow(conn, sql);
-
+	public int selectRowIntValue(Connection dbConn, String sql) {
+		Map<String,Object> row = selectRow(dbConn,sql);
 		for (String key : row.keySet()) {
 			return (int) row.get(key);
 		}
-
 		return -1;
 	}
 	
-	//데이터 안에 String 선택
-	public static String selectRowStringValue(Connection conn, String sql) {
-		Map<String, Object> row = selectRow(conn, sql);
-
+	public String selectRowStringValue(Connection dbConn, String sql) {
+		Map<String,Object> row = selectRow(dbConn,sql);
 		for (String key : row.keySet()) {
 			return (String) row.get(key);
 		}
-
 		return "";
 	}
-
-	public static Boolean selectRowBooleanValue(Connection conn, String sql) {
-		Map<String, Object> row = selectRow(conn, sql);
-		System.out.println(row);
-
+	
+	public Boolean selectRowIntBooleanValue(Connection dbConn, String sql) {
+		Map<String,Object> row = selectRow(dbConn,sql);
 		for (String key : row.keySet()) {
-			if (row.get(key) instanceof String) {
-				return ((String) row.get(key)).equals("1");
-			} else if (row.get(key) instanceof Integer) {
-				return ((int) row.get(key)) == 1;
-			} else if (row.get(key) instanceof Boolean) {
-				return ((boolean) row.get(key));
-			}
+			return (int) row.get(key) == 1;
 		}
-
 		return false;
 	}
 
-	//데이터 삭제
-	public static int delete(Connection conn, String sql) {
-		int affectedRows = 0;
-
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			affectedRows = stmt.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
-		}
-
-		return affectedRows;
-	}
-
-	//데이터 수정
-	public static int update(Connection conn, String sql) {
-		int affectedRows = 0;
-
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			affectedRows = stmt.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
-		}
-
-		return affectedRows;
-	}
-
-	//데이터 입력
-	public static int insert(Connection conn, String sql) {
+	public int insert(Connection dbConn, String sql) {
 		int id = -1;
 
 		try {
-			Statement stmt = conn.createStatement();
+			Statement stmt = dbConn.createStatement();
 			stmt.execute(sql, Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = stmt.getGeneratedKeys();
 
@@ -170,7 +127,20 @@ public class DBUtil {
 		} catch (SQLException e) {
 			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
 		}
-
 		return id;
+	}
+	
+	public int delete(Connection dbConn, String sql) {
+		int affectedRows = 0;
+
+		Statement stmt;
+		try {
+			stmt = dbConn.createStatement();
+			affectedRows = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
+		}
+
+		return affectedRows;
 	}
 }

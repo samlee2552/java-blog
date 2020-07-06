@@ -3,33 +3,59 @@ package com.sbs.java.blog.service;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.sbs.java.blog.dao.ArticleDao;
 import com.sbs.java.blog.dto.Article;
+import com.sbs.java.blog.dto.CateItem;
 
-public class ArticleService {
+public class ArticleService extends Service {
 	private ArticleDao articleDao;
 
-	public ArticleService(Connection dbConn) {
-		articleDao = new ArticleDao(dbConn);
+	public ArticleService(Connection dbConn,HttpServletRequest req, HttpServletResponse resp) {
+		super(req, resp);
+		articleDao = new ArticleDao(dbConn,req, resp);
+	}
+
+	public List<Article> getArticles(int page,int itemsInAPage, int cateItemId,String searchKeywordType, String searchKeyword) {
+		return articleDao.getArticles(page,itemsInAPage,cateItemId,searchKeywordType,searchKeyword);
+	}
+
+	public void modify(int num, String title, String body) {
+		articleDao.modify(num,title,body);
+	}
+
+	public void delete(int num) {
+		articleDao.delete(num);
+	}
+
+	public Article detail(int num) {
+		return articleDao.detail(num);
 	}
 
 
-	public List<Article> getForPrintListArticles(int itemsPerPage, int page, int cateItemId) {
-		return articleDao.getForPrintListArticles(itemsPerPage, page, cateItemId);
+	public void deleteReply(int id) {
+		articleDao.deleteReply(id);
 	}
 
-
-	public Article getForPrintArticle(int id) {
-		return articleDao.getForPrintArticle(id);
+	public void deleteBoard(int id) {
+		articleDao.deleteBoardBycode(id);
 	}
 
-
-	public int getArticlesCount(int cateItemId) {
-		return articleDao.getArticlesCount(cateItemId);
+	public int getArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
+		return articleDao.getArticlesCount(cateItemId,searchKeywordType,searchKeyword);
 	}
-
 
 	public String getBoardName(int cateItemId) {
 		return articleDao.getBoardName(cateItemId);
+	}
+
+	public List<CateItem> getCateItemsForPrint() {
+		return articleDao.getCateItemsForPrint();
+	}
+
+	public CateItem getCateItem(int cateItemId) {
+		return articleDao.getCateItem(cateItemId);
 	}
 }

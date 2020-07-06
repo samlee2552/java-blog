@@ -22,7 +22,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/home/main.css">  -->
 
 <!-- 제이쿼리 불러오기 <-->
-</-->
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -35,9 +35,11 @@
 
 <body>
 	<div class="top-logo visible-on-md-up ">
-		<img
+		<a href="${pageContext.request.contextPath}/s/home/main">
+			<img
 			src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png"
 			alt="">
+		</a>
 	</div>
 
 	<div class="top-bar visible-on-md-up">
@@ -53,7 +55,7 @@
 				<ul class="flex height-100p">
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
 						class="height-100p flex flex-ai-c flex">Home</a></li>
-					<li><a href="#" class="height-100p flex flex-ai-c">Articles</a>
+					<li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
 						<ul>
 							<li><a class="block"
 								href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1">STUDY
@@ -90,27 +92,37 @@
 			<div></div>
 			<div></div>
 			<div></div>
-		</a> <a href="#"
-			class="logo flex flex-ai-c absolute-center absolute-middle"> <i
-			class="fas fa-dragon"></i>
+		</a> <a href="${pageContext.request.contextPath}/s/home/main"> 
+			<img class="logo flex flex-ai-c absolute-center absolute-middle" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png"/>
 		</a>
 	</div>
 
 	<div class="mobile-side-bar visible-on-sm-down">
 		<nav class="menu-box-1">
 			<ul>
-				<li><a href="#" class="block">Home</a></li>
-				<li><a href="#" class="block">Articles</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
+				<li><a href="#" class="block">Articles</a>
+					<ul>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"
+							>공부계획</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"
+							>일상</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"
+							>프론트엔드</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"
+							>백엔드</a></li>
+					</ul>	
 				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
 				<li><a href="#" class="block">SNS</a>
 					<ul>
-						<li><a class="block" href="#"
+						<li><a class="block" href="https://github.com" target="_blank"
 							>GITHUB</a></li>
-						<li><a class="block" href="#"
-							t>YOUTUBE</a></li>
-						<li><a class="block" href="#"
+						<li><a class="block" href="https://youtube.com" target="_blank"
+							>YOUTUBE</a></li>
+						<li><a class="block" href="https://instagram.com" target="_blank"
 							>INSTAGRAM</a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 		</nav>
 	</div>

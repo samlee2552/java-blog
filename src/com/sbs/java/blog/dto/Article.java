@@ -2,34 +2,32 @@ package com.sbs.java.blog.dto;
 
 import java.util.Map;
 
-public class Article extends Dto {
-
-	private int cateItemId;
+public class Article extends Dto{
 	private String updateDate;
 	private String title;
 	private String body;
+	private String cateItemId;
 
-	
 	public Article(Map<String, Object> row) {
 		super(row);
-		this.updateDate = (String)row.get("updateDate");
-		this.title = (String)row.get("title");
-		this.body = (String)row.get("body");
-		this.cateItemId = (int)row.get("cateItemId");
+		
+		this.updateDate = (String) row.get("updateDate");
+		this.title = (String) row.get("title");
+		this.body = (String) row.get("body");		
 	}
 	
-
-	@Override
-	public String toString() {
-		return "Article [cateItemId=" + cateItemId + ", updateDate=" + updateDate + ", title=" + title + ", body="
-				+ body + ", toString()=" + super.toString() + "]";
+	public String getCateItemId() {
+		return cateItemId;
 	}
 
+	public void setCateItemId(String cateItemId) {
+		this.cateItemId = cateItemId;
+	}
 
 	public String getUpdateDate() {
 		return updateDate;
 	}
-
+	
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
@@ -50,12 +48,10 @@ public class Article extends Dto {
 		this.body = body;
 	}
 
-	public int getCateItemId() {
-		return cateItemId;
+	@Override
+	public String toString() {
+		return String.format("%n게시번호 : %d 제목 : %s%n게시 날짜 : %s 업데이트 날짜 : %s%n내용 : %s%n%n "+super.toString(),getId(), getTitle(), getRegDate(),getUpdateDate(), body);
 	}
 
-	public void setCateItemId(int cateItemId) {
-		cateItemId = cateItemId;
-	}
 
 }

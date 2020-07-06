@@ -1,29 +1,35 @@
 package com.sbs.java.blog.controller;
 
-import java.io.IOException;
+import java.sql.Connection;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class HomeController extends Controller {
+	public HomeController(Connection dbConn, String actionMethodName, HttpServletRequest req,
+			HttpServletResponse resp) {
+		super( dbConn, actionMethodName, req, resp);
+	}
 
 	@Override
-	public String doAction(String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
-		switch (actionMethodName) {
-		case "main":
-			return showMainPage();
-		case "aboutMe":
-			return showAboutMe();
-		}
+	public String doAction() {
+			switch (actionMethodName) {
+			case "main":
+				return main(req,resp);
+			
+			case "aboutMe":
+				return aboutMe(req,resp);
+			}
 		return "";
+			
 	}
 
-	private String showAboutMe() {
-		return "home/aboutMe";
+	private String aboutMe(HttpServletRequest req, HttpServletResponse resp) {
+		return "home/aboutMe.jsp";
 	}
 
-	private String showMainPage() {
-		return "home/main";
+	private String main(HttpServletRequest req, HttpServletResponse resp) {
+		return "home/main.jsp";
 	}
+
 }

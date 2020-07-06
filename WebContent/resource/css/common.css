@@ -422,7 +422,8 @@ label[for] {
 }
 
 .mobile-top-bar .logo {
-  font-size:1.4rem;
+  height:50px;
+  width:50px;
 }
 
 .mobile-top-bar .btn-toggle-mobile-side-bar {
@@ -515,6 +516,7 @@ label[for] {
 .mobile-side-bar > .menu-box-1 ul > li:hover > a {
   background-color:white;
   color:black;
+  font-size:1.0rem;
   transition:0.3s;
 }
 .mobile-side-bar > .menu-box-1 ul ul {

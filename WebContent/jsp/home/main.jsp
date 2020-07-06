@@ -169,7 +169,7 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 }
 .animated-title > div.text-top div {
   animation: showTopText 1s;
-  animation-delay: 2s;
+  animation-delay: 1s;
   animation-fill-mode: forwards;
   animation-duration:4s;
   
@@ -232,13 +232,24 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 .slider-footer > span:last-child {
 	color:#134E5E;
+}	
+
+.mobile-image > img {
+	text-align:center;
+	width:390px;
+	padding:10px;
 }
 
 </style>
 
 <%@ include file="/jsp/part/head.jspf"%>
 
-<div class="animated-title">
+<div class="mobile-image visible-on-sm-down">
+	<img src="https://thumbs.gfycat.com/DifficultDiligentCobra-size_restricted.gif"/>
+</div>
+
+
+<div class="animated-title con">
 	<div class="text-top">
 		<div>
 			<span>WELCOME TO</span> <span>MY BLOG</span>
@@ -249,7 +260,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	</div>
 </div>
 
-<div class="slider visible-on-md-up">
+
+<div class="slider visible-on-md-up con">
 	<div class="slider-header">
 		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>

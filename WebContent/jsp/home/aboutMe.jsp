@@ -33,7 +33,12 @@
 }
 
 .profile-box-mobile > .profile-text > table {
-	height: 50px;
+
+}
+
+.profile-box-mobile > img {
+	height:100px;
+	width:100px;
 }
 
 @media ( min-width:800px ) {

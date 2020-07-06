@@ -5,6 +5,9 @@
 <%@ include file="/jsp/part/head.jspf"%>
 
 <style>
+.table-box {
+	padding:0 10px;
+}
 
 .table-box > table {
 	width:100%;
@@ -27,7 +30,7 @@
 #paging {
   text-align:center;
   margin: 20px 0;
-  margin-bottom:100px;
+  margin-bottom:20px;
 }
 
 #paging ul {
@@ -65,6 +68,14 @@
 .con > h1 {
 	margin-top:5%;
 }
+
+.search-box {
+	display:flex;
+	justify-content:center;
+	margin-bottom:100px;
+}
+
+
 <!-- 
 </style>
 <%
@@ -73,12 +84,11 @@
 	int paramPage = (int) request.getAttribute("page");
 
 %>	
-	<div class="con">
-	<h1 class="text-align-center">📋 게시판 : ${boardName}</h1>
-		<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
-	</div>
-
 	<div class="article-list-box-1 con table-box">
+
+	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
+		<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
+
 	<table>
 		<thead>
 			<tr height="50">
@@ -110,13 +120,26 @@
 	 <!-- 페이징 -->
   <div id="paging">
     <ul>
-      <li><a href="./list?cateItemId=${param.cateItemId}&page=${param.page-1}" class="btn">PREV</a></li>
+      <li><a href="./list?cateItemId=${param.cateItemId}&page=<%= paramPage -1 %>" class="btn">PREV</a></li>
       	<% for (int i = 1; i <= totalPage; i ++) { %>
-     <li class="<%=i == paramPage ? "current" : ""%>"><a href="?cateItemId=${param.cateItemId}&page=<%=i%>" class="num"><%=i%></a></li>
+    <li class="<%=i == paramPage ? "current" : ""%>"><a
+			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>" class="block"><%=i%></a></li>
       <% } %>
       <li><a href="./list?cateItemId=${param.cateItemId}&page=${param.page+1}" class="btn">NEXT</a></li>
     </ul>
   </div>
+  
+  <div class="con search-box flex flex-jc-c">
+
+	<form action="${pageContext.request.contextPath}/s/article/list">
+		<input type="hidden" name="page" value="1" /> <input type="hidden"
+			name="cateItemId" value="${param.cateItemId}" /> <input
+			type="hidden" name="searchKeywordType" value="title" /> <input
+			type="text" name="searchKeyword" value="${param.searchKeyword}" />
+		<button type="submit">검색</button>
+	</form>
+
+</div>
   
 
 	<%@ include file="/jsp/part/foot.jspf"%>

@@ -30,10 +30,14 @@
 
 <!-- 토스트 UI 에디터, CSS 코어 -->
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
-<div class="con">
+<style>
+	.detail-box{
+		padding:0 10px;
+	}
+</style>
+<div class="con detail-box">
 	
-	<h1 style="padding:30px 0"><%=article.getTitle()%></h1> 
+	<h1 style="padding:30px 0">제목: <%= article.getTitle()%></h1> 
 	<h3 style="text-align:right">작성일 : <%=article.getRegDate()%></h3>
 	<div id="origin1" style ="display:none"><%=article.getBody()%></div>
 	<div id="viewer1"></div>	
