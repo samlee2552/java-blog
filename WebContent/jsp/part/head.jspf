@@ -37,7 +37,7 @@
 	<div class="top-logo visible-on-md-up ">
 		<a href="${pageContext.request.contextPath}/s/home/main">
 			<img
-			src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png"
+			src="https://i.ibb.co/KxCFk4H/c96faf4d-fb03-4e6a-81ae-c7dda197321e-200x200.png"
 			alt="">
 		</a>
 	</div>
@@ -46,9 +46,8 @@
 		<div class="con height-100p flex flex-jc-sb">
 			<a href="${pageContext.request.contextPath}/s/home/main"
 				class="logo flex flex-ai-c"> <img
-				src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FcfUDiQ%2FbtqFlkktAG2%2FRiFoBxAeVOQ19AkLijy3Lk%2Fimg.png"
+				src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png"
 				style="width: 100px" />
-				<div class="new-bar"></div>
 			</a>
 
 			<nav class="menu-box-1">

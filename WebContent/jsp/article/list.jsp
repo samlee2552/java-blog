@@ -75,6 +75,10 @@
 	margin-bottom:100px;
 }
 
+.write-box {
+	margin-right:30%;
+}
+
 
 <!-- 
 </style>
@@ -138,8 +142,11 @@
 			type="text" name="searchKeyword" value="${param.searchKeyword}" />
 		<button type="submit">검색</button>
 	</form>
-
+	
+	<div class="write-box absolute-right">
+		WRITE
+	</div>
+	
 </div>
-  
 
 	<%@ include file="/jsp/part/foot.jspf"%>
