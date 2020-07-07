@@ -68,15 +68,19 @@
 .con > h1 {
 	margin-top:5%;
 }
-
+/*
 .search-box {
 	display:flex;
 	justify-content:center;
-	margin-bottom:100px;
 }
 
+*/
+
 .write-box {
-	margin-right:30%;
+	margin-top:10%;
+
+
+	background-color:background: linear-gradient(to right, #0082c8, #0082c8);
 }
 
 
@@ -133,7 +137,7 @@
     </ul>
   </div>
   
-  <div class="con search-box flex flex-jc-c">
+  <div class="con search-box" style = "background-color: red;">
 
 	<form action="${pageContext.request.contextPath}/s/article/list">
 		<input type="hidden" name="page" value="1" /> <input type="hidden"
@@ -142,11 +146,10 @@
 			type="text" name="searchKeyword" value="${param.searchKeyword}" />
 		<button type="submit">검색</button>
 	</form>
-	
-	<div class="write-box absolute-right">
-		WRITE
-	</div>
-	
 </div>
+
+	<div class="con write-box flex flex-jc-c">
+		<a href="">글쓰기</a>
+	</div>
 
 	<%@ include file="/jsp/part/foot.jspf"%>
