@@ -32,14 +32,14 @@ public class ArticleController extends Controller {
 			return actionDetail(req, resp);
 
 		case "write":
-			return actionWrtie(req, resp);
+			return actionWrite(req, resp);
 		}
 		return "";
 
 	}
 
-	private String actionWrtie(HttpServletRequest req, HttpServletResponse resp) {
-		return "article/doWrite";
+	private String actionWrite(HttpServletRequest req, HttpServletResponse resp) {
+		return "article/write.jsp";
 	}
 
 	private String actionDetail(HttpServletRequest req, HttpServletResponse resp) {

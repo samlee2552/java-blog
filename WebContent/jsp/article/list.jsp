@@ -68,19 +68,23 @@
 .con > h1 {
 	margin-top:5%;
 }
-/*
-.search-box {
-	display:flex;
-	justify-content:center;
-}
 
-*/
 
 .write-box {
-	margin-top:10%;
+	text-align:center;
+	display:block;
+	
+}
 
+.write-box > a {
+	display:inline-block;
+	background: linear-gradient(to right, #0082c8, #0082c8);
+	color:white;
+	padding:10px;
+}
 
-	background-color:background: linear-gradient(to right, #0082c8, #0082c8);
+.search-box {
+	margin-bottom:30px;
 }
 
 
@@ -102,7 +106,7 @@
 			<tr height="50">
 				<th>🇳🇴</th>
 				<th>📅 등록일</th>
-				<th>📆 수정일</th>
+				<th class="visible-on-md-up">📆 수정일</th>
 				<th>🔤 제목</th>
 				<th>조회수</th>
 			</tr>
@@ -114,14 +118,14 @@
 			<tr height="100">
 				<td><%=article.getId()%></td>
 				<td><%=article.getRegDate()%></td>
-				<td><%=article.getUpdateDate()%></td>
+				<td class="visible-on-md-up"><%=article.getUpdateDate()%></td>
 				<td width="40%" style="font-weight:bold"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
 				<td>1</td>
 			</tr>
 			<%
 				}
 			%>
-		</tbody>
+		</tbody>	
 	</table>
 	</div>
 	
@@ -137,7 +141,7 @@
     </ul>
   </div>
   
-  <div class="con search-box" style = "background-color: red;">
+  <div class="con search-box flex flex-jc-c">
 
 	<form action="${pageContext.request.contextPath}/s/article/list">
 		<input type="hidden" name="page" value="1" /> <input type="hidden"
@@ -148,8 +152,8 @@
 	</form>
 </div>
 
-	<div class="con write-box flex flex-jc-c">
-		<a href="">글쓰기</a>
+	<div class="con write-box">
+			<a href="${pageContext.request.contextPath}/s/article/write">글쓰기</a>
 	</div>
 
 	<%@ include file="/jsp/part/foot.jspf"%>

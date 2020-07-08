@@ -1,5 +1,10 @@
+<%@ page import="java.util.List"%>
+<%@ page import="com.sbs.java.blog.dto.CateItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -53,19 +58,16 @@
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
 						class="height-100p flex flex-ai-c flex">Home</a></li>
 					<li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
-						<ul>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1">STUDY
-									PLANS</a></li>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1">EVERYDAY
-									LIFE</a></li>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1">FRONT
-									END</a></li>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1">BACK
-									END</a></li>
+							<ul>
+							<%
+								for (CateItem cateItem : cateItems) {
+							%>
+							<li><a
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=<%=cateItem.getId()%>"
+								class="block"><%=cateItem.getName()%></a></li>
+							<%
+								}
+							%>
 						</ul></li>
 					<li><a
 						href="${pageContext.request.contextPath}/s/home/aboutMe"
@@ -90,7 +92,7 @@
 			<div></div>
 			<div></div>
 		</a> <a href="${pageContext.request.contextPath}/s/home/main"> 
-			<img class="logo flex flex-ai-c absolute-center absolute-middle" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FG20SL%2FbtqE7Pd5hBx%2Fkjw0Hev2KvgjyGvWrF6Dbk%2Fimg.png"/>
+			<img class="logo flex flex-ai-c absolute-center absolute-middle" src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png"/>
 		</a>
 	</div>
 
@@ -99,16 +101,20 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
 				<li><a href="#" class="block">Articles</a>
-					<ul>
-						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"
-							>공부계획</a></li>
-						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"
-							>일상</a></li>
-						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"
-							>프론트엔드</a></li>
-						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"
-							>백엔드</a></li>
-					</ul>	
+						<ul>
+						<li><a
+								href="${pageContext.request.contextPath}/s/article/list"
+								class="block">전체</a></li>
+						<%
+							for (CateItem cateItem : cateItems) {
+						%>
+						<li><a
+							href="${pageContext.request.contextPath}/s/article/list?cateItemId=<%=cateItem.getId()%>"
+							class="block"><%=cateItem.getName()%></a></li>
+						<%
+							}
+						%>
+					</ul>
 				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
 				<li><a href="#" class="block">SNS</a>
 					<ul>
