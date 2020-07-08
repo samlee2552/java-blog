@@ -1,61 +1,43 @@
+  
 package com.sbs.java.blog.service;
 
 import java.sql.Connection;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.dao.ArticleDao;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.CateItem;
 
 public class ArticleService extends Service {
+
 	private ArticleDao articleDao;
 
-	public ArticleService(Connection dbConn,HttpServletRequest req, HttpServletResponse resp) {
-		super(req, resp);
-		articleDao = new ArticleDao(dbConn,req, resp);
+	public ArticleService(Connection dbConn) {
+		articleDao = new ArticleDao(dbConn);
 	}
 
-	public List<Article> getArticles(int page,int itemsInAPage, int cateItemId,String searchKeywordType, String searchKeyword) {
-		return articleDao.getArticles(page,itemsInAPage,cateItemId,searchKeywordType,searchKeyword);
+	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType, String searchKeyword) {
+		return articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId, searchKeywordType, searchKeyword);
 	}
 
-	public void modify(int num, String title, String body) {
-		articleDao.modify(num,title,body);
+	public int getForPrintListArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
+		return articleDao.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
 	}
 
-	public void delete(int num) {
-		articleDao.delete(num);
+	public Article getForPrintArticle(int id) {
+		return articleDao.getForPrintArticle(id);
 	}
 
-	public Article detail(int num) {
-		return articleDao.detail(num);
-	}
-
-
-	public void deleteReply(int id) {
-		articleDao.deleteReply(id);
-	}
-
-	public void deleteBoard(int id) {
-		articleDao.deleteBoardBycode(id);
-	}
-
-	public int getArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
-		return articleDao.getArticlesCount(cateItemId,searchKeywordType,searchKeyword);
-	}
-
-	public String getBoardName(int cateItemId) {
-		return articleDao.getBoardName(cateItemId);
-	}
-
-	public List<CateItem> getCateItemsForPrint() {
-		return articleDao.getCateItemsForPrint();
+	public List<CateItem> getForPrintCateItems() {
+		return articleDao.getForPrintCateItems();
 	}
 
 	public CateItem getCateItem(int cateItemId) {
 		return articleDao.getCateItem(cateItemId);
 	}
+
+	public int write(int cateItemId, String title, String body) {
+		return articleDao.write(cateItemId, title, body);
+	}
+
 }

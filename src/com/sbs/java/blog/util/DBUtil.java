@@ -11,35 +11,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.sbs.java.blog.exception.SQLErrorException;
 
 public class DBUtil {
-	private HttpServletRequest req;
-	private HttpServletResponse resp;
-	public DBUtil(HttpServletRequest req, HttpServletResponse resp) {
-		this.req=req;
-		this.resp= resp;
-	}
+	public static Map<String, Object> selectRow(Connection dbConn, String sql) {
+		List<Map<String, Object>> rows = selectRows(dbConn, sql);
 
-	public Map<String, Object> selectRow(Connection connection,String sql) {
-		List<Map<String, Object>> rows = selectRows(connection,sql);
-		
 		if (rows.size() == 0) {
-			return new HashMap<String, Object>();
+			return new HashMap<>();
 		}
-		
+
 		return rows.get(0);
 	}
-	
-	public List<Map<String, Object>> selectRows(Connection connection,String sql) {
+
+	public static List<Map<String, Object>> selectRows(Connection dbConn, String sql) throws SQLErrorException {
 		List<Map<String, Object>> rows = new ArrayList<>();
 
 		Statement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
-			stmt = connection.createStatement();
+			stmt = dbConn.createStatement();
 			rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnSize = metaData.getColumnCount();
@@ -66,21 +58,21 @@ public class DBUtil {
 				rows.add(row);
 			}
 		} catch (SQLException e) {
-			Util.printEx("[SQL 예외, SQL : " +sql, resp,e);
-			e.printStackTrace();
-		}finally {
-			if( stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					Util.printEx("SQL 예외, stmt 닫기",resp,e);
-				}
-			}
-			if ( rs != null) {
+			throw new SQLErrorException("SQL 예외, SQL : " + sql);
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					Util.printEx("SQL 예외, rs 닫기",resp,e);
+					throw new SQLErrorException("SQL 예외, rs 닫기" + sql);
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					throw new SQLErrorException("SQL 예외, stmt 닫기" + sql);
 				}
 			}
 		}
@@ -88,59 +80,72 @@ public class DBUtil {
 		return rows;
 	}
 
-	public int selectRowIntValue(Connection dbConn, String sql) {
-		Map<String,Object> row = selectRow(dbConn,sql);
+	public static int selectRowIntValue(Connection dbConn, String sql) {
+		Map<String, Object> row = selectRow(dbConn, sql);
+
 		for (String key : row.keySet()) {
 			return (int) row.get(key);
 		}
+
 		return -1;
 	}
-	
-	public String selectRowStringValue(Connection dbConn, String sql) {
-		Map<String,Object> row = selectRow(dbConn,sql);
+
+	public static String selectRowStringValue(Connection dbConn, String sql) {
+		Map<String, Object> row = selectRow(dbConn, sql);
+
 		for (String key : row.keySet()) {
 			return (String) row.get(key);
 		}
+
 		return "";
 	}
-	
-	public Boolean selectRowIntBooleanValue(Connection dbConn, String sql) {
-		Map<String,Object> row = selectRow(dbConn,sql);
+
+	public static boolean selectRowBooleanValue(Connection dbConn, String sql) {
+		Map<String, Object> row = selectRow(dbConn, sql);
+
 		for (String key : row.keySet()) {
-			return (int) row.get(key) == 1;
+			return ((int) row.get(key)) == 1;
 		}
+
 		return false;
 	}
 
-	public int insert(Connection dbConn, String sql) {
+	public static int insert(Connection dbConn, String sql) {
 		int id = -1;
 
+		Statement stmt = null;
+		ResultSet rs = null;
+
 		try {
-			Statement stmt = dbConn.createStatement();
+			stmt = dbConn.createStatement();
 			stmt.execute(sql, Statement.RETURN_GENERATED_KEYS);
-			ResultSet rs = stmt.getGeneratedKeys();
+			rs = stmt.getGeneratedKeys();
 
 			if (rs.next()) {
 				id = rs.getInt(1);
 			}
 
 		} catch (SQLException e) {
-			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
+			throw new SQLErrorException("SQL 예외, SQL : " + sql);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					throw new SQLErrorException("SQL 예외, rs 닫기" + sql);
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					throw new SQLErrorException("SQL 예외, stmt 닫기" + sql);
+				}
+			}
+
 		}
+
 		return id;
-	}
-	
-	public int delete(Connection dbConn, String sql) {
-		int affectedRows = 0;
-
-		Statement stmt;
-		try {
-			stmt = dbConn.createStatement();
-			affectedRows = stmt.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
-		}
-
-		return affectedRows;
 	}
 }
