@@ -5,7 +5,7 @@ import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sbs.java.blog.service.memberService;
+
 import com.sbs.java.blog.util.Util;
 
 public class MemberController extends Controller {
@@ -33,14 +33,14 @@ public class MemberController extends Controller {
 
 	private String doActionDoJoin(HttpServletRequest req, HttpServletResponse resp) {
 		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPw");
 		String name = req.getParameter("name");
 		String nickName = req.getParameter("nickName");
+		String loginPw = req.getParameter("loginPw");
 		
 		
-		int id = memberService.join(loginId, loginPw, name, nickName);
+		int id = memberService.join(loginId, name, nickName, loginPw);
 		
-		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('list'); </script>";
+		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('home/main'); </script>";
 	}
 
 	private String doActionJoin(HttpServletRequest req, HttpServletResponse resp) {

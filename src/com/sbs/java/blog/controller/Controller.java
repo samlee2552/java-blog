@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.service.ArticleService;
+import com.sbs.java.blog.service.MemberService;
 
 public abstract class Controller {
 	protected Connection dbConn;
@@ -16,6 +17,7 @@ public abstract class Controller {
 	protected HttpServletResponse resp;
 
 	protected ArticleService articleService;
+	protected MemberService memberService;
 
 	public Controller(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
 		this.dbConn = dbConn;
@@ -23,13 +25,14 @@ public abstract class Controller {
 		this.req = req;
 		this.resp = resp;
 		articleService = new ArticleService(dbConn);
+		memberService = new MemberService(dbConn);
 	}
 
 	public void beforeAction() {
 		// 액션 전 실행
 		// 이 메서드는 모든 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
 		List<CateItem> cateItems = articleService.getForPrintCateItems();
-		
+
 		req.setAttribute("cateItems", cateItems);
 	}
 

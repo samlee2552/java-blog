@@ -112,7 +112,7 @@ public class App {
 				String viewPath = "/jsp/" + actionResult;
 				req.getRequestDispatcher(viewPath).forward(req, resp);
 			} else if (actionResult.startsWith("html:")) {
-				resp.getWriter().append(actionResult.substring(6));
+				resp.getWriter().append(actionResult.substring(5));
 			} else {
 				resp.getWriter().append("처리할 수 없는 action 결과 입니다.");
 			}

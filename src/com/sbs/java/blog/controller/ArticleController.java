@@ -45,10 +45,11 @@ public class ArticleController extends Controller {
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
+		int k = 5;
 		
-		int id = articleService.write(cateItemId, title, body);
+		int id = articleService.write(cateItemId, title, body  );
 		
-		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
+		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다!!!!'); location.replace('list'); </script>";
 	}
 
 	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {
