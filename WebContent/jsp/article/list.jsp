@@ -5,6 +5,7 @@
 <%@ include file="/jsp/part/head.jspf"%>
 
 <style>
+
 .table-box {
 	padding:0 10px;
 }
@@ -81,6 +82,7 @@
 	background: linear-gradient(to right, #0082c8, #0082c8);
 	color:white;
 	padding:10px;
+	margin-bottom:100px;
 }
 
 .search-box {
@@ -96,7 +98,7 @@
 	int paramPage = (int) request.getAttribute("page");
 
 %>	
-	<div class="article-list-box-1 con table-box">
+<div class="article-list-box-1 con table-box">
 
 	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
 		<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
@@ -108,6 +110,7 @@
 				<th>📅 등록일</th>
 				<th class="visible-on-md-up">📆 수정일</th>
 				<th>🔤 제목</th>
+				<th>작성자</th>
 				<th>조회수</th>
 			</tr>
 		</thead>
@@ -117,9 +120,10 @@
 			%>
 			<tr height="100">
 				<td><%=article.getId()%></td>
-				<td><%=article.getRegDate()%></td>
-				<td class="visible-on-md-up"><%=article.getUpdateDate()%></td>
+				<td><%=article.getRegDate().substring(0,10)%></td>
+				<td class="visible-on-md-up"><%=article.getUpdateDate().substring(0,10)%></td>
 				<td width="40%" style="font-weight:bold"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
+				<td>쌤리</td>
 				<td>1</td>
 			</tr>
 			<%
@@ -127,7 +131,7 @@
 			%>
 		</tbody>	
 	</table>
-	</div>
+</div>
 	
 	 <!-- 페이징 -->
   <div id="paging">

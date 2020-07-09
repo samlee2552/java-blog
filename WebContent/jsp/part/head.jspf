@@ -44,6 +44,8 @@
 			alt="">
 		</a>
 	</div>
+	
+	<div style="text-align:right"><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></div>
 
 	<div class="top-bar visible-on-md-up">
 		<div class="con height-100p flex flex-jc-sb">
@@ -68,6 +70,7 @@
 							<%
 								}
 							%>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/write">글 쓰기</a></li>
 						</ul></li>
 					<li><a
 						href="${pageContext.request.contextPath}/s/home/aboutMe"
@@ -114,6 +117,7 @@
 						<%
 							}
 						%>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/write">글 쓰기</a></li>
 					</ul>
 				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
 				<li><a href="#" class="block">SNS</a>
