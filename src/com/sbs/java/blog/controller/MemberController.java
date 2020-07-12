@@ -40,7 +40,7 @@ public class MemberController extends Controller {
 		
 		int id = memberService.join(loginId, name, nickName, loginPw);
 		
-		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('home/main'); </script>";
+		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('../home/main'); </script>";
 	}
 
 	private String doActionJoin(HttpServletRequest req, HttpServletResponse resp) {

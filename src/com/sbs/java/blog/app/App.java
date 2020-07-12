@@ -13,6 +13,7 @@ import com.sbs.java.blog.controller.ArticleController;
 import com.sbs.java.blog.controller.Controller;
 import com.sbs.java.blog.controller.HomeController;
 import com.sbs.java.blog.controller.MemberController;
+import com.sbs.java.blog.controller.TestController;
 import com.sbs.java.blog.util.Util;
 import com.sun.org.apache.bcel.internal.generic.LLOAD;
 
@@ -102,6 +103,8 @@ public class App {
 			break;
 		case "home":
 			controller = new HomeController(dbConn,actionMethodName,req,resp);
+		case "test":
+			controller = new TestController(dbConn,actionMethodName,req,resp);
 		}
 
 		if (controller != null) {

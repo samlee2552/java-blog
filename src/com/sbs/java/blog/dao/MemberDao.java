@@ -11,14 +11,14 @@ public class MemberDao extends Dao {
 		this.dbConn = dbConn;
 	}
 
-	public int join(String loginId, String loginPw, String name, String nickName) {
+	public int join(String loginId, String name, String nickName, String loginPw) {
 		String sql = "";
 
-		sql += String.format("INSERT INTO article");
+		sql += String.format("INSERT INTO member");
 		sql += String.format(" SET regDate = NOW()");
 		sql += String.format(", loginId = '%s'", loginId);
 		sql += String.format(", name = '%s'", name);
-		sql += String.format(", nickName = '%s';", nickName);
+		sql += String.format(", nickName = '%s'", nickName);
 		sql += String.format(", loginPw = '%s'", loginPw);
 		return DBUtil.insert(dbConn, sql);
 	}
