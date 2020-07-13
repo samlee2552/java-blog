@@ -8,27 +8,26 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController extends Controller {
 	public HomeController(Connection dbConn, String actionMethodName, HttpServletRequest req,
 			HttpServletResponse resp) {
-		super( dbConn, actionMethodName, req, resp);
+		super(dbConn, actionMethodName, req, resp);
 	}
 
 	@Override
 	public String doAction() {
-			switch (actionMethodName) {
-			case "main":
-				return main(req,resp);
-			
-			case "aboutMe":
-				return aboutMe(req,resp);
-			}
+		switch (actionMethodName) {
+		case "main":
+			return doActionMain();
+		case "aboutMe":
+			return doActionAboutMe();
+		}
+
 		return "";
-			
 	}
 
-	private String aboutMe(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionAboutMe() {
 		return "home/aboutMe.jsp";
 	}
 
-	private String main(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionMain() {
 		return "home/main.jsp";
 	}
 

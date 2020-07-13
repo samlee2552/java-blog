@@ -64,7 +64,7 @@
 }
 
 .title-box {
-	margin-bottom: 80px;
+	margin-bottom: 30px;
 }
 
 </style>
@@ -79,6 +79,7 @@
 				작성일 :
 				<%=article.getRegDate()%></h3>
 		</div>
+			<h3 align="right">조회수: <%=article.getHit()%></h3>
 
 
 		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBody()%></script>

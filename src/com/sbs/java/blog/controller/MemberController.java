@@ -23,7 +23,7 @@ public class MemberController extends Controller {
 	public String doAction() {
 		switch (actionMethodName) {
 		case "join":
-			return doActionJoin(req, resp);
+			return doActionJoin();
 		case "doJoin":
 			return doActionDoJoin(req, resp);
 		}
@@ -43,7 +43,7 @@ public class MemberController extends Controller {
 		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('../home/main'); </script>";
 	}
 
-	private String doActionJoin(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionJoin() {
 		// TODO Auto-generated method stub
 		return "member/join.jsp";
 	}
