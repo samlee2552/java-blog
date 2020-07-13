@@ -32,6 +32,7 @@
 
 <script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 <script	src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/article/write.js"></script>
 
 <title>이상범 블로그</title>
 </head>
