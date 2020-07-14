@@ -13,7 +13,7 @@ import com.sbs.java.blog.util.Util;
 public class ArticleController extends Controller {
 	public ArticleController(Connection dbConn, String actionMethodName, HttpServletRequest req,
 			HttpServletResponse resp) {
-		super(dbConn, actionMethodName, req, resp);
+		super(dbConn, actionMethodName, req, resp, session);
 	}
 
 	public void beforeAction() {
@@ -32,9 +32,16 @@ public class ArticleController extends Controller {
 			return doActionDoWrite(req, resp);
 		case "write":
 			return doActionWrite(req, resp);
+		case "doWriteReply":
+			return doActionWriteReply(req, resp);
 		}
 
 		return "";
+	}
+
+	private String doActionWriteReply(HttpServletRequest req, HttpServletResponse resp) {
+		int id = req.getParameter("comment");
+		return null;
 	}
 
 	private String doActionWrite(HttpServletRequest req, HttpServletResponse resp) {
@@ -45,8 +52,6 @@ public class ArticleController extends Controller {
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
-		int k = 5;
-		
 		int id = articleService.write(cateItemId, title, body  );
 		
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다!!!!'); location.replace('list'); </script>";

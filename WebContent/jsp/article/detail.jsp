@@ -60,11 +60,21 @@
 	border: 1px solid #BFC9CA;
 	border-radius: 20px 50px;
 	padding: 10px;
-	margin-bottom: 20%;
+	margin-bottom: 100px;
 }
 
 .title-box {
 	margin-bottom: 30px;
+}
+
+.comment-form-box {
+    margin-top: 30px;
+    padding:5px;
+    margin-bottom:50px;
+  }
+
+.form1 .form-row>.input>input,.form1 .form-row>.input>textarea {
+    display: block; width: 100%; box-sizing: border-box; padding: 10px;
 }
 
 </style>
@@ -85,8 +95,17 @@
 		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBody()%></script>
 
 		<div id="viewer1"></div>
-
 	</div>
+</div>
+
+<div class="comment-form-box con">
+	<form action="doWriteReply" method="POST"target="_blank" class="comment-form form1" onsubmit="submitWriteForm(this); return false;">
+    <div class="form-row flex">
+			<textarea name="comment" placeholder="댓글을 입력해주세요." style="width:100%"></textarea>
+      <div class="form-row">
+        <div class="input">
+				  <input type="submit" value="등록" style="height:100px"/>
+			  </div>
 </div>
 
 
@@ -99,6 +118,28 @@
 		plugins : [ toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin,
 				replPlugin, codepenPlugin ]
 	});
+</script>
+
+<script>
+var joinFormSubmitted = false;
+
+function submitJoinForm(form) {
+  if ( joinFormSubmitted ) {
+    alert('처리 중입니다.');
+    return;
+  }
+  
+  form.comment.value = form.comment.value.trim();
+  if ( form.comment.value.length == 0 ) {
+    alert('댓글을 입력해주세요.');
+    form.comment.focus();
+    
+    return;
+  }
+  
+  form.submit();
+  joinFormSubmitted = true;
+}
 </script>
 
 <%@ include file="/jsp/part/foot.jspf"%>

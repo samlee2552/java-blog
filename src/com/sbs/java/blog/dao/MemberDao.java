@@ -12,15 +12,21 @@ public class MemberDao extends Dao {
 		this.dbConn = dbConn;
 	}
 
-	public int join(String loginId, String name, String nickName, String loginPw) {
+	public int join(String loginId, String name, String nickName, String email, String loginPw) {
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO member");
 		sql.append(" SET regDate = NOW()");
-		sql.append(", loginId = '%s'", loginId);
-		sql.append(", name = '%s'", name);
-		sql.append(", nickName = '%s'", nickName);
-		sql.append(", loginPw = '%s'", loginPw);
+		sql.append(", updateDate = NOW()");
+		sql.append(", loginId = ?", loginId);
+		sql.append(", name = ?", name);
+		sql.append(", nickName = ?", nickName);
+		sql.append(", email = ?", email);
+		sql.append(", loginPw = ?", loginPw);
 		return DBUtil.insert(dbConn, sql);
+	}
+
+	public void login(String loginId, String loginPw) {
+		Se
 	}
 }

@@ -110,11 +110,11 @@ public class ArticleDao extends Dao {
 		sql.append("INSERT INTO article");
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
-		sql.append(", title = ? ", title);
-		sql.append(", body = ? ", body);
-		sql.append(", displayStatus = '1'");
+		sql.append(", title = ?", title);
+		sql.append(", body = ?", body);
+		sql.append(", displayStatus = 1");
 		sql.append(", cateItemId = ?", cateItemId);
-		sql.append(", memberId = ?", 1);
+		sql.append(", memberId = 1");
 
 		/*
 		 * String sql = "";
