@@ -16,17 +16,17 @@ public abstract class Controller {
 	protected String actionMethodName;
 	protected HttpServletRequest req;
 	protected HttpServletResponse resp;
-	protected static HttpSession session;
+	protected HttpSession session;
 
 	protected ArticleService articleService;
 	protected MemberService memberService;
 
-	public Controller(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+	public Controller(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
 		this.dbConn = dbConn;
 		this.actionMethodName = actionMethodName;
 		this.req = req;
 		this.resp = resp;
-		this.session = session;
+		session = req.getSession();
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
 	}

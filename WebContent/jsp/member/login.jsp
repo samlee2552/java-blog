@@ -3,8 +3,7 @@
 <%@ include file="/jsp/part/head.jspf"%>
 
 <div class="login-box con flex flex-jc-c">
-	<form action="doLogin" method="POST" onsubmit="submitJoinForm(this); return false;">
-<input type="hidden" name="loginPwReal">
+	<form action="doLogin" method="POST" onsubmit="submitLoginForm(this); return false;">
   <div>아이디</div>
   <div>
     <input name="loginId" type="text" placeholder="아이디를 입력해주세요.">
@@ -21,10 +20,10 @@
 
 
 <script>
-var JoinFormSubmitted = false;
+var LoginFormSubmitted = false;
 
-function submitJoinForm(form){
-  if (JoinFormSubmitted ) {
+function submitLoginForm(form){
+  if (LoginFormSubmitted ) {
     alert('처리중입니다.');
     return;
   }
@@ -51,7 +50,7 @@ function submitJoinForm(form){
   }
   
   form.submit();
-  joinFormSubmitted = true;
+  LoginFormSubmitted = true;
 }
 </script>
 <%@ include file="/jsp/part/foot.jspf"%>

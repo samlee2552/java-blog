@@ -92,7 +92,7 @@
 			<h3 align="right">조회수: <%=article.getHit()%></h3>
 
 
-		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBody()%></script>
+		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
 
 		<div id="viewer1"></div>
 	</div>
@@ -110,7 +110,8 @@
 
 
 <script>
-	var editor1__initialValue = $('#origin1').html().trim();
+
+var editor1__initialValue = getBodyFromXTemplate('#origin1');
 	var editor1 = new toastui.Editor({
 		el : document.querySelector('#viewer1'),
 		initialValue : editor1__initialValue,

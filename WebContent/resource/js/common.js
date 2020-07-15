@@ -12,6 +12,9 @@ function MobileSideBar__init() {
 	});
 }
 
+function getBodyFromXTemplate(selector) {
+	return $(selector).html().trim().replace(/<!--REPLACE:script-->/gi, 'script');
+}
 
 $(function() {
 	MobileSideBar__init();

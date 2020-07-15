@@ -1,4 +1,4 @@
-  
+
 package com.sbs.java.blog.service;
 
 import java.sql.Connection;
@@ -16,7 +16,8 @@ public class ArticleService extends Service {
 		articleDao = new ArticleDao(dbConn);
 	}
 
-	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType, String searchKeyword) {
+	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType,
+			String searchKeyword) {
 		return articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId, searchKeywordType, searchKeyword);
 	}
 
@@ -42,6 +43,11 @@ public class ArticleService extends Service {
 
 	public void increaseHit(int id) {
 		articleDao.increaseHit(id);
+	}
+
+	public int writeReply() {
+
+		return articleDao.writeReply();
 	}
 
 }

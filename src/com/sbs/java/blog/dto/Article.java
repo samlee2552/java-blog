@@ -64,5 +64,9 @@ public class Article extends Dto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	public String getBodyForXTemplate() {
+		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
+	}
 
 }
