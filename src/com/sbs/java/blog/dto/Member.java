@@ -7,9 +7,7 @@ public class Member extends Dto{
 	private String loginId;
 	private String loginPw;
 	private String name;
-	
-
-	private String nickName;
+	private String nickname;
 	private String email;
 	
 	
@@ -17,7 +15,8 @@ public class Member extends Dto{
 	@Override
 	public String toString() {
 		return "Member [updateDate=" + updateDate + ", loginId=" + loginId + ", loginPw=" + loginPw + ", name=" + name
-				+ ", nickName=" + nickName + ", email=" + email + ", dto=" + super.toString() + "]";
+				+ ", nickname=" + nickname + ", email=" + email + ", getId()=" + getId() + ", getRegDate()="
+				+ getRegDate() + ", getExtra()=" + getExtra() + "]";
 	}
 
 	public Member(Map<String, Object> row) {
@@ -26,7 +25,7 @@ public class Member extends Dto{
 		this.loginId = (String) row.get("loginId");
 		this.loginPw = (String) row.get("loginPw");
 		this.name = (String) row.get("name");
-		this.nickName = (String) row.get("nickName");
+		this.nickname = (String) row.get("nickname");
 		this.email = (String) row.get("email");
 	}
 	
@@ -62,12 +61,12 @@ public class Member extends Dto{
 		this.name = name;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickName) {
+		this.nickname = nickName;
 	}
 
 	public String getEmail() {

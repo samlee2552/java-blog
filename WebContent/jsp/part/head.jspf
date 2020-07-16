@@ -1,9 +1,13 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.java.blog.dto.CateItem"%>
+<%@ page import="com.sbs.java.blog.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
+	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+	Member loginedMember = (Member) request.getAttribute("loginedMember");
+	boolean isLogined = (boolean) request.getAttribute("isLogined");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -22,7 +26,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 <!-- CSS 불러옥; -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/common.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resource/css/common.css">
 
 
 <!-- 제이쿼리 불러오기 <-->
@@ -31,24 +36,46 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
-<script	src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/article/write.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resource/js/article/write.js"></script>
+
+<%="<style>.form1 .form-row:not(:first-child) { margin-top : 10px; }</style>"%>
+
+
 
 <title>이상범 블로그</title>
+<script>
+	var loginedMemberId = parseInt("${loginedMemberId}");
+	var isLogined = "${isLogined}" == "true";
+	var loginedMember = null;
+</script>
+<%
+	if (isLogined) {
+%>
+<script>
+	loginedMember = {};
+	loginedMember["id"] = parseInt("${loginedMember.id}");
+	loginedMember["regDate"] = "${loginedMember.regDate}";
+	loginedMember["loginId"] = "${loginedMember.loginId}";
+	loginedMember["name"] = "${loginedMember.name}";
+	loginedMember["nickname"] = "${loginedMember.nickname}";
+	loginedMember["email"] = "${loginedMember.email}";
+</script>
+<%
+	}
+%>
+
 </head>
 
 <body>
 	<div class="top-logo visible-on-md-up ">
-		<a href="${pageContext.request.contextPath}/s/home/main">
-			<img
+		<a href="${pageContext.request.contextPath}/s/home/main"> <img
 			src="https://i.ibb.co/KxCFk4H/c96faf4d-fb03-4e6a-81ae-c7dda197321e-200x200.png"
 			alt="">
 		</a>
 	</div>
-	
-	<div style="text-align:right"><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></div>
-	<div style="text-align:right"><a href="${pageContext.request.contextPath}/s/member/login">로그인</a></div>
-	<div style="text-align:right"><a href="${pageContext.request.contextPath}/s/member/logout">로그아웃</a></div>
 
 	<div class="top-bar visible-on-md-up">
 		<div class="con height-100p flex flex-jc-sb">
@@ -62,8 +89,10 @@
 				<ul class="flex height-100p">
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
 						class="height-100p flex flex-ai-c flex">Home</a></li>
-					<li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
-							<ul>
+					<li><a
+						href="${pageContext.request.contextPath}/s/article/list"
+						class="height-100p flex flex-ai-c">Articles</a>
+						<ul>
 							<%
 								for (CateItem cateItem : cateItems) {
 							%>
@@ -73,7 +102,9 @@
 							<%
 								}
 							%>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/write">글 쓰기</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/article/write">글
+									쓰기</a></li>
 						</ul></li>
 					<li><a
 						href="${pageContext.request.contextPath}/s/home/aboutMe"
@@ -87,6 +118,17 @@
 							<li><a class="block" href="https://instagram.com"
 								target="_blank">INSTAGRAM</a></li>
 						</ul></li>
+					<li><a href="${pageContext.request.contextPath}/s/home/main"
+						class="height-100p flex flex-ai-c flex">LOG IN/OUT</a>
+						<ul>
+							<% if ( isLogined ) { %>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
+							<% } else { %>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/member/login">Login</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/member/join">Join</a></li>
+							<% } %>
+						</ul></li>
 				</ul>
 			</nav>
 		</div>
@@ -97,20 +139,22 @@
 			<div></div>
 			<div></div>
 			<div></div>
-		</a> <a href="${pageContext.request.contextPath}/s/home/main"> 
-			<img class="logo flex flex-ai-c absolute-center absolute-middle" src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png"/>
+		</a> <a href="${pageContext.request.contextPath}/s/home/main"> <img
+			class="logo flex flex-ai-c absolute-center absolute-middle"
+			src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png" />
 		</a>
 	</div>
 
 	<div class="mobile-side-bar visible-on-sm-down">
 		<nav class="menu-box-1">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/home/main"
+					class="block">Home</a></li>
 				<li><a href="#" class="block">Articles</a>
-						<ul>
+					<ul>
 						<li><a
-								href="${pageContext.request.contextPath}/s/article/list"
-								class="block">전체</a></li>
+							href="${pageContext.request.contextPath}/s/article/list"
+							class="block">전체</a></li>
 						<%
 							for (CateItem cateItem : cateItems) {
 						%>
@@ -120,19 +164,30 @@
 						<%
 							}
 						%>
-						<li><a class="block" href="${pageContext.request.contextPath}/s/article/write">글 쓰기</a></li>
+						<li><a class="block"
+							href="${pageContext.request.contextPath}/s/article/write">글
+								쓰기</a></li>
 					</ul>
-				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/home/aboutMe"
+					class="block">About Me</a></li>
 				<li><a href="#" class="block">SNS</a>
 					<ul>
-						<li><a class="block" href="https://github.com" target="_blank"
-							>GITHUB</a></li>
-						<li><a class="block" href="https://youtube.com" target="_blank"
-							>YOUTUBE</a></li>
-						<li><a class="block" href="https://instagram.com" target="_blank"
-							>INSTAGRAM</a></li>
-					</ul>
-				</li>
+						<li><a class="block" href="https://github.com"
+							target="_blank">GITHUB</a></li>
+						<li><a class="block" href="https://youtube.com"
+							target="_blank">YOUTUBE</a></li>
+						<li><a class="block" href="https://instagram.com"
+							target="_blank">INSTAGRAM</a></li>
+					</ul></li>
 			</ul>
 		</nav>
 	</div>
+	
+	<%
+		if (loginedMember != null) {
+	%>
+	<div class="con"><%=loginedMember.getName()%> 회원님 환영합니다.
+	</div>
+	<%
+		}
+	%> 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sbs.java.blog.dto.CateItem;
+import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.service.ArticleService;
 import com.sbs.java.blog.service.MemberService;
 
@@ -25,8 +26,8 @@ public abstract class Controller {
 		this.dbConn = dbConn;
 		this.actionMethodName = actionMethodName;
 		this.req = req;
+		this.session = req.getSession();
 		this.resp = resp;
-		session = req.getSession();
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
 	}
@@ -37,6 +38,21 @@ public abstract class Controller {
 		List<CateItem> cateItems = articleService.getForPrintCateItems();
 
 		req.setAttribute("cateItems", cateItems);
+
+		// 사용자 관련 정보를 리퀘스트 객체에 정리해서 넣기
+		int loginedMemberId = -1;
+		boolean isLogined = false;
+		Member loginedMember = null;
+
+		if (session.getAttribute("loginedMemberId") != null) {
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			isLogined = true;
+			loginedMember = memberService.getMemberById(loginedMemberId);
+		}
+
+		req.setAttribute("loginedMemberId", loginedMemberId);
+		req.setAttribute("loginedMember", loginedMember);
+		req.setAttribute("isLogined", isLogined);
 	}
 
 	public void afterAction() {

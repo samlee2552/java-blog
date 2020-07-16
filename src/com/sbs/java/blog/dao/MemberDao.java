@@ -1,9 +1,7 @@
 package com.sbs.java.blog.dao;
 
 import java.sql.Connection;
-import java.util.Map;
 
-import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.util.DBUtil;
 import com.sbs.java.blog.util.SecSql;
@@ -15,84 +13,58 @@ public class MemberDao extends Dao {
 		this.dbConn = dbConn;
 	}
 
-	public int join(String loginId, String name, String nickName, String email, String loginPw) {
-		SecSql sql = new SecSql();
-
-		sql.append("INSERT INTO member");
-		sql.append(" SET regDate = NOW()");
+	public int join(String loginId, String name, String nickname, String email, String loginPw) {
+		SecSql sql = SecSql.from("INSERT INTO member");
+		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
 		sql.append(", loginId = ?", loginId);
 		sql.append(", name = ?", name);
-		sql.append(", nickName = ?", nickName);
+		sql.append(", nickname = ?", nickname);
 		sql.append(", email = ?", email);
 		sql.append(", loginPw = ?", loginPw);
 		return DBUtil.insert(dbConn, sql);
 	}
 
-	public Member getMember(String loginId, String loginPw) {
-		SecSql sql = new SecSql();
+	//이렇게 selectRowBooleanValue 로 쓸수 도 있다
+	public boolean isJoinableLoginId(String loginId) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?", loginId);
 
-		sql.append("SELECT * ");
-		sql.append("FROM member ");
-		sql.append("WHERE 1 ");
-		sql.append("AND loginId = ? ", loginId);
-		sql.append("AND loginPw = ? ", loginPw);
+		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
+	}
+
+	public boolean isJoinableNickname(String nickname) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE nickname = ?", nickname);
+
+		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
+	}
+
+	public boolean isJoinableEmail(String email) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE email = ?", email);
+
+		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
+	}
+
+	//로그인 확인
+	public int getMemberIdByLoginIdAndLoginPw(String loginId, String loginPw) {
+		SecSql sql = SecSql.from("SELECT id");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?", loginId);
+		sql.append("AND loginPw = ?", loginPw);
+
+		return DBUtil.selectRowIntValue(dbConn, sql);
+	}
+
+	public Member getMemberById(int id) {
+		SecSql sql = SecSql.from("SELECT *");
+		sql.append("FROM `member`");
+		sql.append("WHERE id = ?", id);
 
 		return new Member(DBUtil.selectRow(dbConn, sql));
 	}
-
-	public String getMemberloginId() {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT loginId ");
-		sql.append("FROM member ");
-		sql.append("FROM member ");
-
-		String loginId = DBUtil.selectRowStringValue(dbConn, sql);
-
-		return loginId;
-	}
-
-	public boolean getMemberByLoginId(String loginId) {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT * ");
-		sql.append("FROM member ");
-		sql.append("WHERE loginId = ?", loginId);
-
-		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-		if (row.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean getMemberByEmail(String email) {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT * ");
-		sql.append("FROM member ");
-		sql.append("WHERE email = ?", email);
-
-		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-		if (row.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean getMemberByNickName(String nickName) {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT * ");
-		sql.append("FROM member ");
-		sql.append("WHERE nickName = ?", nickName);
-
-		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-		if (row.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
 }

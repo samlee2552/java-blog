@@ -25,32 +25,32 @@ public class ArticleController extends Controller {
 	public String doAction() {
 		switch (actionMethodName) {
 		case "list":
-			return doActionList(req, resp);
+			return doActionList();
 		case "detail":
-			return doActionDetail(req, resp);
+			return doActionDetail();
 		case "doWrite":
-			return doActionDoWrite(req, resp);
+			return doActionDoWrite();
 		case "write":
-			return doActionWrite(req, resp);
+			return doActionWrite();
 		case "doWriteReply":
-			return doActionWriteReply(req, resp);
+			return doActionWriteReply();
 		}
 
 		return "";
 	}
 
-	private String doActionWriteReply(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionWriteReply() {
 		String replyBody = req.getParameter("");
 		
 		int id = articleService.writeReply();
 		return null;
 	}
 
-	private String doActionWrite(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionWrite() {
 		return "article/write.jsp";
 	}
 
-	private String doActionDoWrite(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionDoWrite() {
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
@@ -59,7 +59,7 @@ public class ArticleController extends Controller {
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다!!!!'); location.replace('list'); </script>";
 	}
 
-	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionDetail() {
 		if (Util.empty(req, "id")) {
 			return "html:id를 입력해주세요.";
 		}
@@ -78,7 +78,7 @@ public class ArticleController extends Controller {
 		return "article/detail.jsp";
 	}
 
-	private String doActionList(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionList() {
 		int page = 1;
 
 		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {

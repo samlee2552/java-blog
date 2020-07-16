@@ -1,24 +1,19 @@
 package com.sbs.java.blog.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.sbs.java.blog.dto.Member;
-import com.sbs.java.blog.util.Util;
+import com.sbs.java.blog.service.MemberService;
 
 public class MemberController extends Controller {
 
-	public MemberController(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
-		super( dbConn, actionMethodName, req, resp);
-	}
-	
-	public void beforeAction() {
-		super.beforeAction();
-		// 이 메서드는 게시물 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
-		// 필요없다면 지워도 된다.
+	public MemberController(Connection dbConn, String actionMethodName, HttpServletRequest req,
+			HttpServletResponse resp) {
+		super(dbConn, actionMethodName, req, resp);
+		memberService = new MemberService(dbConn);
 	}
 
 	public String doAction() {
@@ -26,85 +21,82 @@ public class MemberController extends Controller {
 		case "join":
 			return doActionJoin();
 		case "doJoin":
-			return doActionDoJoin(req, resp);
+			return doActionDoJoin();
 		case "login":
-			return doActionLogin(req, resp);
+			return doActionLogin();
 		case "doLogin":
-			return doActionDoLogin(req, resp);
+			return doActionDoLogin();
 		case "logout":
-			return doActionLogout(req, resp);
+			return doActionLogout();
+		case "memberInfo":
+			return doActionShowMemberInfo();
 		}
 
 		return "";
 	}
 
-	private String doActionLogout(HttpServletRequest req, HttpServletResponse resp) {
-		
+	private String doActionShowMemberInfo() {
+		return "member/memberInfo.jsp";
+	}
+
+	private String doActionLogout() {
+
 		session.removeAttribute("loginedMemberId");
 		return "html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>";
 	}
 
-	private String doActionDoLogin(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionDoLogin() {
 		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPw");
+		String loginPw = req.getParameter("loginPwReal");
 		
-		
-		Member member = memberService.getMember(loginId, loginPw);
-		if(member != null) {
-			session.setAttribute("loginedMemberId", member.getId());
-			
-			return "html:<script> alert('" + member.getNickName() + "님 환영합니다.'); location.replace('../home/main'); </script>";
+		int loginedMemberId = memberService.getMemberIdByLoginIdAndLoginPw(loginId, loginPw);
 
-		} else {
-			return "html:<script> alert('아이디와 비밀번호를 확인 바랍니다.'); location.replace('/member/login'); </script>";			
+		if (loginedMemberId == -1) {
+			return String.format("html:<script> alert('일치하는 정보가 없습니다.'); history.back(); </script>");
 		}
+
+		HttpSession session = req.getSession();
+		session.setAttribute("loginedMemberId", loginedMemberId);
+
+		return String.format("html:<script> alert('로그인 되었습니다.'); location.replace('../home/main'); </script>");
 	}
 
-	private String doActionLogin(HttpServletRequest req, HttpServletResponse resp) {	
+	private String doActionLogin() {
 		return "member/login.jsp";
 	}
 
-	private String doActionDoJoin(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionDoJoin() {
 		String loginId = req.getParameter("loginId");
 		String name = req.getParameter("name");
-		String nickName = req.getParameter("nickName");
+		String nickname = req.getParameter("nickname");
 		String email = req.getParameter("email");
-		String loginPw = req.getParameter("loginPw");
-		
-		String checkInfo = checkMemberInfo(loginId, nickName, email);
-		int id = memberService.join(loginId, name, nickName, email, loginPw);
-		
-		return "html:<script> alert('" + id + "번 회원이 생성되었습니다.'); location.replace('../home/main'); </script>";
-	}
+		String loginPw = req.getParameter("loginPwReal");
 
-	private String checkMemberInfo(String loginId, String nickName, String email) {
-		if(checkMemberbyLoginId(loginId)) {
-			return "html:<script> alert('이미 사용중인 아이디 입니다.'); location.replace('join'); </script>";	
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+
+		if (isJoinableLoginId == false) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId);
 		}
-		if(checkMemberbyNickName(nickName)) {
-			return "html:<script> alert('이미 사용중인 닉네임 입니다.'); location.replace('join'); </script>";	
+
+		boolean isJoinableNickname = memberService.isJoinableNickname(nickname);
+
+		if (isJoinableNickname == false) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 닉네임 입니다.'); history.back(); </script>", nickname);
 		}
-		if(checkMemberbyEmail(email)) {
-			return "html:<script> alert('이미 사용중인 닉네임 입니다.'); location.replace('join'); </script>";	
+
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+
+		if (isJoinableEmail == false) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
 		}
-		return "";
+
+		memberService.join(loginId, name, nickname, email ,loginPw);
+
+		return String.format("html:<script> alert('%s님 환영합니다.'); location.replace('../home/main'); </script>", name);
 	}
 
-	private boolean checkMemberbyEmail(String email) {
-		return memberService.getMemberByEmail(email);
-	}
-
-	private boolean checkMemberbyNickName(String nickName) {
-		return memberService.getMemberByNickName(nickName);
-	}
-
-	private boolean checkMemberbyLoginId(String loginId) {
-		return memberService.getMemberByLoginId(loginId);
-	}
 
 	private String doActionJoin() {
 		return "member/join.jsp";
 	}
 }
-
-	

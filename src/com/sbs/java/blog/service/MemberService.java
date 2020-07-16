@@ -4,36 +4,40 @@ import java.sql.Connection;
 
 import com.sbs.java.blog.dao.MemberDao;
 import com.sbs.java.blog.dto.Member;
-import com.sbs.java.blog.util.DBUtil;
 
 public class MemberService extends Service {
-	private Connection dbConn;
 	private MemberDao memberDao;
 
 	public MemberService(Connection dbConn) {
 		memberDao = new MemberDao(dbConn);
 	}
 	
-	public int join(String loginId, String name, String nickName, String email, String loginPw) {
-		return memberDao.join(loginId, name, nickName, email, loginPw);
+	//회원가입
+	public int join(String loginId, String name, String nickname, String email, String loginPw) {
+		return memberDao.join(loginId, name, nickname, email, loginPw);
 	}
 
-	public Member getMember(String loginId, String loginPw) {
-		return memberDao.getMember(loginId, loginPw);
+
+	/*회원가입시 데이터 중복체크*/
+	public boolean isJoinableLoginId(String loginId) {
+		return memberDao.isJoinableLoginId(loginId);
 	}
 
-	public boolean getMemberByLoginId(String loginId) {
-		// TODO Auto-generated method stub
-		return memberDao.getMemberByLoginId(loginId);
+	
+	public boolean isJoinableNickname(String nickname) {
+		return memberDao.isJoinableNickname(nickname);
 	}
 
-	public boolean getMemberByEmail(String email) {
-		// TODO Auto-generated method stub
-		return memberDao.getMemberByEmail(email);
+	public boolean isJoinableEmail(String email) {
+		return memberDao.isJoinableEmail(email);
+	}
+	//끝
+
+	public int getMemberIdByLoginIdAndLoginPw(String loginId, String loginPw) {
+		return memberDao.getMemberIdByLoginIdAndLoginPw(loginId, loginPw);
 	}
 
-	public boolean getMemberByNickName(String nickName) {
-		// TODO Auto-generated method stub
-		return memberDao.getMemberByNickName(nickName);
+	public Member getMemberById(int id) {
+		return memberDao.getMemberById(id);
 	}
 }
