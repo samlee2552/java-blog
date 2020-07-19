@@ -69,6 +69,18 @@ CREATE TABLE `member` (
     `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL
 );
 
+# 댓글 테이블 생성
+CREATE TABLE articleReply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    articleId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    `like` INT(10) UNSIGNED NOT NULL,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL,
+    `body` TEXT NOT NULL
+);
+
 # 마스터 회원 생성
 INSERT INTO `member` SET
 regDate = NOW(),

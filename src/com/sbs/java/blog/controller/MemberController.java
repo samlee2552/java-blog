@@ -99,4 +99,10 @@ public class MemberController extends Controller {
 	private String doActionJoin() {
 		return "member/join.jsp";
 	}
+
+	@Override
+	public String getControllerName() {
+		
+		return "member";
+	}
 }

@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.dto.Article;
+import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.util.Util;
+
+import sun.security.action.GetIntegerAction;
 
 public class ArticleController extends Controller {
 	public ArticleController(Connection dbConn, String actionMethodName, HttpServletRequest req,
@@ -38,27 +41,46 @@ public class ArticleController extends Controller {
 
 		return "";
 	}
-
+	//댓글 작성
 	private String doActionWriteReply() {
-		String replyBody = req.getParameter("");
+		if (Util.empty(req, "id")) {
+			return "html:id를 입력해주세요.";
+		}
+
+		if (Util.isNum(req, "id") == false) {
+			return "html:id를 정수로 입력해주세요.";
+		}
+		int id = Util.getInt(req, "id");
+
+		Article article = articleService.getArticleById(id);
+		int articleId = article.getId();
+		String body = req.getParameter("body");
 		
-		int id = articleService.writeReply();
-		return null;
+		int memberId = (int)req.getAttribute("loginedMemberId");
+		
+//		articleService.increaseArticleReplyId(id);
+		
+		articleService.writeReply(articleId, memberId, body);
+		
+		return "html:<script> alert('댓글이 등록되었습니다!'); history.back(); </script>";
 	}
 
 	private String doActionWrite() {
 		return "article/write.jsp";
 	}
-
+	// 글 쓰기
 	private String doActionDoWrite() {
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
-		int id = articleService.write(cateItemId, title, body);
 		
-		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다!!!!'); location.replace('list'); </script>";
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		
+		int id = articleService.write(cateItemId, title, body, loginedMemberId);
+		
+		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다!'); location.replace('list'); </script>";
 	}
-
+	// 글 상세보기
 	private String doActionDetail() {
 		if (Util.empty(req, "id")) {
 			return "html:id를 입력해주세요.";
@@ -74,10 +96,15 @@ public class ArticleController extends Controller {
 		Article article = articleService.getForPrintArticle(id);
 
 		req.setAttribute("article", article);
+		
+		List<ArticleReply> articleReplies = articleService.getArticleRepliesByArticleId(id);
+		
+		req.setAttribute("articleReplies", articleReplies);
+
 
 		return "article/detail.jsp";
 	}
-
+	//게시물 리스팅
 	private String doActionList() {
 		int page = 1;
 
@@ -123,5 +150,10 @@ public class ArticleController extends Controller {
 				searchKeywordType, searchKeyword);
 		req.setAttribute("articles", articles);
 		return "article/list.jsp";
+	}
+
+	@Override
+	public String getControllerName() {
+		return "article";
 	}
 }

@@ -70,7 +70,7 @@
 </head>
 
 <body>
-	<div class="top-logo visible-on-md-up ">
+	<div class="top-logo visible-on-md-up" style="height: 200px">
 		<a href="${pageContext.request.contextPath}/s/home/main"> <img
 			src="https://i.ibb.co/KxCFk4H/c96faf4d-fb03-4e6a-81ae-c7dda197321e-200x200.png"
 			alt="">

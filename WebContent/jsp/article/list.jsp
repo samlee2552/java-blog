@@ -123,7 +123,7 @@
 				<td><%=article.getRegDate().substring(0,10)%></td>
 				<td class="visible-on-md-up"><%=article.getUpdateDate().substring(0,10)%></td>
 				<td width="40%" style="font-weight:bold"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
-				<td>쌤리</td>
+				<td><%=article.getExtra().get("writer") %></td>
 				<td><%=article.getHit()%></td>
 			</tr>
 			<%

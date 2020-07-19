@@ -67,10 +67,10 @@
 	margin-bottom: 30px;
 }
 
-.comment-form-box {
+.reply-form-box {
     margin-top: 30px;
     padding:5px;
-    margin-bottom:50px;
+    margin-bottom:100px;
   }
 
 .form1 .form-row>.input>input,.form1 .form-row>.input>textarea {
@@ -88,7 +88,8 @@
 			<h3 style="">
 				작성일 :
 				<%=article.getRegDate()%></h3>
-		</div>
+		</div>			
+			<h3 align="right">작성자: <%=article.getExtra().get("writer") %></h3>
 			<h3 align="right">조회수: <%=article.getHit()%></h3>
 
 
@@ -98,13 +99,13 @@
 	</div>
 </div>
 
-<div class="comment-form-box con">
-	<form action="doWriteReply" method="POST"target="_blank" class="comment-form form1" onsubmit="submitWriteForm(this); return false;">
+<div class="reply-form-box con">
+	<form action="doWriteReply" method="POST" class="reply-form form1" onsubmit="submitReplyForm(this); return false;">
     <div class="form-row flex">
-			<textarea name="comment" placeholder="댓글을 입력해주세요." style="width:100%"></textarea>
-      <div class="form-row">
-        <div class="input">
-				  <input type="submit" value="등록" style="height:100px"/>
+			<textarea name="reply" placeholder="댓글을 입력해주세요." style="width:100%; height:100px"></textarea>
+      
+        	<div class="input block">
+				  <input type="submit" value="등록" style="height:110px;"/>
 			  </div>
 </div>
 
@@ -122,24 +123,24 @@ var editor1__initialValue = getBodyFromXTemplate('#origin1');
 </script>
 
 <script>
-var joinFormSubmitted = false;
+var ReplyFormSubmitted = false;
 
-function submitJoinForm(form) {
-  if ( joinFormSubmitted ) {
+function submitReplyForm(form) {
+  if ( ReplyFormSubmitted ) {
     alert('처리 중입니다.');
     return;
   }
   
-  form.comment.value = form.comment.value.trim();
-  if ( form.comment.value.length == 0 ) {
+  form.reply.value = form.reply.value.trim();
+  if ( form.reply.value.length == 0 ) {
     alert('댓글을 입력해주세요.');
-    form.comment.focus();
+    form.reply.focus();
     
     return;
   }
   
   form.submit();
-  joinFormSubmitted = true;
+  ReplyFormSubmitted = true;
 }
 </script>
 

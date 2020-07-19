@@ -8,6 +8,7 @@ public class Article extends Dto {
 	private int hit;
 	private String title;
 	private String body;
+	private String writer;
 
 	public Article(Map<String, Object> row) {
 		super(row);
@@ -17,6 +18,8 @@ public class Article extends Dto {
 		this.title = (String) row.get("title");
 		this.body = (String) row.get("body");
 		this.hit = (int) row.get("hit");
+		this.writer = (String) row.get("writer");
+		
 	}
 
 	@Override
@@ -68,5 +71,4 @@ public class Article extends Dto {
 	public String getBodyForXTemplate() {
 		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
 	}
-
 }
