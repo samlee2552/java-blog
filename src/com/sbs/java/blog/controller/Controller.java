@@ -100,6 +100,7 @@ public abstract class Controller {
 			switch (actionMethodName) {
 			case "write":
 			case "doWrite":
+			case "doWriteReply":		
 			case "modify":
 			case "doModify":
 			case "doDelete":
@@ -110,7 +111,7 @@ public abstract class Controller {
 		}
 
 		if (needToLogin && isLogined == false) {
-			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login' </script>";
+			return "html:<script> alert('로그인 후 이용해주세요.'); history.back(); </script>";
 		}
 		// 로그인 가드 끝
 

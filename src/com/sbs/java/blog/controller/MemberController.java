@@ -42,7 +42,7 @@ public class MemberController extends Controller {
 	private String doActionLogout() {
 
 		session.removeAttribute("loginedMemberId");
-		return "html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>";
+		return "html:<script> alert('로그아웃 되었습니다.'); location.href = document.referrer; </script>";
 	}
 
 	private String doActionDoLogin() {

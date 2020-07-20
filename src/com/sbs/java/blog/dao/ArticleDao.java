@@ -8,6 +8,7 @@ import java.util.Map;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
+import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.util.DBUtil;
 import com.sbs.java.blog.util.SecSql;
 
@@ -55,6 +56,7 @@ public class ArticleDao extends Dao {
 		sql.append("SELECT COUNT(*) AS cnt ");
 		sql.append("FROM article ");
 		sql.append("WHERE displayStatus = 1 ");
+		
 
 		if (cateItemId != 0) {
 			sql.append("AND cateItemId = ? ", cateItemId);
@@ -147,15 +149,14 @@ public class ArticleDao extends Dao {
 		DBUtil.update(dbConn, sql);
 	}
 
-	public int writeReply(int articleId, int memberId, String body) {
+	public int writeReply(int articleId, String memberNickname, String body) {
 		SecSql sql = SecSql.from("INSERT INTO articleReply ");
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
-		sql.append(", body = ?", body);
-		sql.append(", displayStatus = 1");
 		sql.append(", articleId = ?", articleId);
-		sql.append(", memberId = ?", memberId);
-		sql.append(", like = ?", 1);
+		sql.append(", memberNickname = ?", memberNickname);
+		sql.append(", displayStatus = 1");
+		sql.append(", body = ?", body);
 
 		return DBUtil.insert(dbConn, sql);
 	}
@@ -163,6 +164,7 @@ public class ArticleDao extends Dao {
 	public List<ArticleReply> getArticleRepliesByArticleId(int id) {
 		SecSql sql = SecSql.from("SELECT * FROM articleReply ");
 		sql.append("WHERE articleId = ?", id);
+		sql.append("ORDER BY id DESC ");
 
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
 
@@ -180,6 +182,17 @@ public class ArticleDao extends Dao {
 		sql.append("WHERE id = ?", id);
 
 		return new Article(DBUtil.selectRow(dbConn, sql));
+	}
+
+	public Member getMemberById(int id) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * ");
+		sql.append("FROM member ");
+		sql.append("WHERE 1 ");
+		sql.append("AND id = ? ", id);
+
+		return new Member(DBUtil.selectRow(dbConn, sql));
 	}
 	
 }

@@ -136,12 +136,16 @@
 	 <!-- 페이징 -->
   <div id="paging">
     <ul>
+    	<%if (paramPage != 1) { %>
       <li><a href="./list?cateItemId=${param.cateItemId}&page=<%= paramPage -1 %>" class="btn">PREV</a></li>
+      	<%} %>
       	<% for (int i = 1; i <= totalPage; i ++) { %>
     <li class="<%=i == paramPage ? "current" : ""%>"><a
 			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>" class="block"><%=i%></a></li>
       <% } %>
-      <li><a href="./list?cateItemId=${param.cateItemId}&page=${param.page+1}" class="btn">NEXT</a></li>
+      <%if (paramPage != totalPage) { %>
+      <li><a href="./list?cateItemId=${param.cateItemId}&page=<%= paramPage + 1 %>" class="btn">NEXT</a></li>
+      <% } %>
     </ul>
   </div>
   

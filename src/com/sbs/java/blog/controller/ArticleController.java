@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
+import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.util.Util;
-
-import sun.security.action.GetIntegerAction;
 
 public class ArticleController extends Controller {
 	public ArticleController(Connection dbConn, String actionMethodName, HttpServletRequest req,
@@ -50,19 +49,23 @@ public class ArticleController extends Controller {
 		if (Util.isNum(req, "id") == false) {
 			return "html:id를 정수로 입력해주세요.";
 		}
-		int id = Util.getInt(req, "id");
+		int articleId = Util.getInt(req, "id");
 
-		Article article = articleService.getArticleById(id);
-		int articleId = article.getId();
+
+//		Article article = articleService.getArticleById(id);
+		
+//		int articleId = article.getId();
 		String body = req.getParameter("body");
 		
-		int memberId = (int)req.getAttribute("loginedMemberId");
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		Member member = articleService.getMemberById(loginedMemberId);
+		String memberNickname = member.getNickname();
 		
 //		articleService.increaseArticleReplyId(id);
 		
-		articleService.writeReply(articleId, memberId, body);
+		articleService.writeReply(articleId, memberNickname, body);
 		
-		return "html:<script> alert('댓글이 등록되었습니다!'); history.back(); </script>";
+		return "html:<script> alert('댓글이 등록되었습니다!'); location.replace('detail?id=" + articleId + "'); </script>";
 	}
 
 	private String doActionWrite() {

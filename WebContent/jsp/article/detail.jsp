@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.sbs.java.blog.dto.Article"%>
+<%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ include file="/jsp/part/head.jspf"%>
 <%
 	Article article = (Article) request.getAttribute("article");
+	List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
 %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,9 +50,6 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <style>
-
-
-
 .entire-box {
 	padding: 0 5px;
 }
@@ -67,16 +66,25 @@
 	margin-bottom: 30px;
 }
 
-.reply-form-box {
-    margin-top: 30px;
-    padding:5px;
-    margin-bottom:100px;
-  }
-
-.form1 .form-row>.input>input,.form1 .form-row>.input>textarea {
-    display: block; width: 100%; box-sizing: border-box; padding: 10px;
+.writeReply-form-box {
+	margin-top: 30px;
+	padding: 5px;
+	margin-bottom: 100px;
 }
 
+.form1 .form-row>.input>input, .form1 .form-row>.input>textarea {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.reply-list {
+	display: flex;
+	margin-bottom: 30px;
+	border-bottom: 1px solid black;
+	padding-right:100px;
+}
 </style>
 <div class="entire-box">
 	<div class="detail-box con">
@@ -88,9 +96,13 @@
 			<h3 style="">
 				작성일 :
 				<%=article.getRegDate()%></h3>
-		</div>			
-			<h3 align="right">작성자: <%=article.getExtra().get("writer") %></h3>
-			<h3 align="right">조회수: <%=article.getHit()%></h3>
+		</div>
+		<h3 align="right">
+			작성자:
+			<%=article.getExtra().get("writer")%></h3>
+		<h3 align="right">
+			조회수:
+			<%=article.getHit()%></h3>
 
 
 		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
@@ -99,20 +111,51 @@
 	</div>
 </div>
 
-<div class="reply-form-box con">
-	<form action="doWriteReply" method="POST" class="reply-form form1" onsubmit="submitReplyForm(this); return false;">
-    <div class="form-row flex">
-			<textarea name="reply" placeholder="댓글을 입력해주세요." style="width:100%; height:100px"></textarea>
-      
-        	<div class="input block">
-				  <input type="submit" value="등록" style="height:110px;"/>
-			  </div>
+<div class="writeReply-form-box con">
+	<form action="doWriteReply" method="POST" class="writeReply-form form1"
+		onsubmit="submitReplyForm(this); return false;">
+		<input type="hidden" name="id" value=<%=article.getId()%> />
+		<div class="form-row flex">
+			<textarea name="body" placeholder="댓글을 입력해주세요."
+				style="width: 100%; height: 100px"></textarea>
+
+			<div class="input block">
+				<input type="submit" value="등록" style="height: 110px;" />
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="reply-list-box-1 con table-box">
+
+	<h1 class="text-align-left">📝 댓글</h1>
+	<%
+		for (ArticleReply articleReply : articleReplies) {
+	%>
+	<table class="reply-list">
+		<tr>
+			<th>🇳🇴</th>
+			<td ><%=articleReply.getId()%></td>
+			<th>작성자</th>
+			<td><%=articleReply.getMemberNickname()%></td>
+			<th>작성일</th>
+			<td><%=articleReply.getRegDate()%></td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td colspan="5"><%=articleReply.getBody()%></td>
+
+			<%
+				}
+			%>
+		
+	</table>
 </div>
 
 
-<script>
 
-var editor1__initialValue = getBodyFromXTemplate('#origin1');
+<script>
+	var editor1__initialValue = getBodyFromXTemplate('#origin1');
 	var editor1 = new toastui.Editor({
 		el : document.querySelector('#viewer1'),
 		initialValue : editor1__initialValue,
@@ -123,25 +166,25 @@ var editor1__initialValue = getBodyFromXTemplate('#origin1');
 </script>
 
 <script>
-var ReplyFormSubmitted = false;
+	var WriteReplyFormSubmitted = false;
 
-function submitReplyForm(form) {
-  if ( ReplyFormSubmitted ) {
-    alert('처리 중입니다.');
-    return;
-  }
-  
-  form.reply.value = form.reply.value.trim();
-  if ( form.reply.value.length == 0 ) {
-    alert('댓글을 입력해주세요.');
-    form.reply.focus();
-    
-    return;
-  }
-  
-  form.submit();
-  ReplyFormSubmitted = true;
-}
+	function submitWriteReplyForm(form) {
+		if (WriteReplyFormSubmitted) {
+			alert('처리 중입니다.');
+			return;
+		}
+
+		form.body.value = form.body.value.trim();
+		if (form.body.value.length == 0) {
+			alert('댓글을 입력해주세요.');
+			form.body.focus();
+
+			return;
+		}
+
+		form.submit();
+		WriteReplyFormSubmitted = true;
+	}
 </script>
 
 <%@ include file="/jsp/part/foot.jspf"%>

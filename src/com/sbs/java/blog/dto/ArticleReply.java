@@ -5,7 +5,7 @@ import java.util.Map;
 public class ArticleReply extends Dto {
 	private String updateDate;
 	private int articleId;
-	private int memberId;
+	private String memberNickname;
 	private String body;
 	private int like;
 	
@@ -14,7 +14,7 @@ public class ArticleReply extends Dto {
 
 		this.updateDate = (String) row.get("updateDate");
 		this.articleId = (int) row.get("articleId");
-		this.memberId = (int) row.get("memberId");
+		this.memberNickname = (String) row.get("memberNickname");
 		this.body = (String) row.get("body");
 		this.like = (int) row.get("like");
 		
@@ -22,7 +22,7 @@ public class ArticleReply extends Dto {
 	
 	@Override
 	public String toString() {
-		return "ArticleReply [updateDate=" + updateDate + ", articleId=" + articleId + ", memberId=" + memberId
+		return "ArticleReply [updateDate=" + updateDate + ", articleId=" + articleId + ", memberId=" + memberNickname
 				+ ", body=" + body + ", like=" + like + ", dto=" + super.toString() + "]";
 	}
 
@@ -36,13 +36,13 @@ public class ArticleReply extends Dto {
 	}
 
 
-	public int getMemberId() {
-		return memberId;
+	public String getMemberNickname() {
+		return memberNickname;
 	}
 
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
 	}
 
 

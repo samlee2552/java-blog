@@ -4,6 +4,7 @@ package com.sbs.java.blog.service;
 import java.sql.Connection;
 import java.util.List;
 
+import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.dao.ArticleDao;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
@@ -46,15 +47,15 @@ public class ArticleService extends Service {
 		articleDao.increaseHit(id);
 	}
 	
-	public void increaseArticleReplyId(int articleId) {
-		articleDao.increaseHit(articleId);
-	}
+//	public void increaseArticleReplyId(int articleId) {
+//		articleDao.increaseArticleReplyId(articleId);
+//	}
 	
 	
 
-	public int writeReply(int articleId, int memberId, String body) {
+	public int writeReply(int articleId, String memberNickname, String body) {
 
-		return articleDao.writeReply(articleId, memberId, body);
+		return articleDao.writeReply(articleId, memberNickname, body);
 	}
 
 	public List<ArticleReply> getArticleRepliesByArticleId(int id) {
@@ -65,6 +66,11 @@ public class ArticleService extends Service {
 	public Article getArticleById(int id) {
 		// TODO Auto-generated method stub
 		return articleDao.getArticleById(id);
+	}
+
+	public Member getMemberById(int id) {
+		// TODO Auto-generated method stub
+		return articleDao.getMemberById(id);
 	}
 
 }
