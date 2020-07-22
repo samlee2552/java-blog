@@ -86,7 +86,7 @@ INSERT INTO `member` SET
 regDate = NOW(),
 updateDate = NOW(),
 `loginId` = 'admin',
-`loginPw` = 'admin',
+`loginPw` = sha2('admin', 256),
 `name` = 'admin',
 `nickname` = 'admin',
 `email` = 'admin@admin.com',
