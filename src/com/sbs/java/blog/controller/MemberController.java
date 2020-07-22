@@ -30,9 +30,23 @@ public class MemberController extends Controller {
 			return doActionLogout();
 		case "memberInfo":
 			return doActionShowMemberInfo();
+		case "findPw":
+			return doActionFindPw();
+		case "doFindPw":
+			return doActionDoFindPw();
 		}
 
 		return "";
+	}
+
+	private String doActionDoFindPw() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String doActionFindPw() {
+		// TODO Auto-generated method stub
+		return "member/findPw.jsp";
 	}
 
 	private String doActionShowMemberInfo() {

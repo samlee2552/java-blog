@@ -51,7 +51,7 @@
 		<div class="form-row">
 			<div class="label">전송</div>
 			<div class="input">
-				<input type="submit" value="전송" /> <a href="../home/main">취소</a>
+				<input type="submit" value="전송" /> <a href="findPw">아이디 / 비밀번호 찾기</a>
 			</div>
 		</div>
 	</form>
