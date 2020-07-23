@@ -10,7 +10,9 @@ import javax.servlet.http.HttpSession;
 import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.service.ArticleService;
+import com.sbs.java.blog.service.MailService;
 import com.sbs.java.blog.service.MemberService;
+import com.sbs.java.blog.util.Util;
 
 public abstract class Controller {
 	protected Connection dbConn;
@@ -21,6 +23,8 @@ public abstract class Controller {
 
 	protected ArticleService articleService;
 	protected MemberService memberService;
+	protected MailService mailService;
+	
 
 	public Controller(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
 		this.dbConn = dbConn;
@@ -30,6 +34,7 @@ public abstract class Controller {
 		this.resp = resp;
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
+		mailService = new MailService((String) req.getAttribute("gmailId"), (String) req.getAttribute("gmailPw"), (String) req.getAttribute("gmailId"), "관리자");
 	}
 
 	public void beforeAction() {
@@ -53,6 +58,28 @@ public abstract class Controller {
 		req.setAttribute("loginedMemberId", loginedMemberId);
 		req.setAttribute("loginedMember", loginedMember);
 		req.setAttribute("isLogined", isLogined);
+		
+		String currentUrl = req.getRequestURI();
+
+		if (req.getQueryString() != null) {
+			currentUrl += "?" + req.getQueryString();
+		}
+
+		String urlEncodedCurrentUrl = Util.getUrlEncoded(currentUrl);
+
+		// 현재 접속된 페이지와 관련된 유용한 정보 담기
+		req.setAttribute("currentUrl", currentUrl);
+		req.setAttribute("urlEncodedCurrentUrl", urlEncodedCurrentUrl);
+		req.setAttribute("urlEncodedAfterLoginRedirectUrl", urlEncodedCurrentUrl);
+
+		// 로그인 페이지에서 로그인 페이지로 이동하는 버튼을 또 누른 경우
+		// 기존 afterLoginRedirectUrl 정보를 유지시키기 위한 로직
+		if (currentUrl.contains("/s/member/login")) {
+			System.out.println("currentUrl : " + currentUrl);
+			String urlEncodedOldAfterLoginRedirectUrl = Util.getString(req, "afterLoginRedirectUrl", "");
+			urlEncodedOldAfterLoginRedirectUrl = Util.getUrlEncoded(urlEncodedOldAfterLoginRedirectUrl);
+			req.setAttribute("urlEncodedAfterLoginRedirectUrl", urlEncodedOldAfterLoginRedirectUrl);
+		}
 	}
 
 	public void afterAction() {
@@ -110,8 +137,9 @@ public abstract class Controller {
 			break;
 		}
 
+		String urlEncodedAfterLoginRedirectUrl = (String)req.getAttribute("urlEncodedAfterLoginRedirectUrl");
 		if (needToLogin && isLogined == false) {
-			return "html:<script> alert('로그인 후 이용해주세요.'); history.back(); </script>";
+			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login?afterLoginRedirectUrl=" + urlEncodedAfterLoginRedirectUrl + "'; </script>";
 		}
 		// 로그인 가드 끝
 

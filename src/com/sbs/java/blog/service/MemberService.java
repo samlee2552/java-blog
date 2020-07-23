@@ -37,7 +37,23 @@ public class MemberService extends Service {
 		return memberDao.getMemberIdByLoginIdAndLoginPw(loginId, loginPw);
 	}
 
+	
+	
 	public Member getMemberById(int id) {
 		return memberDao.getMemberById(id);
+	}
+
+	public boolean checkMemberForFindPw(String loginId, String name, String email) {
+		
+		return memberDao.checkMemberForFindPw(loginId, name, email);
+	}
+
+	public int updatePw(String loginId, String loginPw) {
+		return memberDao.updatePw(loginId, loginPw);
+	}
+
+	public String getMemberLoginId(String name, String email) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberLoginId(name, email);
 	}
 }

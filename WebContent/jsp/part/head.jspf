@@ -121,12 +121,20 @@
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
 						class="height-100p flex flex-ai-c flex">LOG IN/OUT</a>
 						<ul>
-							<% if ( isLogined ) { %>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
-							<% } else { %>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/member/login">Login</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/member/join">Join</a></li>
+							<%
+								if (isLogined) {
+							%>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
+							<%
+								} else {
+							%>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">Login</a></li>
+							<li><a class="block"
+								href="${pageContext.request.contextPath}/s/member/join">Join</a></li>
 							<% } %>
 						</ul></li>
 				</ul>
@@ -148,6 +156,23 @@
 	<div class="mobile-side-bar visible-on-sm-down">
 		<nav class="menu-box-1">
 			<ul>
+				<%
+					if (isLogined) {
+				%>
+				<li><a
+					href="${pageContext.request.contextPath}/s/member/doLogout"
+					class="block">Logout</a></li>
+				<%
+					} else {
+				%>
+				<li><a
+					href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}"
+					class="block">Login</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/join"
+					class="block">Join</a></li>
+				<%
+					}
+				%>
 				<li><a href="${pageContext.request.contextPath}/s/home/main"
 					class="block">Home</a></li>
 				<li><a href="#" class="block">Articles</a>
@@ -182,12 +207,13 @@
 			</ul>
 		</nav>
 	</div>
-	
+
 	<%
 		if (loginedMember != null) {
 	%>
-	<div class="con"><%=loginedMember.getName()%> 회원님 환영합니다.
+	<div class="con"><%=loginedMember.getName()%>
+		회원님 환영합니다.
 	</div>
 	<%
 		}
-	%> 
+	%>

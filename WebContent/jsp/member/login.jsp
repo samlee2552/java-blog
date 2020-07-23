@@ -35,6 +35,7 @@
 
 <div class="login-form-box con">
 	<form action="doLogin" method="POST" class="login-form form1" onsubmit="submitLoginForm(this); return false;">
+	<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
 		<input type="hidden" name="loginPwReal" />
 		<div class="form-row">
 			<div class="label">아이디</div>
@@ -49,9 +50,9 @@
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="label">전송</div>
+			<div class="label"></div>
 			<div class="input">
-				<input type="submit" value="전송" /> <a href="findPw">아이디 / 비밀번호 찾기</a>
+				<input type="submit" value="로그인" /> <a href="findLoginId">아이디 / </a> <a href="findPw">비밀번호 찾기</a>
 			</div>
 		</div>
 	</form>

@@ -4,21 +4,16 @@
 
 <style>
 /* cus */
-.findPw-form-box {
+.findLoginId-form-box {
 	margin-top: 30px;
 }
 </style>
-<h1 align="center">비밀번호 찾기</h1>
+<h1 align="center">아이디 찾기</h1>
 
-<div class="findPw-form-box con">
-	<form action="doFindPw" method="POST" class="findPw-form form1"
-		onsubmit="submitFindPwForm(this); return false;">
-		<div class="form-row">
-			<div class="label">아이디</div>
-			<div class="input">
-				<input name="loginId" type="text" placeholder="아이디를 입력해주세요." />
-			</div>
-		</div>
+<div class="findLoginId-form-box con">
+	<form action="doFindLoginId" method="POST" class="findLoginId-form form1"
+		onsubmit="submitFindLoginIdForm(this); return false;">
+		
 		<div class="form-row">
 			<div class="label">이름</div>
 			<div class="input">
@@ -36,14 +31,14 @@
 		<div class="form-row">
 			<div class="label"></div>
 			<div class="input">
-				<input type="submit" value="임시 비밀번호 발송" /> <a href="findLoginId">아이디 찾기</a>
+				<input type="submit" value="아이디 찾기" /> <a href="findPw">비밀번호 찾기</a>
 			</div>
 		</div>
 	</form>
 </div>
 
 <script>
-	var FindPwFormSubmitted = false;
+	var FindLoginIdFormSubmitted = false;
 
 	function submitFindPwForm(form) {
 		if (FindPwFormSubmitted) {

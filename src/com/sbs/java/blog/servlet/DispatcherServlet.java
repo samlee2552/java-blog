@@ -14,13 +14,12 @@ public class DispatcherServlet extends HttpServlet {
 		resp.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		
-//		String gmailId = getServletConfig().getInitParameter("gmailId");
-//		String gmailPw = getServletConfig().getInitParameter("gmailPw");
+		String gmailId = getServletConfig().getInitParameter("gmailId");
+		String gmailPw = getServletConfig().getInitParameter("gmailPw");
 
-//		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
-//		boolean sendMailDone = mailService.send("saml2l@naver.com", "안녕하세요.", "반갑습니다.!!") == 1;
-//
-//		resp.getWriter().append(String.format("발송성공 : %b", sendMailDone));
+		req.setAttribute("gmailId", gmailId);
+		req.setAttribute("gmailPw", gmailPw);
+		
 		
 		new App(req, resp).start();
 	}

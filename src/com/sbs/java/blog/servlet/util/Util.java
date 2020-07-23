@@ -34,7 +34,7 @@ public class Util {
 			msg.setFrom(new InternetAddress(from, fromName));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			msg.setSubject(title, "UTF-8");
-			msg.setText(body, "UTF-8");
+			msg.setContent(body, "text/html;charset=utf-8"); //html 도 설정해줘서 html 형식으로 메일 본문 작성 가능
 
 			Transport.send(msg);
 

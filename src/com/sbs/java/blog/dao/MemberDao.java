@@ -67,4 +67,30 @@ public class MemberDao extends Dao {
 
 		return new Member(DBUtil.selectRow(dbConn, sql));
 	}
+
+	public boolean checkMemberForFindPw(String loginId, String name, String email) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?", loginId);
+		sql.append("AND name = ?", name);
+		sql.append("AND email = ?", email);
+
+		return DBUtil.selectRowIntValue(dbConn, sql) == 1;
+	}
+
+	public int updatePw(String loginId, String loginPw) {
+		SecSql sql = SecSql.from("UPDATE `member`");
+		sql.append("SET loginPw = SHA2(?, 256)", loginPw);
+		sql.append("WHERE loginId = ?", loginId);
+		
+		return DBUtil.update(dbConn, sql);
+	}
+
+	public String getMemberLoginId(String name, String email) {
+		SecSql sql = SecSql.from("SELECT loginId");
+		sql.append("FROM `member`");
+		sql.append("WHERE name = ?", name);
+		sql.append("AND email = ?", email);
+		return DBUtil.selectRowStringValue(dbConn, sql);
+	}
 }
