@@ -91,3 +91,8 @@ updateDate = NOW(),
 `nickname` = 'admin',
 `email` = 'admin@admin.com',
 `level` = 10;
+
+#회원 id AUTO_INCREMENT 초기화
+ALTER TABLE `member` AUTO_INCREMENT=1;
+SET @COUNT = 0;
+UPDATE `member` SET id = @COUNT:=@COUNT+1;

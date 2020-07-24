@@ -25,7 +25,6 @@ public abstract class Controller {
 	protected MemberService memberService;
 	protected MailService mailService;
 	
-
 	public Controller(Connection dbConn, String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
 		this.dbConn = dbConn;
 		this.actionMethodName = actionMethodName;
@@ -34,7 +33,11 @@ public abstract class Controller {
 		this.resp = resp;
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
-		mailService = new MailService((String) req.getAttribute("gmailId"), (String) req.getAttribute("gmailPw"), (String) req.getAttribute("gmailId"), "관리자");
+		
+		String gmailId = (String) req.getAttribute("gmailId");
+		String gmailPw = (String) req.getAttribute("gmailPw");
+		
+		mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
 	}
 
 	public void beforeAction() {
@@ -74,7 +77,7 @@ public abstract class Controller {
 
 		// 로그인 페이지에서 로그인 페이지로 이동하는 버튼을 또 누른 경우
 		// 기존 afterLoginRedirectUrl 정보를 유지시키기 위한 로직
-		if (currentUrl.contains("/s/member/login")) {
+		if (currentUrl.contains("/s/member/login_join")) {
 			System.out.println("currentUrl : " + currentUrl);
 			String urlEncodedOldAfterLoginRedirectUrl = Util.getString(req, "afterLoginRedirectUrl", "");
 			urlEncodedOldAfterLoginRedirectUrl = Util.getUrlEncoded(urlEncodedOldAfterLoginRedirectUrl);
@@ -139,7 +142,7 @@ public abstract class Controller {
 
 		String urlEncodedAfterLoginRedirectUrl = (String)req.getAttribute("urlEncodedAfterLoginRedirectUrl");
 		if (needToLogin && isLogined == false) {
-			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login?afterLoginRedirectUrl=" + urlEncodedAfterLoginRedirectUrl + "'; </script>";
+			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login_join?afterLoginRedirectUrl=" + urlEncodedAfterLoginRedirectUrl + "'; </script>";
 		}
 		// 로그인 가드 끝
 
@@ -150,8 +153,7 @@ public abstract class Controller {
 
 		case "member":
 			switch (actionMethodName) {
-			case "login":
-			case "join":
+			case "login_join":
 				needToLogout = false;
 				break;
 			}

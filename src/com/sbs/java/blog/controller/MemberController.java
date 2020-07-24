@@ -15,48 +15,51 @@ public class MemberController extends Controller {
 
 	public String doAction() {
 		switch (actionMethodName) {
-		case "join":
-			return doActionJoin();
 		case "doJoin":
 			return doActionDoJoin();
-		case "login":
-			return doActionLogin();
+		case "login_join":
+			return doActionLogin_Join();
 		case "doLogin":
 			return doActionDoLogin();
 		case "logout":
 			return doActionLogout();
 		case "memberInfo":
 			return doActionShowMemberInfo();
-		case "findPw":
-			return doActionFindPw();
-		case "doFindPw":
-			return doActionDoFindPw();
-		case "findLoginId":
-			return doActionFindLoginId();
+		case "findLoginId_Pw":
+			return doActionFindLoginId_Pw();
 		case "doFindLoginId":
 			return doActionDoFindLoginId();
+		case "doFindPw":
+			return doActionDoFindPw();
 		}
 
 		return "";
 	}
 
-	//아이디 찾기
+	private String doActionFindLoginId_Pw() {
+		return "member/findLoginId_Pw.jsp";
+	}
+
+	private String doActionShowMemberInfo() {
+		return "member/memberInfo.jsp";
+	}
+
+	private String doActionLogin_Join() {
+		return "member/login_join.jsp";
+	}
+	//아아디 찾기
 	private String doActionDoFindLoginId() {
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		// 일치하는 회원 있는지 확인
 		String loginId = memberService.getMemberLoginId(name, email);
-		if(loginId == null) {
+		if (loginId == "") {
 			return String.format("html:<script> alert('입력하신 정보와 일치하는 회원이 없습니다.'); history.back(); </script>");
 		}
-		return "html:<script> alert('회원님의 아이디는 "\" + loginId + "\" 입니다.'); location.replace('login'); </script>";	
+		return "html:<script> alert('회원님의 아이디는 " + loginId + " 입니다.'); location.replace('login_join'); </script>";
 	}
 
-	private String doActionFindLoginId() {
-		// TODO Auto-generated method stub
-		return "member/findLoginId.jsp";
-	}
-	//비밀번호 찾기, 임시비밀번호 발송
+	// 비밀번호 찾기, 임시비밀번호 발송
 	private String doActionDoFindPw() {
 		// 회원 정보 입력 받은 값
 		String loginId = req.getParameter("loginId");
@@ -73,34 +76,24 @@ public class MemberController extends Controller {
 
 		String tempPw = Util.randomPassword(7);
 		String body = String.join(System.getProperty("line.separator"),
-				"<h1>회원님의 임시 비밀번호는 \"" + tempPw + "\" 입니다. </h1>",
-				"<h3>임시 비밀번호로 로그인 후 '회원정보'에서 비밀번호를 변경해주세요.</h3>"
-				);
+				"<h1>회원님의 임시 비밀번호는 \"" + tempPw + "\" 입니다. </h1>", "<h3>임시 비밀번호로 로그인 후 '회원정보'에서 비밀번호를 변경해주세요.</h3>");
 
 		boolean sendMailDone = mailService.send(email, title, body) == 1;
-		if(sendMailDone == false) {
-			return "html:<script> alert('발송 실패.'); history.back(); </script>";	
+		if (sendMailDone == false) {
+			return "html:<script> alert('메일 발송 실패.'); history.back(); </script>";
 		}
 		// 임시 비밀번호로 회원정보 변경
 		memberService.updatePw(loginId, tempPw);
-		return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login'); </script>";	
+		return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login_join'); </script>";
 	}
 
-	private String doActionFindPw() {
-		// TODO Auto-generated method stub
-		return "member/findPw.jsp";
-	}
-
-	private String doActionShowMemberInfo() {
-		return "member/memberInfo.jsp";
-	}
-
+	// 로그아웃
 	private String doActionLogout() {
 
 		session.removeAttribute("loginedMemberId");
 		return "html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>";
 	}
-
+	// 로그인
 	private String doActionDoLogin() {
 		String loginId = req.getParameter("loginId");
 		String loginPw = req.getParameter("loginPwReal");
@@ -116,18 +109,14 @@ public class MemberController extends Controller {
 
 		return String.format("html:<script> alert('로그인 되었습니다.'); location.replace('" + redirectUrl + "'); </script>");
 	}
-
-	private String doActionLogin() {
-		return "member/login.jsp";
-	}
-
+	//회원가입
 	private String doActionDoJoin() {
 		String loginId = req.getParameter("loginId");
 		String name = req.getParameter("name");
-		String nickname = req.getParameter("nickname");
+		String nickname = req.getParameter("nickname");	
 		String email = req.getParameter("email");
 		String loginPw = req.getParameter("loginPwReal");
-
+		//조건 검사 시작
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 
 		if (isJoinableLoginId == false) {
@@ -145,27 +134,20 @@ public class MemberController extends Controller {
 		if (isJoinableEmail == false) {
 			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
 		}
-
+		//조건 검사 끝
 		memberService.join(loginId, name, nickname, email, loginPw);
-		
 
-		String title = "회원가입을 환영합니다.";
+		String title = "회원가입을 환영합니다!.";
 
-		String body = String.join(System.getProperty("line.separator"),
-				"<h1>회원이 되신 것을 환영합니다</h1>",
-				"<h3>임시 비밀번호로 로그인 후 '회원정보'에서 비밀번호를 변경해주세요.</h3>"
-				);
+		String body = String.join(System.getProperty("line.separator"), "<h1>회원이 되신 것을 환영합니다~!!!</h1>",
+				"<h3>" + name + " 회원님의 가입을 축하합니다~! 감사합니다!.</h3>");
 
 		boolean sendMailDone = mailService.send(email, title, body) == 1;
-		if(sendMailDone == false) {
-			return "html:<script> alert('발송 실패.'); history.back(); </script>";	
+		if (sendMailDone == false) {
+			return "html:<script> alert('메일 발송 실패.'); history.back(); </script>";
 		}
 
-		return String.format("html:<script> alert('%s님 환영합니다.'); location.replace('../home/main'); </script>", name);
-	}
-
-	private String doActionJoin() {
-		return "member/join.jsp";
+		return String.format("html:<script> alert('%s님, 회원이 되신것을 환영합니다.'); location.replace('../home/main'); </script>", name);
 	}
 
 	@Override

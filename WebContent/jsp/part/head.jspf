@@ -119,7 +119,7 @@
 								target="_blank">INSTAGRAM</a></li>
 						</ul></li>
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
-						class="height-100p flex flex-ai-c flex">LOG IN/OUT</a>
+						class="height-100p flex flex-ai-c flex">Login/Join</a>
 						<ul>
 							<%
 								if (isLogined) {
@@ -132,9 +132,8 @@
 								} else {
 							%>
 							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">Login</a></li>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/join">Join</a></li>
+								href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">Login/Join</a></li>
+							
 							<% } %>
 						</ul></li>
 				</ul>
@@ -166,10 +165,8 @@
 					} else {
 				%>
 				<li><a
-					href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}"
-					class="block">Login</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/join"
-					class="block">Join</a></li>
+					href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}"
+					class="block">Login/Join</a></li>
 				<%
 					}
 				%>

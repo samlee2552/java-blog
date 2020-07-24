@@ -3,7 +3,9 @@
 	@import url('https://fonts.googleapis.com/css?family=Roboto:700');
 
 .slider {
+  overflow:hidden;
   margin-top:30%;
+  width:auto;
 }
 .slides {
     padding: 0;
@@ -244,11 +246,6 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 <%@ include file="/jsp/part/head.jspf"%>
 
-<div class="mobile-image visible-on-sm-down">
-	<img src="https://thumbs.gfycat.com/DifficultDiligentCobra-size_restricted.gif"/>
-</div>
-
-
 <div class="animated-title con">
 	<div class="text-top">
 		<div>
@@ -261,8 +258,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 </div>
 
 
-<div class="slider visible-on-md-up con">
-	<div class="slider-header">
+<div class="slider con">
+	<div class="slider-header ">
 		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>
 

@@ -32,28 +32,25 @@ public class MemberService extends Service {
 		return memberDao.isJoinableEmail(email);
 	}
 	//끝
-
+	
+	//회원가입시 중복체크
 	public int getMemberIdByLoginIdAndLoginPw(String loginId, String loginPw) {
 		return memberDao.getMemberIdByLoginIdAndLoginPw(loginId, loginPw);
 	}
 
-	
-	
 	public Member getMemberById(int id) {
 		return memberDao.getMemberById(id);
 	}
-
+	//비밀번호 찾기
 	public boolean checkMemberForFindPw(String loginId, String name, String email) {
-		
 		return memberDao.checkMemberForFindPw(loginId, name, email);
 	}
-
+	//비밀번호 변경
 	public int updatePw(String loginId, String loginPw) {
 		return memberDao.updatePw(loginId, loginPw);
 	}
-
+	//아이디 찾기
 	public String getMemberLoginId(String name, String email) {
-		// TODO Auto-generated method stub
 		return memberDao.getMemberLoginId(name, email);
 	}
 }
