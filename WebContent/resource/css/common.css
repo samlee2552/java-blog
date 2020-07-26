@@ -352,6 +352,7 @@ label[for] {
   height:100px;
   background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
   color:white;
+  margin-bottom:50px;
 }
 
 /*로고*/
@@ -361,7 +362,7 @@ label[for] {
   transition:0.3s;
 }
 .top-bar .logo:hover {
-  transform:translateX(50px);
+  transform:translateX(-50px);
   transition: 0.5s;
 }
 
@@ -411,6 +412,10 @@ label[for] {
 .top-bar .menu-box-1 > ul ul > li:hover > a {
     background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
     color:white;
+}
+
+#loginedMember {
+	color: #AAB7B8; width:50px; padding:0 20px; font-weight:bold;
 }
 /*탑바*/
 .mobile-top-bar {

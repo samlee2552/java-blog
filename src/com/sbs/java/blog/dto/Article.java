@@ -8,6 +8,7 @@ public class Article extends Dto {
 	private int hit;
 	private String title;
 	private String body;
+	private int memberId;
 
 	public Article(Map<String, Object> row) {
 		super(row);
@@ -17,13 +18,14 @@ public class Article extends Dto {
 		this.title = (String) row.get("title");
 		this.body = (String) row.get("body");
 		this.hit = (int) row.get("hit");
+		this.setMemberId((int) row.get("memberId"));
 		
 	}
 
 	@Override
 	public String toString() {
 		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
-				+ body + ", hit=" + hit + ", dto=" + super.toString() + "]";
+				+ body + ", hit=" + hit + ", memberId=" + memberId + " dto=" + super.toString() + "]";
 	}
 
 	public String getUpdateDate() {
@@ -68,5 +70,13 @@ public class Article extends Dto {
 	
 	public String getBodyForXTemplate() {
 		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
+	}
+
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 }

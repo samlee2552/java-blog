@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -94,7 +95,7 @@ public class Util {
 
 		return getString(req, paramName);
 	}
-
+	//임시 비밀번호 생성
 	public static String randomPassword(int length) {
 
 		int index = 0;
@@ -112,5 +113,9 @@ public class Util {
 			sb.append(charset[index]);
 		}
 		return sb.toString();
+	}
+
+	public static boolean isSuccess(Map<String, Object> rs) {
+		return ((String) rs.get("resultCode")).startsWith("S-1");
 	}
 }

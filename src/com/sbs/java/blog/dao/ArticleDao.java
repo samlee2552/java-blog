@@ -184,15 +184,26 @@ public class ArticleDao extends Dao {
 		return new Article(DBUtil.selectRow(dbConn, sql));
 	}
 
-	public Member getMemberById(int id) {
+	public int deleteArticle(int id) {
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT * ");
-		sql.append("FROM member ");
-		sql.append("WHERE 1 ");
-		sql.append("AND id = ? ", id);
+		sql.append("DELETE FROM article ");
+		sql.append("WHERE id = ?", id);
+		
+		return DBUtil.delete(dbConn, sql);
+	}
 
-		return new Member(DBUtil.selectRow(dbConn, sql));
+	public int modifyArticle(int id, int cateItemId, String title, String body) {
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE article");
+		sql.append("SET updateDate = NOW()");
+		sql.append(", title = ? ", title);
+		sql.append(", body = ? ", body);
+		sql.append(", cateItemId = ?", cateItemId);
+		sql.append("WHERE id = ?", id);
+
+		return DBUtil.update(dbConn, sql);
 	}
 	
 }

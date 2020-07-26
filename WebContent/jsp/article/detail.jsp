@@ -3,52 +3,12 @@
 <%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ include file="/jsp/part/head.jspf"%>
+<%@ include file="/jsp/part/toastUiEditor.jspf"%>
 <%
 	Article article = (Article) request.getAttribute("article");
-	List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
+List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
 %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- 제이쿼리 로딩 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
-
-<!-- 하이라이트 라이브러리, 언어 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/css.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/javascript.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/xml.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/php.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/php-template.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/sql.min.js"></script>
-
-<!-- 토스트 UI 에디터, 자바스크립트 코어 -->
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.js"></script>
-
-<!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 -->
-<script
-	src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
-<!-- detail javascript 플러그인 추가 -->
-<script type="text/x-template"
-	src="${pageContext.request.contextPath}/resource/js/article/detail.js"></script>
-
-
-<!-- 토스트 UI 에디터, CSS 코어 -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <style>
 .entire-box {
 	padding: 0 5px;
@@ -83,9 +43,11 @@
 	display: flex;
 	margin-bottom: 30px;
 	border-bottom: 1px solid black;
-	padding-right:100px;
+	padding-right: 100px;
 }
 </style>
+
+
 <div class="entire-box">
 	<div class="detail-box con">
 
@@ -103,8 +65,27 @@
 		<h3 align="right">
 			조회수:
 			<%=article.getHit()%></h3>
-
-
+		<div class="tools flex flex-jc-e">
+		<%
+						if ((boolean) article.getExtra().get("deleteAvailable") || loginedMemberId == 1) {
+					%>
+			<a onclick="if( confirm('게시물을 삭제하시겠습니까?') == false )return false;"
+				href="./doDelete?id=<%=article.getId()%>"><i style="color: #630808; padding:0 10px;'" class="fas fa-trash-alt"></i></a>
+		<%
+			}
+		%>
+		<%
+						if ((boolean) article.getExtra().get("deleteAvailable") || loginedMemberId == 1) {
+					%>
+			<a onclick="if( confirm('게시물을 수정하시겠습니까?') == false )return false;"
+				href="./modify?id=<%=article.getId()%>"><i style="color:grey; padding:0 10px;" class="fas fa-pen-fancy"></i></a>
+		
+		<%
+			}
+		%>
+			
+		</div>
+		
 		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
 
 		<div id="viewer1"></div>
@@ -135,7 +116,7 @@
 	<table class="reply-list">
 		<tr>
 			<th>🇳🇴</th>
-			<td ><%=articleReply.getId()%></td>
+			<td><%=articleReply.getId()%></td>
 			<th>작성자</th>
 			<td><%=articleReply.getMemberNickname()%></td>
 			<th>작성일</th>
@@ -151,19 +132,6 @@
 		
 	</table>
 </div>
-
-
-
-<script>
-	var editor1__initialValue = getBodyFromXTemplate('#origin1');
-	var editor1 = new toastui.Editor({
-		el : document.querySelector('#viewer1'),
-		initialValue : editor1__initialValue,
-		viewer : true,
-		plugins : [ toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin,
-				replPlugin, codepenPlugin ]
-	});
-</script>
 
 <script>
 	var WriteReplyFormSubmitted = false;

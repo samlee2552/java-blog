@@ -3,9 +3,7 @@
 	@import url('https://fonts.googleapis.com/css?family=Roboto:700');
 
 .slider {
-  overflow:hidden;
-  margin-top:30%;
-  width:auto;
+
 }
 .slides {
     padding: 0;
@@ -246,6 +244,7 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 <%@ include file="/jsp/part/head.jspf"%>
 
+<!--  
 <div class="animated-title con">
 	<div class="text-top">
 		<div>
@@ -254,16 +253,17 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	</div>
 	<div class="text-bottom">
 		<div>by SAM LEE</div>
-	</div>
+	</div>s
 </div>
 
+-->
 
-<div class="slider con">
+<div class="slider">
 	<div class="slider-header ">
 		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>
 
-	<ul class="slides">
+	<ul class="slides con">
 		<input type="radio" name="radio-btn" id="img-1" checked />
 		<li class="slide-container">
 			<div class="slide">

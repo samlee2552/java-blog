@@ -261,6 +261,7 @@
 		</form>
 		<form action="doLogin" method="POST" class="login-form"
 			onsubmit="submitLoginForm(this); return false;">
+			<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
 			<input type="hidden" name="loginPwReal" /> 
 			<h1 style="padding: 0 0 30px 0;">로그인</h1>
 			<input name="loginId" type="text" placeholder="아이디" /> <input

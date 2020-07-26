@@ -5,9 +5,9 @@
 	pageEncoding="UTF-8"%>
 <%
 	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
-	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-	Member loginedMember = (Member) request.getAttribute("loginedMember");
-	boolean isLogined = (boolean) request.getAttribute("isLogined");
+int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+Member loginedMember = (Member) request.getAttribute("loginedMember");
+boolean isLogined = (boolean) request.getAttribute("isLogined");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -77,13 +77,24 @@
 		</a>
 	</div>
 
+
+
 	<div class="top-bar visible-on-md-up">
-		<div class="con height-100p flex flex-jc-sb">
-			<a href="${pageContext.request.contextPath}/s/home/main"
-				class="logo flex flex-ai-c"> <img
+		<div class="con height-100p flex">
+			<a href="${pageContext.request.contextPath}/s/home/main" class="logo">
+				<img
 				src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png"
 				style="width: 100px" />
 			</a>
+			<%
+				if (loginedMember != null) {
+			%>
+			<div><a href="${pageContext.request.contextPath}/s/member/memberInfo" id="loginedMember" class="height-100p flex flex-ai-c"><%=loginedMember.getNickname()%></a>
+		
+			</div>
+			<%
+				}
+			%>
 
 			<nav class="menu-box-1">
 				<ul class="flex height-100p">
@@ -133,8 +144,10 @@
 							%>
 							<li><a class="block"
 								href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">Login/Join</a></li>
-							
-							<% } %>
+
+							<%
+								}
+							%>
 						</ul></li>
 				</ul>
 			</nav>
@@ -204,13 +217,3 @@
 			</ul>
 		</nav>
 	</div>
-
-	<%
-		if (loginedMember != null) {
-	%>
-	<div class="con"><%=loginedMember.getName()%>
-		회원님 환영합니다.
-	</div>
-	<%
-		}
-	%>

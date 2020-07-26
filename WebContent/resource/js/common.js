@@ -1,3 +1,5 @@
+console.clear();
+
 function MobileSideBar__init() {
 	$('.mobile-top-bar .btn-toggle-mobile-side-bar').click(function() {
 		var $this = $(this);
@@ -11,14 +13,6 @@ function MobileSideBar__init() {
 		}
 	});
 }
-
-function getBodyFromXTemplate(selector) {
-	return $(selector).html().trim().replace(/<!--REPLACE:script-->/gi, 'script');
-}
-
-$(function() {
-	MobileSideBar__init();
-});
 
 // 유튜브 플러그인 시작
 function youtubePlugin() {
@@ -216,3 +210,7 @@ function getUrlParams(url) {
 	return params;
 }
 // lib 끝
+
+$(function() {
+	MobileSideBar__init();
+});
