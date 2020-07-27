@@ -255,9 +255,20 @@ public class ArticleController extends Controller {
 		}
 
 		int itemsInAPage = 10;
+		int blockCount = 5;
+		
+		//페이지당 게시물 10개
+		// 총 게시물 수
 		int totalCount = articleService.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
+		// 총 페이지 수
 		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
-
+		int blockNum = (int)Math.floor((page-1)/ blockCount);
+	    int blockStartNum = (blockCount * blockNum) + 1;
+	    int blockLastNum = blockStartNum + (blockCount-1);
+	    
+	    
+	    req.setAttribute("blockStartNum", blockStartNum);
+	    req.setAttribute("blockLastNum", blockLastNum);
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("page", page);

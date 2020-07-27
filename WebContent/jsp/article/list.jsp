@@ -11,7 +11,6 @@
 	margin-left: auto;
 	margin-right: auto;
 }
-
 .table-box>table {
 	width: 100%;
 	border-top: 3px solid black;
@@ -19,64 +18,51 @@
 	border-collapse: collapse;
 	text-align: center;
 }
-
 .table-box>table th, .table-box>table td {
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }
-
 .table-box>table th {
 	background: linear-gradient(to right, #0082c8, #0082c8);
 	color: white;
 }
-
 #paging {
 	text-align: center;
 	margin: 20px 0;
 	margin-bottom: 20px;
 }
-
 #paging ul {
 	display: inline-block;
 }
-
 #paging ul>li {
 	display: inline-block;
 	padding: 0 20px;
 }
-
 #paging ul>li>a {
 	padding: 0 10px;
 }
-
 #paging ul>li:hover>a {
 	background-color: #0082c8;
 	color: white;
 }
-
 #paging ul>li.current>a {
 	color: #f12711;
 }
-
 #paging ul>li.current:hover>a {
 	background-color: inherit;
 }
-
 #paging .btn {
 	border: 1px solid #afafaf;
 	border-radius: 15%;
 	padding: 0 10px;
 }
-
 .con>h1 {
 	margin-top: 5%;
 }
-
 .write-box {
 	text-align: center;
 	display: block;
 }
-
 .write-box>a {
 	display: inline-block;
 	background: #0082c8;
@@ -85,25 +71,20 @@
 	margin-bottom: 100px;
 	width: 150px;
 }
-
 .write-box>a:hover {
 	background: #0096E7;
 }
-
 .search-box {
 	margin-bottom: 30px;
 }
-
 .searchBar {
 	height: 36px;
 	width: 400px;
 }
-
 .title>a:hover {
 	text-decoration: underline;
 	color: #5A5A5A;
 }
-
 .searchButton {
 	width: 40px;
 	height: 40px;
@@ -115,16 +96,12 @@
 	cursor: pointer;
 	font-size: 20px;
 }
-
 .tools> .icon {
 	visibility: hidden;
 }
-
 .tools > a {
 	padding: 0 5px;
 }
-
-
 .tools:hover > .icon {
 	visibility: visible;
 }
@@ -135,12 +112,12 @@
 	int totalPage = (int) request.getAttribute("totalPage");
 	int paramPage = (int) request.getAttribute("page");
 	String cateItemName = (String) request.getAttribute("cateItemName");
+	int blockStartNum = (int) request.getAttribute("blockStartNum");
+	int blockLastNum = (int) request.getAttribute("blockLastNum");
 %>
 <div class="article-list-box-1 table-box">
-
 	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
 	<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
-
 	<table>
 		<thead>
 			<tr height="50">
@@ -186,7 +163,6 @@
 		</tbody>
 	</table>
 </div>
-
 <!-- 페이징 -->
 <div id="paging">
 	<ul>
@@ -200,7 +176,8 @@
 			}
 		%>
 		<%
-			for (int i = 1; i <= totalPage; i++) {
+			for (int i = blockStartNum; i <= blockLastNum; i++) {
+				
 		%>
 		<li class="<%=i == paramPage ? "current" : ""%>"><a
 			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>"
@@ -219,7 +196,6 @@
 		%>
 	</ul>
 </div>
-
 <div class="con search-box flex flex-jc-c">
 	<form action="${pageContext.request.contextPath}/s/article/list">
 		<input type="hidden" name="page" value="1" /> <input type="hidden"
@@ -232,9 +208,7 @@
 		</button>
 	</form>
 </div>
-
 <div class="con write-box">
 	<a href="${pageContext.request.contextPath}/s/article/write">글쓰기</a>
 </div>
-
 <%@ include file="/jsp/part/foot.jspf"%>
