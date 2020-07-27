@@ -5,9 +5,9 @@
 	pageEncoding="UTF-8"%>
 <%
 	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
-int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-Member loginedMember = (Member) request.getAttribute("loginedMember");
-boolean isLogined = (boolean) request.getAttribute("isLogined");
+	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+	Member loginedMember = (Member) request.getAttribute("loginedMember");
+	boolean isLogined = (boolean) request.getAttribute("isLogined");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -89,8 +89,10 @@ boolean isLogined = (boolean) request.getAttribute("isLogined");
 			<%
 				if (loginedMember != null) {
 			%>
-			<div><a href="${pageContext.request.contextPath}/s/member/memberInfo" id="loginedMember" class="height-100p flex flex-ai-c"><%=loginedMember.getNickname()%></a>
-		
+			<div>
+				<a href="${pageContext.request.contextPath}/s/member/memberInfo"
+					id="loginedMember" class="height-100p flex flex-ai-c"><%=loginedMember.getNickname()%></a>
+
 			</div>
 			<%
 				}
@@ -143,7 +145,7 @@ boolean isLogined = (boolean) request.getAttribute("isLogined");
 								} else {
 							%>
 							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">Login/Join</a></li>
+								href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
 
 							<%
 								}
@@ -178,7 +180,7 @@ boolean isLogined = (boolean) request.getAttribute("isLogined");
 					} else {
 				%>
 				<li><a
-					href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}"
+					href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}"
 					class="block">Login/Join</a></li>
 				<%
 					}

@@ -48,6 +48,6 @@ public class Dto {
 
 	@Override
 	public String toString() {
-		return "id : " + id + " regDate :" + regDate + " extra : " + extra ;
+		return "Dto [id=" + id + ", regDate=" + regDate + ", extra=" + extra + "]";
 	}
 }

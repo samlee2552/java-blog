@@ -2,57 +2,40 @@ package com.sbs.java.blog.dto;
 
 import java.util.Map;
 
+/**
+ * @author SBS-
+ *
+ */
 public class ArticleReply extends Dto {
-	private String updateDate;
 	private int articleId;
-	private String memberNickname;
+	private String updateDate;
+	private int memberId;
 	private String body;
-	private int like;
-	
+	private String memberNickName;
+
 	public ArticleReply(Map<String, Object> row) {
 		super(row);
 
-		this.updateDate = (String) row.get("updateDate");
 		this.articleId = (int) row.get("articleId");
-		this.memberNickname = (String) row.get("memberNickname");
+		this.updateDate = (String) row.get("updateDate");
+		this.memberId = (int) row.get("memberId");
 		this.body = (String) row.get("body");
-		this.like = (int) row.get("like");
-		
+		this.memberNickName = (String) row.get("memberNickName");
 	}
-	
+
 	@Override
 	public String toString() {
-		return "ArticleReply [updateDate=" + updateDate + ", articleId=" + articleId + ", memberId=" + memberNickname
-				+ ", body=" + body + ", like=" + like + ", dto=" + super.toString() + "]";
+		return "ArticleReply [articleId=" + articleId + ", updateDate=" + updateDate + ", memberId=" + memberId
+				+ ", body=" + body + ", getId()=" + getId() + ", getRegDate()=" + getRegDate() + ", getExtra()="
+				+ getExtra() + "]";
 	}
 
 	public int getArticleId() {
 		return articleId;
 	}
 
-
 	public void setArticleId(int articleId) {
 		this.articleId = articleId;
-	}
-
-
-	public String getMemberNickname() {
-		return memberNickname;
-	}
-
-
-	public void setMemberNickname(String memberNickname) {
-		this.memberNickname = memberNickname;
-	}
-
-
-	public int getLike() {
-		return like;
-	}
-
-
-	public void setLike(int like) {
-		this.like = like;
 	}
 
 	public String getUpdateDate() {
@@ -63,6 +46,13 @@ public class ArticleReply extends Dto {
 		this.updateDate = updateDate;
 	}
 
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
 
 	public String getBody() {
 		return body;
@@ -72,8 +62,16 @@ public class ArticleReply extends Dto {
 		this.body = body;
 	}
 	
-	
 	public String getBodyForXTemplate() {
 		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
 	}
+
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
+
 }

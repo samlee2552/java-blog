@@ -86,7 +86,19 @@ List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("a
 			
 		</div>
 		
-		<script type="text/x-template" id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
+		<script type="text/x-template" id="origin1"
+						style="display: none;"><%=article.getBodyForXTemplate()%></script>
+					<div id="viewer1"></div> <script>
+						var editor1__initialValue = getBodyFromXTemplate('#origin1');
+						var editor1 = new toastui.Editor({
+							el : document.querySelector('#viewer1'),
+							initialValue : editor1__initialValue,
+							viewer : true,
+							plugins : [
+									toastui.Editor.plugin.codeSyntaxHighlight,
+									youtubePlugin, replPlugin, codepenPlugin ]
+						});
+					</script>
 
 		<div id="viewer1"></div>
 	</div>
@@ -118,7 +130,7 @@ List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("a
 			<th>🇳🇴</th>
 			<td><%=articleReply.getId()%></td>
 			<th>작성자</th>
-			<td><%=articleReply.getMemberNickname()%></td>
+			
 			<th>작성일</th>
 			<td><%=articleReply.getRegDate()%></td>
 		</tr>

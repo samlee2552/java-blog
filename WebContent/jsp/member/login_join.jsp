@@ -9,7 +9,7 @@
 
 .login-page {
 	width: 360px;
-	padding: 5% 0 0;
+	padding: 0 0 0;
 	margin: auto;
 }
 
@@ -113,6 +113,7 @@
 .container .info span .fa {
 	color: #EF3B3A;
 }
+
 /* cus */
 </style>
 
@@ -261,7 +262,7 @@
 		</form>
 		<form action="doLogin" method="POST" class="login-form"
 			onsubmit="submitLoginForm(this); return false;">
-			<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
+			<input type="hidden" name="redirectUri" value="${param.afterLoginRedirectUri}" />
 			<input type="hidden" name="loginPwReal" /> 
 			<h1 style="padding: 0 0 30px 0;">로그인</h1>
 			<input name="loginId" type="text" placeholder="아이디" /> <input

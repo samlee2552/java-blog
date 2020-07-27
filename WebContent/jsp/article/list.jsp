@@ -115,13 +115,26 @@
 	cursor: pointer;
 	font-size: 20px;
 }
+
+.tools> .icon {
+	visibility: hidden;
+}
+
+.tools > a {
+	padding: 0 5px;
+}
+
+
+.tools:hover > .icon {
+	visibility: visible;
+}
 <!--
 </style>
 <%
-List<Article> articles = (List<Article>) request.getAttribute("articles");
-int totalPage = (int) request.getAttribute("totalPage");
-int paramPage = (int) request.getAttribute("page");
-String cateItemName = (String) request.getAttribute("cateItemName");
+	List<Article> articles = (List<Article>) request.getAttribute("articles");
+	int totalPage = (int) request.getAttribute("totalPage");
+	int paramPage = (int) request.getAttribute("page");
+	String cateItemName = (String) request.getAttribute("cateItemName");
 %>
 <div class="article-list-box-1 table-box">
 
@@ -138,7 +151,6 @@ String cateItemName = (String) request.getAttribute("cateItemName");
 				<th>작성자</th>
 				<th>조회수</th>
 				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -153,20 +165,16 @@ String cateItemName = (String) request.getAttribute("cateItemName");
 					href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
 				<td><%=article.getExtra().get("writer")%></td>
 				<td><%=article.getHit()%></td>
-				<td width="">
+				<td width="10%">
 					<%
-						if ((boolean) article.getExtra().get("deleteAvailable") || loginedMemberId == 1) {
-					%> <a
-					onclick="if( confirm('게시물을 삭제하시겠습니까?') == false )return false;"
-					href="./doDelete?id=<%=article.getId()%>">⛔</a>
-				</td>
-				<%
-					}
-				%>
-				<td width="">
-					<%
-						if ((boolean) article.getExtra().get("modifyAvailable") || loginedMemberId == 1) {
-					%><a href="./modify?id=<%=article.getId()%>">✍</a>
+						if ((boolean) article.getExtra().get("deleteAvailable")
+									|| (boolean) article.getExtra().get("modifyAvailable") || loginedMemberId == 1) {
+					%>
+					<div class="tools">
+						<a href=""><i class="fas fa-ellipsis-h"></i></a> 
+						<a class="icon" onclick="if( confirm('게시물을 삭제하시겠습니까?') == false )return false;" href="./doDelete?id=<%=article.getId()%>">⛔</a>
+						<a class="icon" href="./modify?id=<%=article.getId()%>">✍</a>
+					</div>
 				</td>
 				<%
 					}

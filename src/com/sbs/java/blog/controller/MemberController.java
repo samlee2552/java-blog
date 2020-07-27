@@ -106,9 +106,9 @@ public class MemberController extends Controller {
 		}
 
 		session.setAttribute("loginedMemberId", loginedMemberId);
-		String redirectUrl = Util.getString(req, "redirectUrl", "../home/main");
+		String redirectUri = Util.getString(req, "redirectUri", "../home/main");
 
-		return String.format("html:<script> alert('로그인 되었습니다.'); location.replace('" + redirectUrl + "'); </script>");
+		return String.format("html:<script> alert('로그인 되었습니다.'); location.replace('" + redirectUri + "'); </script>");
 	}
 	//회원가입
 	private String doActionDoJoin() {
