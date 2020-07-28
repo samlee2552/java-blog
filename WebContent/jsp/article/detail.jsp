@@ -6,46 +6,13 @@
 <%
 	Article article = (Article) request.getAttribute("article");
 %>
-<style>
-.entire-box {
-	padding: 0 5px;
-}
 
-.detail-box {
-	margin-top: 100px;
-	border: 1px solid #BFC9CA;
-	border-radius: 20px 50px;
-	padding: 10px;
-	margin-bottom: 100px;
-}
-
-.writeReply-form-box {
-	margin-top: 30px;
-	padding: 5px;
-	margin-bottom: 100px;
-}
-
-.form1 .form-row>.input>input, .form1 .form-row>.input>textarea {
-	display: block;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 10px;
-}
-
-.reply-list {
-	display: flex;
-	margin-bottom: 30px;
-	border-bottom: 1px solid black;
-	padding-right: 100px;
-}
-</style>
 <div class="con">
 	<h1>게시물 상세페이지</h1>
 </div>
 
-<div entire-box>
-	<div class="con table-box flex flex-jc-c">
-	<table >
+<div class="con table-box">
+	<table style="width:900px;">
 		<colgroup>
 			<col width="200">
 		</colgroup>
@@ -99,9 +66,8 @@
 			</tr>
 		</tbody>
 	</table>
-	</div>	
-</div>
 
+</div>
 
 
 <%@ include file="/jsp/part/foot.jspf"%>

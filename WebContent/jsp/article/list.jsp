@@ -97,13 +97,13 @@
 	font-size: 20px;
 }
 .tools> .icon {
-	visibility: hidden;
+	display: none;
 }
 .tools > a {
-	padding: 0 5px;
+	padding: 0 3px;
 }
 .tools:hover > .icon {
-	visibility: visible;
+	display: inline-block;	
 }
 <!--
 </style>
@@ -117,16 +117,16 @@
 %>
 <div class="article-list-box-1 table-box">
 	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
-	<h3 class="text-align-right">🔢 총 개수: ${totalCount}</h3>
+	<h3 class="text-align-right">🔢 게시물 수: ${totalCount}</h3>
 	<table>
 		<thead>
 			<tr height="50">
 				<th>🇳🇴</th>
 				<th>📅 등록일</th>
-				<th class="visible-on-md-up">📆 수정일</th>
 				<th>🔤 제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
+				<th>👨‍💻 작성자</th>
+				<th>📈 조회</th>
+				<th>👍 추천</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -135,14 +135,14 @@
 				for (Article article : articles) {
 			%>
 			<tr height="100">
-				<td><a href="./detail?id=<%=article.getId()%>"><%=article.getId()%></a></td>
-				<td><%=article.getRegDate().substring(0, 10)%></td>
-				<td class="visible-on-md-up"><%=article.getUpdateDate().substring(0, 10)%></td>
-				<td class="title" style="font-weight: bold"><a
+				<td style="font-weight: bold"><a href="./detail?id=<%=article.getId()%>"><%=article.getId()%></a></td>
+				<td ><%=article.getRegDate().substring(0, 10)%></td>
+				<td width="35%" class="title" style="font-weight: bold"><a
 					href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
 				<td><%=article.getExtra().get("writer")%></td>
 				<td><%=article.getHit()%></td>
-				<td width="10%">
+				<td><%=article.getHit()%></td>
+				<td width="9%">
 					<%
 						if ((boolean) article.getExtra().get("deleteAvailable")
 									|| (boolean) article.getExtra().get("modifyAvailable") || loginedMemberId == 1) {
