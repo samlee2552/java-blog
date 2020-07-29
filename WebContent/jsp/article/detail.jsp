@@ -6,13 +6,18 @@
 <%
 	Article article = (Article) request.getAttribute("article");
 %>
-
-<div class="con">
+<style>
+	.table-box>s {
+	width: 100%;
+	border-collapse: collapse;
+}
+</style>
+<div class="content">
 	<h1>게시물 상세페이지</h1>
 </div>
 
-<div class="con table-box">
-	<table style="width:900px;">
+<div class="content table-box">
+	<table>
 		<colgroup>
 			<col width="200">
 		</colgroup>
@@ -58,16 +63,12 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<script type="text/x-template"><%=article.getBodyForXTemplate()%></script>
-					<div class="toast-editor toast-editor-viewer"></div>
-				</td>
-			</tr>
 		</tbody>
 	</table>
-
+		<script type="text/x-template"><%=article.getBodyForXTemplate()%></script>
+					<div class="toast-editor toast-editor-viewer"></div>
 </div>
+
 
 
 <%@ include file="/jsp/part/foot.jspf"%>

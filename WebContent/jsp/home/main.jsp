@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/jsp/part/head.jspf"%>
 <style>
 	@import url('https://fonts.googleapis.com/css?family=Roboto:700');
 
 .slider {
-
+max-width: 100%;
+	width: 800px;
 }
 .slides {
     padding: 0;
@@ -12,6 +14,8 @@
     display: block;
     margin: 0 auto;
     position: relative;
+    max-width: 100%;
+	width: 800px;
 }
 
 .slides * {
@@ -25,7 +29,10 @@
 
 .slides input { display: none; }
 
-.slide-container { display: block; }
+.slide-container { display: inline-block; 
+	max-width: 100%;
+	width: 800px;
+}
 
 .slide {
     top: 0;
@@ -38,17 +45,20 @@
     transform: scale(0);
 
     transition: all .7s ease-in-out;
+    max-width: 100%;
+	width: 800px;
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
+	max-width: 100%;
+	width: 800px;
 }
 
 .nav label {
 
-    width: 100px;
-    height: 100%;
+    width: auto;
+    max-height: 100%;
+	height: 450px;
     display: none;
     position: absolute;
 
@@ -234,15 +244,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	color:#134E5E;
 }	
 
-.mobile-image > img {
-	text-align:center;
-	width:390px;
-	padding:10px;
-}
 
 </style>
-
-<%@ include file="/jsp/part/head.jspf"%>
 
 <!--  
 <div class="animated-title con">
@@ -258,12 +261,12 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 -->
 
-<div class="slider">
+<div class="slider con">
 	<div class="slider-header ">
 		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>
 
-	<ul class="slides con">
+	<ul class="slides flex flex-jc-c">
 		<input type="radio" name="radio-btn" id="img-1" checked />
 		<li class="slide-container">
 			<div class="slide">
@@ -331,8 +334,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 					src="https://generacionxbox.com/wp-content/uploads/2018/09/sekiro-shadows-die-twice-gx.jpg" />
 			</div>
 			<div class="nav">
-				<label for="img-5" class="prev">&#x2039;</label> <label for="img-1"
-					class="next">&#x203a;</label>
+				<label for="img-5" class="prev">&#x2039;</label> 
+				<label for="img-1" class="next">&#x203a;</label>
 			</div>
 		</li>
 
