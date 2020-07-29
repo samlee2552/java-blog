@@ -261,12 +261,12 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 -->
 
-<div class="slider con">
+<div class="slider content">
 	<div class="slider-header ">
 		<span>MY PERSONAL </span> <span>RECOMMENDATION 🎮</span>
 	</div>
 
-	<ul class="slides flex flex-jc-c">
+	<ul class="slides">
 		<input type="radio" name="radio-btn" id="img-1" checked />
 		<li class="slide-container">
 			<div class="slide">

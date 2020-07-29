@@ -27,17 +27,22 @@ public class ArticleController extends Controller {
 
 	public String doAction() {
 		switch (actionMethodName) {
+		//게시물 리스트
 		case "list":
 			return doActionList();
+		//게시물 상세보기
 		case "detail":
 			return doActionDetail();
+		//게시물 작성
 		case "doWrite":
 			return doActionDoWrite();
+		
 		case "write":
 			return doActionWrite();
-
+		//게시물 삭제
 		case "doDelete":
 			return doActionDoDelete();
+		//게시물 수정
 		case "modify":
 			return doActionModify();
 		case "doModify":

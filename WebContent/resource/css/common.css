@@ -101,10 +101,7 @@ label[for] {
   display:block;
 }
 
-.con {
-  margin-left:auto;
-  margin-right:auto;
-}
+
 
 
 .margin-0-auto {
@@ -334,10 +331,14 @@ label[for] {
 /* 커스텀 */
 .con {
   max-width:1356px;
+  /*margin-left:auto;
+  	margin-right:auto;*/
 }
 
 .content {
-	max-width:900px;
+	max-width:1000px;
+	margin-left:auto;
+  	margin-right:auto;
 }
 
 

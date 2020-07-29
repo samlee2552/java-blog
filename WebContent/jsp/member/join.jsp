@@ -7,9 +7,9 @@
 <style>
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.find-page {
+.login-page {
 	width: 360px;
-	padding: 5% 0 0;
+	padding: 0 0 0;
 	margin: auto;
 }
 
@@ -49,8 +49,8 @@
 	padding: 15px;
 	color: #FFFFFF;
 	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
+	-webkit-transition: all 0.1 ease;
+	transition: all 0.1 ease;
 	cursor: pointer;
 	border-radius: 5px;
 }
@@ -70,7 +70,7 @@
 	text-decoration: none;
 }
 
-.form .findLoginId-form {
+.form .login-form {
 	display: none;
 }
 
@@ -113,39 +113,29 @@
 .container .info span .fa {
 	color: #EF3B3A;
 }
+
 /* cus */
 </style>
 
 <script>
-	function submitFindLoginIdForm(form) {
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
-			alert('이름을 입력해주세요.');
-			form.name.focus();
-			return;
-		}
+	var JoinFormSubmitted = false;
 
-		form.email.value = form.email.value.trim();
-		if (form.email.value.length == 0) {
-			alert('이메일을 입력해주세요.')
-			form.email.focus();
-			return;
-		} else {
-			if (!CheckEmail(form.email.value)) {
-				alert('올바른 이메일 형식이 아닙니다.');
-				form.email.focus();
-				return;
-			}
-		}
-
-		form.submit();
-	}
-
-	var FindPwFormSubmitted = false;
-
-	function submitFindPwForm(form) {
-		if (FindPwFormSubmitted) {
+	function submitJoinForm(form) {
+		if (JoinFormSubmitted) {
 			alert('처리중입니다.');
+			return;
+		}
+
+		if (form.loginId.value.indexOf(' ') != -1) {
+			alert('아이디를 입력해주세요.');
+			form.loginId.focus();
+			return;
+		}
+
+		form.loginId.value = form.loginId.value.trim();
+		if (form.loginId.value.length == 0) {
+			alert('아이디를 입력해주세요.')
+			form.loginId.focus();
 			return;
 		}
 
@@ -161,17 +151,17 @@
 			}
 		}
 
-		form.loginId.value = form.loginId.value.trim();
-		if (form.loginId.value.length == 0) {
-			alert('아이디를 입력해주세요.')
-			form.loginId.focus();
-			return;
-		}
-
 		form.name.value = form.name.value.trim();
 		if (form.name.value.length == 0) {
 			alert('이름을 입력해주세요.')
 			form.name.focus();
+			return;
+		}
+
+		form.nickname.value = form.nickname.value.trim();
+		if (form.nickname.value.length == 0) {
+			alert('닉네임을 입력해주세요.')
+			form.nickname.focus();
 			return;
 		}
 
@@ -188,6 +178,36 @@
 			}
 		}
 
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value.length == 0) {
+			alert('비밀번호를 입력해주세요.')
+			form.loginPw.focus();
+			return;
+		}
+
+		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+
+		if (form.loginPwConfirm.value.length < 6) {
+			alert('비밀번호를 6자 이상으로 입력해주세요.')
+			form.loginPwConfirm.focus();
+			return;
+		}
+		
+		if (form.loginPwConfirm.value.length == 0) {
+			alert('비밀번호를 확인해주세요.')
+			form.loginPwConfirm.focus();
+			return;
+		}
+
+		if (form.loginPw.value != form.loginPwConfirm.value) {
+			alert('비밀번호가 일치하지 않습니다.')
+			form.loginPwConfirm.focus();
+			return;
+		}
+
+		form.loginPwReal.value = sha256(form.loginPw.value);
+		form.loginPw.value = '';
+		form.loginPwConfirm.value = '';
 		form.submit();
 	}
 
@@ -209,44 +229,24 @@
 		}
 	}
 </script>
-<div class="find-page">
+
+<div class="login-page">
 	<div class="form">
-		<form action="doFindLoginId" method="POST" class="findLoginId-form"
-			onsubmit="submitFindLoginIdForm(this); return false;">
-			<h1 style="padding: 0 0 30px 0;">아이디 찾기</h1>
-			<input name="name" type="text" placeholder="이름" /> <input
-				name="email" type="email" placeholder="이메일" />
-			<button type="submit">아이디 찾기</button>
+		<form action="doJoin" method="POST" class="register-form"
+			onsubmit="submitJoinForm(this); return false;">
+			<h1 style="padding: 0 0 30px 0;">회원가입</h1>
+			<input type="hidden" name="loginPwReal" /> <input name="loginId"
+				type="text" placeholder="아이디" /> <input name="name" type="text"
+				placeholder="이름" /> <input name="nickname" type="text"
+				placeholder="닉네임" /> <input name="email" type="email"
+				placeholder="이메일" /> <input name="loginPw" type="password"
+				placeholder="비밀번호" /> <input name="loginPwConfirm" type="password"
+				placeholder="비밀번호 확인" />
+			<button type="submit">가입하기</button>
 			<p class="message">
-				비밀번호를 잊으셨나요? <a href="#">비밀번호 찾기</a>
-			</p>
-			<p class="message">
-				아이디를 찾으셨나요? <a href="login_join">로그인</a>
-			</p>
-		</form>
-		<form action="doFindPw" method="POST" class="findPw-form"
-			onsubmit="submitFindPwForm(this); return false;">
-			<h1 style="padding: 0 0 30px 0;">비밀번호 찾기</h1>
-			<input name="loginId" type="text" placeholder="아이디" /> <input
-				name="name" type="text" placeholder="이름" /> <input name="email"
-				type="email" placeholder="이메일" />
-			<button type="submit">비밀번호 찾기</button>
-			<p class="message">
-				아이디를 잊으셨나요? <a href="#">아이디 찾기</a>
-			</p>
-			<p class="message">
-				비밀번호를 찾으셨나요?<a href="login_join">로그인</a>
+				회원이신가요? <a href="login">로그인</a>
 			</p>
 		</form>
 	</div>
 </div>
-
-<script>
-	$('.message a').click(function() {
-		$('form').animate({
-			height : "toggle",
-			opacity : "toggle"
-		}, "slow");
-	});
-</script>
 <%@ include file="/jsp/part/foot.jspf"%>

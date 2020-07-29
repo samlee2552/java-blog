@@ -18,18 +18,22 @@ public class MemberController extends Controller {
 		switch (actionMethodName) {
 		case "doJoin":
 			return doActionDoJoin();
-		case "login_join":
-			return doActionLogin_Join();
+		case "join":
+			return doActionJoin();
 		case "doLogin":
 			return doActionDoLogin();
+		case "login":
+			return doActionLogin();
 		case "logout":
 			return doActionLogout();
 		case "memberInfo":
 			return doActionShowMemberInfo();
-		case "findLoginId_Pw":
-			return doActionFindLoginId_Pw();
+		case "findLoginId":
+			return doActionFindLoginId();
 		case "doFindLoginId":
 			return doActionDoFindLoginId();
+		case "findLoginPw":
+			return doActionFindLoginPw();
 		case "doFindPw":
 			return doActionDoFindPw();
 		}
@@ -37,17 +41,29 @@ public class MemberController extends Controller {
 		return "";
 	}
 
-	private String doActionFindLoginId_Pw() {
-		return "member/findLoginId_Pw.jsp";
+	// jsp 주소 리턴 메서드 시작
+	private String doActionFindLoginPw() {
+		return "member/findLoginPw.jsp";
+		}
+
+	private String doActionFindLoginId() {
+		return "member/findLoginId.jsp";
 	}
 
 	private String doActionShowMemberInfo() {
 		return "member/memberInfo.jsp";
 	}
 
-	private String doActionLogin_Join() {
-		return "member/login_join.jsp";
+	private String doActionJoin() {
+		return "member/join.jsp";
 	}
+	
+	private String doActionLogin() {
+		return "member/login.jsp";
+	}
+	
+	// jsp 주소 리턴 메서드 끝
+	
 	//아아디 찾기
 	private String doActionDoFindLoginId() {
 		String name = req.getParameter("name");

@@ -75,7 +75,7 @@
 			</a>
 		</div>
 
-	<div class="top-bar visible-on-md-up">
+	<div class="top-bar visible-on-md-up flex flex-jc-c">
 		
 		<div class="con height-100p flex">
 			<a href="${pageContext.request.contextPath}/s/home/main" class="logo">
@@ -142,7 +142,7 @@
 								} else {
 							%>
 							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
+								href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
 
 							<%
 								}

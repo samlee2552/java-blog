@@ -249,7 +249,7 @@ text-align:center;
 		%>
 	</ul>
 </div>
-<div class="con search-box flex flex-jc-c">
+<div class="content search-box flex flex-jc-c">
 	<form action="${pageContext.request.contextPath}/s/article/list">
 		<input type="hidden" name="page" value="1" /> <input type="hidden"
 			name="cateItemId" value="${param.cateItemId}" /> <input
@@ -261,7 +261,7 @@ text-align:center;
 		</button>
 	</form>
 </div>
-<div class="con write-box">
+<div class="content write-box">
 	<a href="${pageContext.request.contextPath}/s/article/write">글쓰기</a>
 </div>
 <%@ include file="/jsp/part/foot.jspf"%>
