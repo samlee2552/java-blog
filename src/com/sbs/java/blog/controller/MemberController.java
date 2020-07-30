@@ -106,7 +106,6 @@ public class MemberController extends Controller {
 
 	// 로그아웃
 	private String doActionLogout() {
-
 		session.removeAttribute("loginedMemberId");
 		return "html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>";
 	}
@@ -157,7 +156,7 @@ public class MemberController extends Controller {
 		String title = "회원가입을 환영합니다!.";
 
 		String body = String.join(System.getProperty("line.separator"), "<h1>회원이 되신 것을 환영합니다~!!!</h1>",
-				"<h3>" + name + " 회원님의 가입을 축하합니다~! 감사합니다!.</h3>");
+				"<h3>" + name + " 회원님의 가입을 축하합니다~! 감사합니다!.</h3>", "<a href=\"https://samlee.my.iu.gy/\" target=\"_blank\">사이트로 이동</a>"); 
 
 		boolean sendMailDone = mailService.send(email, title, body) == 1;
 		if (sendMailDone == false) {

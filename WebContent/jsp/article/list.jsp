@@ -1,5 +1,3 @@
-<%@ page import="java.util.List"%>
-<%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -128,7 +126,6 @@
 	padding: 0 4px;
 }
 
-
 .tools:hover .icon {
 	display: inline-block;
 }
@@ -138,115 +135,87 @@
 }
 
 .tools {
-text-align:center;	
+	text-align: center;
 }
-
 <!--
 </style>
-<%
-	List<Article> articles = (List<Article>) request.getAttribute("articles");
-	int totalPage = (int) request.getAttribute("totalPage");
-	int paramPage = (int) request.getAttribute("page");
-	String cateItemName = (String) request.getAttribute("cateItemName");
-	int blockStartNum = (int) request.getAttribute("blockStartNum");
-	int blockLastNum = (int) request.getAttribute("blockLastNum");
-%>
+
 <div class="article-list-box-1 table-box content">
 	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
 	<h3 class="text-align-right">🔢 게시물 수: ${totalCount}</h3>
-	<table>
+	<table style="table-layout: fixed;">
 		<thead>
 			<tr height="50">
 				<th>🇳🇴</th>
 				<th class="visible-on-md-up">📅 게시일</th>
 				<th>🔤 제목</th>
-				<th style="white-space: nowrap">‍✍</th>
-				<th style="white-space: nowrap">📈</th>
-				<th style="white-space: nowrap">👍</th>
-				<%
-					if (isLogined) {
-				%>
-				<th></th>
-				<%
-					}
-				%>
+				<th>‍✍</th>
+				<th>📈</th>
+				<th>👍</th>
+				<c:if test="${isLogined}">
+					<th></th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				for (Article article : articles) {
-			%>
-			<tr height="100">
-				<td width="10%" style="font-weight: bold"><a
-					href="./detail?id=<%=article.getId()%>"><%=article.getId()%></a></td>
-				<td class="visible-on-md-up" width="10%"><%=article.getRegDate().substring(0, 10)%></td>
-				<td class="title" style="font-weight: bold"><a
-					href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
-				<td width="9%"><%=article.getExtra().get("writer")%></td>
-				<td width="9%"><%=article.getHit()%></td>
-				<td width="9%"><%=article.getHit()%></td>
-				<%
-					if (isLogined) {
-				%>
-				<td width="9%">
-					<%
-						if ((boolean) article.getExtra().get("deleteAvailable")
-										|| (boolean) article.getExtra().get("modifyAvailable") || loginedMemberId == 1) {
-					%>
-					<div class="tools flex flex-jc-c">
-						<a id="button" href=""><i class="fas fa-ellipsis-h"></i></a> 
-						<div class="icon">
-							<a onclick="if( confirm('게시물을 삭제하시겠습니까?') == false )return false;"
-							href="./doDelete?id=<%=article.getId()%>">⛔</a> 
-						</div>
-						<div class="icon">
-							<a class="visible-on-md-up" onclick="if( confirm('게시물을 수정하시겠습니까?') == false )return false;"
-							href="./modify?id=<%=article.getId()%>">📝</a>
-						</div>
-					</div> <%
- 	}
- %>
-				</td>
-				<%
-					}
-				%>
-			</tr>
-			<%
-				}
-			%>
+			<c:forEach items="${articles}" var="article">
+				<tr height="100">
+					<td width="" style="font-weight: bold"><a
+						href="./detail?id=${article.id}">${article.id}</a></td>
+					<td class="visible-on-md-up" width="10%">${article.regDate.substring(0, 10)}</td>
+					<td title="제목입니다" width="100px" class="title"
+						style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><a
+						href="./detail?id=${article.id}">${article.title}</a></td>
+					<td width="">${article.extra.writer}</td>
+					<td width="">${article.hit}</td>
+					<td width="">${article.like}</td>
+					<c:if test="${isLogined}">
+						<td width="9%">
+							<div class="tools flex flex-jc-c">
+								<c:if
+									test="${article.extra.deleteAvailable || loginedMemberId == 1}">
+									<a id="button" href=""><i class="fas fa-ellipsis-h"></i></a>
+									<div class="icon">
+										<a
+											onclick="if( confirm('게시물을 삭제하시겠습니까?') == false )return false;"
+											href="./doDelete?id=${article.id}">⛔</a>
+									</div>
+								</c:if>
+								<c:if
+									test="${article.extra.modifyAvailable || loginedMemberId == 1}">
+									<div class="icon">
+										<a class="visible-on-md-up"
+											onclick="if( confirm('게시물을 수정하시겠습니까?') == false )return false;"
+											href="./modify?id=${article.id}">📝</a>
+									</div>
+								</c:if>
+							</div>
+						</td>
+					</c:if>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>
 <!-- 페이징 -->
 <div id="paging">
 	<ul>
-		<%
-			if (paramPage != 1) {
-		%>
-		<li><a
-			href="./list?cateItemId=${param.cateItemId}&page=<%= paramPage -1 %>"
-			class="btn">PREV</a></li>
-		<%
-			}
-		%>
-		<%
-			for (int i = blockStartNum; i <= blockLastNum; i++) {
-		%>
-		<li class="<%=i == paramPage ? "current" : ""%>"><a
-			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>"
-			class="block"><%=i%></a></li>
-		<%
-			}
-		%>
-		<%
-			if (paramPage != totalPage) {
-		%>
-		<li><a
-			href="./list?cateItemId=${param.cateItemId}&page=<%= paramPage + 1 %>"
-			class="btn">NEXT</a></li>
-		<%
-			}
-		%>
+		<c:if test="${page != 1}">
+			<li><a
+				href="./list?cateItemId=${param.cateItemId}&page=${page - 1}"
+				class="btn">PREV</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${blockStartNum}" end="${blockLastNum}"
+			step="1">
+			<li class="${i == page ? 'current' : '' }"><a
+				href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+				class="block">${i}</a></li>
+		</c:forEach>
+		<c:if test="${page != totalPage }">
+			<li><a
+				href="./list?cateItemId=${param.cateItemId}&page=${page+1}"
+				class="btn">NEXT</a></li>
+		</c:if>
 	</ul>
 </div>
 <div class="content search-box flex flex-jc-c">

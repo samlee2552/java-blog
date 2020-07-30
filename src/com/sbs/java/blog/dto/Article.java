@@ -7,6 +7,7 @@ public class Article extends Dto {
 	private int cateItemId;
 	private int memberId;
 	private int hit;
+	private int like;
 	private String title;
 	private String body;
 	
@@ -35,12 +36,21 @@ public class Article extends Dto {
 		this.title = (String) row.get("title");
 		this.body = (String) row.get("body");
 		this.hit = (int) row.get("hit");
+		this.like = (int) row.get("like");
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
-				+ body + ", memberId=" + memberId + ", hit=" + hit + ", dto=" + super.toString() + "]";
+				+ body + ", memberId=" + memberId + ", hit=" + hit + ", like=" + like + ", dto=" + super.toString() + "]";
+	}
+
+	public int getLike() {
+		return like;
+	}
+
+	public void setLike(int like) {
+		this.like = like;
 	}
 
 	public String getUpdateDate() {

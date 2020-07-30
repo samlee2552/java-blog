@@ -1,6 +1,6 @@
 package com.sbs.java.blog.service;
 
-import com.sbs.java.blog.servlet.util.Util;
+import com.sbs.java.blog.util.Util;
 
 public class MailService {
 	private String gmailId;

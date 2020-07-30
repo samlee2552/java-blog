@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sbs.java.blog.config.Config;
 import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.service.ArticleService;
@@ -33,11 +34,7 @@ public abstract class Controller {
 		this.resp = resp;
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
-
-		String gmailId = (String) req.getAttribute("gmailId");
-		String gmailPw = (String) req.getAttribute("gmailPw");
-
-		mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
+		mailService = new MailService(Config.gmailId, Config.gmailPw, Config.mailFrom, Config.mailFromName);
 	}
 
 	public abstract String getControllerName();

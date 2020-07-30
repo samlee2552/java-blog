@@ -5,15 +5,15 @@
 <div style="display:block; text-align:center;" class="member-profile-box">
 	<h1>
 		이름 =
-		<%=loginedMember.getName()%></h1>
+		"${loginedMember.name}"</h1>
 
 	<h1>
 		닉네임 =
-		<%=loginedMember.getNickname()%></h1>
+		"${loginedMember.nickname}"</h1>
 
 	<h1>
 		이메일 =
-		<%=loginedMember.getEmail()%></h1>
+		"${loginedMember.email}"</h1>
 
 </div>
 

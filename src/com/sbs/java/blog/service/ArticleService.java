@@ -50,16 +50,16 @@ public class ArticleService extends Service {
 	private Map<String, Object> getReplyCheckRsModifyAvailable(ArticleReply articleReply, int actorId) {
 		return getReplyCheckRsDeleteAvailable(articleReply, actorId);
 	}
-	
+
 	public Map<String, Object> getReplyCheckRsModifyAvailable(int id, int actorId) {
 		ArticleReply articleReply = getArticleReply(id);
-		
+
 		return getReplyCheckRsModifyAvailable(articleReply, actorId);
 	}
-	
+
 	public Map<String, Object> getReplyCheckRsDeleteAvailable(int id, int actorId) {
 		ArticleReply articleReply = this.getArticleReply(id);
-		
+
 		return getReplyCheckRsDeleteAvailable(articleReply, actorId);
 	}
 
@@ -136,7 +136,7 @@ public class ArticleService extends Service {
 			return rs;
 		}
 
-		if (article.getMemberId() != actorId) {
+		if (article.getMemberId() != actorId && actorId != 1) {
 			rs.put("resultCode", "F-2");
 			rs.put("msg", "권한이 없습니다.");
 

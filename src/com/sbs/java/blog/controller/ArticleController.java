@@ -225,8 +225,7 @@ public class ArticleController extends Controller {
 
 	// 게시물 리스팅
 	private String doActionList() {
-		long startTime = System.nanoTime();
-		
+
 		int page = 1;
 
 		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
@@ -259,9 +258,9 @@ public class ArticleController extends Controller {
 			searchKeyword = Util.getString(req, "searchKeyword");
 		}
 
+		//*****************************페이징 처리 시작
 		int itemsInAPage = 10;
 		int blockCount = 5;
-		
 		//페이지당 게시물 10개
 		// 총 게시물 수
 		int totalCount = articleService.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
@@ -271,6 +270,7 @@ public class ArticleController extends Controller {
 	    int blockStartNum = (blockCount * blockNum) + 1;
 	    int blockLastNum = blockStartNum + (blockCount-1);
 	    
+		//*****************************페이징 처리 끝
 	    
 	    req.setAttribute("blockStartNum", blockStartNum);
 	    req.setAttribute("blockLastNum", blockLastNum);
@@ -283,12 +283,6 @@ public class ArticleController extends Controller {
 		List<Article> articles = articleService.getForPrintListArticles(loginedMemberId, page, itemsInAPage, cateItemId,
 				searchKeywordType, searchKeyword);
 		req.setAttribute("articles", articles);
-		
-		long endTime = System.nanoTime();
-		long estimatedTime = endTime - startTime;
-		
-		double seconds = estimatedTime / 1000000000.0;
-		System.out.println("seconds : " + seconds);
 		
 		return "article/list.jsp";
 	}

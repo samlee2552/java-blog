@@ -1,14 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.java.blog.dto.CateItem"%>
 <%@ page import="com.sbs.java.blog.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
-	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-	Member loginedMember = (Member) request.getAttribute("loginedMember");
-	boolean isLogined = (boolean) request.getAttribute("isLogined");
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -49,51 +45,45 @@
 	var isLogined = "${isLogined}" == "true";
 	var loginedMember = null;
 </script>
-<%
-	if (isLogined) {
-%>
-<script>
-	loginedMember = {};
-	loginedMember["id"] = parseInt("${loginedMember.id}");
-	loginedMember["regDate"] = "${loginedMember.regDate}";
-	loginedMember["loginId"] = "${loginedMember.loginId}";
-	loginedMember["name"] = "${loginedMember.name}";
-	loginedMember["nickname"] = "${loginedMember.nickname}";
-	loginedMember["email"] = "${loginedMember.email}";
-</script>
-<%
-	}
-%>
+
+<c:if test="${isLogined}">
+	<script>
+		loginedMember = {};
+		loginedMember["id"] = parseInt("${loginedMember.id}");
+		loginedMember["regDate"] = "${loginedMember.regDate}";
+		loginedMember["loginId"] = "${loginedMember.loginId}";
+		loginedMember["name"] = "${loginedMember.name}";
+		loginedMember["nickname"] = "${loginedMember.nickname}";
+		loginedMember["email"] = "${loginedMember.email}";
+	</script>
+</c:if>
+
 
 </head>
 
 <body>
 	<div class="top-logo visible-on-md-up" style="height: 200px">
-			<a href="${pageContext.request.contextPath}/s/home/main"> <img
-				src="https://i.ibb.co/KxCFk4H/c96faf4d-fb03-4e6a-81ae-c7dda197321e-200x200.png"
-				alt="">
-			</a>
-		</div>
+		<a href="${pageContext.request.contextPath}/s/home/main"> <img
+			src="https://i.ibb.co/KxCFk4H/c96faf4d-fb03-4e6a-81ae-c7dda197321e-200x200.png"
+			alt="">
+		</a>
+	</div>
 
 	<div class="top-bar visible-on-md-up flex flex-jc-c">
-		
+
 		<div class="con height-100p flex">
 			<a href="${pageContext.request.contextPath}/s/home/main" class="logo">
 				<img
 				src="https://i.ibb.co/thsWFQZ/0d8f74de-6032-4237-9aa4-36fbf1bb4060-200x200.png"
 				style="width: 100px" />
 			</a>
-			<%
-				if (loginedMember != null) {
-			%>
-			<div>
-				<a href="${pageContext.request.contextPath}/s/member/memberInfo"
-					id="loginedMember" class="height-100p flex flex-ai-c"><%=loginedMember.getNickname()%></a>
+			<c:if test="${isLogined}">
+				<div>
+					<a href="${pageContext.request.contextPath}/s/member/memberInfo"
+						id="loginedMember" class="height-100p flex flex-ai-c">${loginedMember.nickname}</a>
 
-			</div>
-			<%
-				}
-			%>
+				</div>
+			</c:if>
 
 			<nav class="menu-box-1">
 				<ul class="flex height-100p">
@@ -103,15 +93,12 @@
 						href="${pageContext.request.contextPath}/s/article/list"
 						class="height-100p flex flex-ai-c">Articles</a>
 						<ul>
-							<%
-								for (CateItem cateItem : cateItems) {
-							%>
-							<li><a
-								href="${pageContext.request.contextPath}/s/article/list?cateItemId=<%=cateItem.getId()%>"
-								class="block"><%=cateItem.getName()%></a></li>
-							<%
-								}
-							%>
+							<c:forEach items="${cateItems}" var="cateItem">
+
+								<li><a
+									href="${pageContext.request.contextPath}/s/article/list?cateItemId=${cateItem.id}"
+									class="block">${cateItem.name}</a></li>
+							</c:forEach>
 							<li><a class="block"
 								href="${pageContext.request.contextPath}/s/article/write">글
 									쓰기</a></li>
@@ -131,22 +118,16 @@
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
 						class="height-100p flex flex-ai-c flex">Login/Join</a>
 						<ul>
-							<%
-								if (isLogined) {
-							%>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
-							<%
-								} else {
-							%>
-							<li><a class="block"
-								href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
-
-							<%
-								}
-							%>
+							<c:if test="${isLogined}">
+								<li><a class="block"
+									href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
+								<li><a class="block"
+									href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
+							</c:if>
+							<c:if test="${isLogined==false}">
+								<li><a class="block"
+									href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
+							</c:if>
 						</ul></li>
 				</ul>
 			</nav>
@@ -167,21 +148,16 @@
 	<div class="mobile-side-bar visible-on-sm-down">
 		<nav class="menu-box-1">
 			<ul>
-				<%
-					if (isLogined) {
-				%>
-				<li><a
-					href="${pageContext.request.contextPath}/s/member/doLogout"
-					class="block">Logout</a></li>
-				<%
-					} else {
-				%>
-				<li><a
-					href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}"
-					class="block">Login/Join</a></li>
-				<%
-					}
-				%>
+				<c:if test="${isLogined}">
+					<li><a
+						href="${pageContext.request.contextPath}/s/member/doLogout"
+						class="block">Logout</a></li>
+				</c:if>
+				<c:if test="${isLogined==false}">
+					<li><a
+						href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}"
+						class="block">Login/Join</a></li>
+				</c:if>
 				<li><a href="${pageContext.request.contextPath}/s/home/main"
 					class="block">Home</a></li>
 				<li><a href="#" class="block">Articles</a>
@@ -189,15 +165,11 @@
 						<li><a
 							href="${pageContext.request.contextPath}/s/article/list"
 							class="block">전체</a></li>
-						<%
-							for (CateItem cateItem : cateItems) {
-						%>
-						<li><a
-							href="${pageContext.request.contextPath}/s/article/list?cateItemId=<%=cateItem.getId()%>"
-							class="block"><%=cateItem.getName()%></a></li>
-						<%
-							}
-						%>
+						<c:forEach items="${cateItems}" var="cateItem">
+							<li><a
+								href="${pageContext.request.contextPath}/s/article/list?cateItemId=${cateItem.id}%>"
+								class="block">{$cateItem.name</a></li>
+						</c:forEach>
 						<li><a class="block"
 							href="${pageContext.request.contextPath}/s/article/write">글
 								쓰기</a></li>
