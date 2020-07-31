@@ -7,7 +7,7 @@
 <style>
 /* cus */
 .modify-form-box {
-	margin-top: 30px;
+	margin-bottom: 50px;
 }
 </style>
 
@@ -46,8 +46,7 @@
 <div class="modify-form-box content">
 	<form action="doModify" method="POST" class="modify-form form1"
 		onsubmit="submitModifyForm(this); return false;">
-		<input type="hidden" name="id" value="${article.id}"> <input
-			type="hidden" name="body">
+		<input type="hidden" name="id" value="${article.id}">
 		<div class="form-row">
 			<div class="label">번호</div>
 			<div class="input">${article.id}</div>
@@ -77,6 +76,7 @@
 		<div class="form-row">
 			<div class="label">내용</div>
 			<div class="input">
+				<input type="hidden" name="body">
 				<script type="text/x-template">${article.bodyForXTemplate}</script>
 				<div class="toast-editor"></div>
 			</div>

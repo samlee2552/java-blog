@@ -99,9 +99,9 @@ public class MemberController extends Controller {
 		if (sendMailDone == false) {
 			return "html:<script> alert('메일 발송 실패.'); history.back(); </script>";
 		}
+			memberService.updatePw(loginId, tempPw);
+			return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login_join'); </script>";
 		// 임시 비밀번호로 회원정보 변경
-		memberService.updatePw(loginId, tempPw);
-		return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login_join'); </script>";
 	}
 
 	// 로그아웃
@@ -151,19 +151,9 @@ public class MemberController extends Controller {
 			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
 		}
 		//조건 검사 끝
-		memberService.join(loginId, name, nickname, email, loginPw);
 
-		String title = "회원가입을 환영합니다!.";
-
-		String body = String.join(System.getProperty("line.separator"), "<h1>회원이 되신 것을 환영합니다~!!!</h1>",
-				"<h3>" + name + " 회원님의 가입을 축하합니다~! 감사합니다!.</h3>", "<a href=\"https://samlee.my.iu.gy/\" target=\"_blank\">사이트로 이동</a>"); 
-
-		boolean sendMailDone = mailService.send(email, title, body) == 1;
-		if (sendMailDone == false) {
-			return "html:<script> alert('메일 발송 실패.'); history.back(); </script>";
-		}
-
-		return String.format("html:<script> alert('%s님, 회원이 되신것을 환영합니다.'); location.replace('../home/main'); </script>", name);
+		int id = memberService.join(loginId, name, nickname, email, loginPw);
+		return String.format("html:<script> alert('%s님, " + id + " 번째 회원이 되신것을 환영합니다.'); location.replace('../home/main'); </script>", name);
 	}
 
 	@Override

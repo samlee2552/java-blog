@@ -6,15 +6,21 @@ import com.sbs.java.blog.dao.MemberDao;
 import com.sbs.java.blog.dto.Member;
 
 public class MemberService extends Service {
+	private MailService mailService;
 	private MemberDao memberDao;
 
-	public MemberService(Connection dbConn) {
+	public MemberService(Connection dbConn, MailService mailService) {
 		memberDao = new MemberDao(dbConn);
 	}
 	
 	//회원가입
-	public int join(String loginId, String name, String nickname, String email, String loginPw) {
-		return memberDao.join(loginId, name, nickname, email, loginPw);
+	public int join(String loginId, String loginPw, String name, String nickname, String email) {
+		
+		int id = memberDao.join(loginId, loginPw, name, nickname, email);
+
+		mailService.send(email, "가입을 환영합니다.", "<a href=\"https://samlee.my.iu.gy/\" target=\"_blank\">사이트로 이동</a>");
+
+		return id;
 	}
 
 

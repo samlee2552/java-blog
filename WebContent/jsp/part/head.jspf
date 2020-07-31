@@ -116,7 +116,7 @@
 								target="_blank">INSTAGRAM</a></li>
 						</ul></li>
 					<li><a href="${pageContext.request.contextPath}/s/home/main"
-						class="height-100p flex flex-ai-c flex">Login/Join</a>
+						class="height-100p flex flex-ai-c flex">Log in / Sign up</a>
 						<ul>
 							<c:if test="${isLogined}">
 								<li><a class="block"
@@ -126,7 +126,9 @@
 							</c:if>
 							<c:if test="${isLogined==false}">
 								<li><a class="block"
-									href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Login/Join</a></li>
+									href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}">Log in</a></li>
+								<li><a class="block"
+									href="${pageContext.request.contextPath}/s/member/join">Sign up</a></li>
 							</c:if>
 						</ul></li>
 				</ul>
@@ -156,7 +158,10 @@
 				<c:if test="${isLogined==false}">
 					<li><a
 						href="${pageContext.request.contextPath}/s/member/login_join?afterLoginRedirectUri=${encodedAfterLoginRedirectUri}"
-						class="block">Login/Join</a></li>
+						class="block">Login</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/s/member/join"
+						class="block">Join</a></li>
 				</c:if>
 				<li><a href="${pageContext.request.contextPath}/s/home/main"
 					class="block">Home</a></li>

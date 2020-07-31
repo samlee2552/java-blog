@@ -258,7 +258,7 @@ public class ArticleController extends Controller {
 			searchKeyword = Util.getString(req, "searchKeyword");
 		}
 
-		//*****************************페이징 처리 시작
+		//*****************************페이징 처리 시
 		int itemsInAPage = 10;
 		int blockCount = 5;
 		//페이지당 게시물 10개

@@ -55,7 +55,6 @@ public class ArticleDao extends Dao {
 		sql.append("SELECT COUNT(*) AS cnt ");
 		sql.append("FROM article ");
 		sql.append("WHERE displayStatus = 1 ");
-		
 
 		if (cateItemId != 0) {
 			sql.append("AND cateItemId = ? ", cateItemId);
@@ -86,7 +85,6 @@ public class ArticleDao extends Dao {
 		sql.append("ON A.memberId = M.id ");
 		sql.append("WHERE A.id = ?", id);
 		sql.append("AND A.displayStatus = 1 ");
-
 
 		return new Article(DBUtil.selectRow(dbConn, sql));
 	}
@@ -189,7 +187,7 @@ public class ArticleDao extends Dao {
 
 		sql.append("DELETE FROM article ");
 		sql.append("WHERE id = ?", id);
-		
+
 		return DBUtil.delete(dbConn, sql);
 	}
 
@@ -212,13 +210,13 @@ public class ArticleDao extends Dao {
 		sql.append("SELECT *");
 		sql.append("FROM articleReply");
 		sql.append("WHERE id = ?", id);
-		
+
 		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-		
-		if ( row.isEmpty() ) {
+
+		if (row.isEmpty()) {
 			return null;
 		}
-		
+
 		return new ArticleReply(row);
 	}
 
@@ -254,7 +252,7 @@ public class ArticleDao extends Dao {
 
 		return articleReplies;
 	}
-	
+
 	public int deleteArticleReply(int id) {
 		SecSql sql = SecSql.from("DELETE FROM articleReply");
 		sql.append("WHERE id = ?", id);
@@ -272,5 +270,5 @@ public class ArticleDao extends Dao {
 
 		return DBUtil.update(dbConn, sql);
 	}
-	
+
 }

@@ -76,7 +76,7 @@ public class ArticleService extends Service {
 
 			return rs;
 		}
-
+		
 		if (articleReply.getMemberId() != actorId) {
 			rs.put("resultCode", "F-2");
 			rs.put("msg", "권한이 없습니다.");

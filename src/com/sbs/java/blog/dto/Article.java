@@ -11,6 +11,18 @@ public class Article extends Dto {
 	private String title;
 	private String body;
 	
+	public Article(Map<String, Object> row) {
+		super(row);
+		
+		this.updateDate = (String) row.get("updateDate");
+		this.cateItemId = (int) row.get("cateItemId");
+		this.memberId = (int) row.get("memberId");
+		this.title = (String) row.get("title");
+		this.body = (String) row.get("body");
+		this.hit = (int) row.get("hit");
+		this.like = (int) row.get("like");
+	}
+	
 	public int getHit() {
 		return hit;
 	}
@@ -27,17 +39,6 @@ public class Article extends Dto {
 		this.memberId = memberId;
 	}
 
-	public Article(Map<String, Object> row) {
-		super(row);
-
-		this.updateDate = (String) row.get("updateDate");
-		this.cateItemId = (int) row.get("cateItemId");
-		this.memberId = (int) row.get("memberId");
-		this.title = (String) row.get("title");
-		this.body = (String) row.get("body");
-		this.hit = (int) row.get("hit");
-		this.like = (int) row.get("like");
-	}
 	
 	@Override
 	public String toString() {
