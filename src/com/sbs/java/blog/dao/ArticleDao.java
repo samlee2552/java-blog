@@ -220,16 +220,16 @@ public class ArticleDao extends Dao {
 		return new ArticleReply(row);
 	}
 
-	public int writeArticleReply(int articleId, String memberNickname, String body) {
+	public int writeArticleReply(int articleId, int memberId, String body) {
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO articleReply");
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
 		sql.append(", body = ? ", body);
+		sql.append(", memberId = ?", memberId);
 		sql.append(", articleId = ? ", articleId);
 		sql.append(", displayStatus = '1'");
-		sql.append(", memberNickname = ?", memberNickname);
 
 		return DBUtil.insert(dbConn, sql);
 	}

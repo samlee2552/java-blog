@@ -44,7 +44,7 @@ public class MemberController extends Controller {
 	// jsp 주소 리턴 메서드 시작
 	private String doActionFindLoginPw() {
 		return "member/findLoginPw.jsp";
-		}
+	}
 
 	private String doActionFindLoginId() {
 		return "member/findLoginId.jsp";
@@ -57,14 +57,14 @@ public class MemberController extends Controller {
 	private String doActionJoin() {
 		return "member/join.jsp";
 	}
-	
+
 	private String doActionLogin() {
 		return "member/login.jsp";
 	}
-	
+
 	// jsp 주소 리턴 메서드 끝
-	
-	//아아디 찾기
+
+	// 아아디 찾기
 	private String doActionDoFindLoginId() {
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
@@ -73,7 +73,7 @@ public class MemberController extends Controller {
 		if (loginId == "") {
 			return String.format("html:<script> alert('입력하신 정보와 일치하는 회원이 없습니다.'); history.back(); </script>");
 		}
-		return "html:<script> alert('회원님의 아이디는 " + loginId + " 입니다.'); location.replace('login_join'); </script>";
+		return "html:<script> alert('회원님의 아이디는 " + loginId + " 입니다.'); location.replace('login'); </script>";
 	}
 
 	// 비밀번호 찾기, 임시비밀번호 발송
@@ -99,8 +99,8 @@ public class MemberController extends Controller {
 		if (sendMailDone == false) {
 			return "html:<script> alert('메일 발송 실패.'); history.back(); </script>";
 		}
-			memberService.updatePw(loginId, tempPw);
-			return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login_join'); </script>";
+		memberService.updatePw(loginId, tempPw);
+		return "html:<script> alert('" + email + " 로 임시 비밀번호가 발송되었습니다.'); location.replace('login'); </script>";
 		// 임시 비밀번호로 회원정보 변경
 	}
 
@@ -109,6 +109,7 @@ public class MemberController extends Controller {
 		session.removeAttribute("loginedMemberId");
 		return "html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>";
 	}
+
 	// 로그인
 	private String doActionDoLogin() {
 		String loginId = req.getParameter("loginId");
@@ -125,14 +126,15 @@ public class MemberController extends Controller {
 
 		return String.format("html:<script> alert('로그인 되었습니다.'); location.replace('" + redirectUri + "'); </script>");
 	}
-	//회원가입
+
+	// 회원가입
 	private String doActionDoJoin() {
 		String loginId = req.getParameter("loginId");
 		String name = req.getParameter("name");
-		String nickname = req.getParameter("nickname");	
+		String nickname = req.getParameter("nickname");
 		String email = req.getParameter("email");
 		String loginPw = req.getParameter("loginPwReal");
-		//조건 검사 시작
+		// 조건 검사 시작
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 
 		if (isJoinableLoginId == false) {
@@ -150,10 +152,11 @@ public class MemberController extends Controller {
 		if (isJoinableEmail == false) {
 			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
 		}
-		//조건 검사 끝
+		// 조건 검사 끝
 
 		int id = memberService.join(loginId, name, nickname, email, loginPw);
-		return String.format("html:<script> alert('%s님, " + id + " 번째 회원이 되신것을 환영합니다.'); location.replace('../home/main'); </script>", name);
+		return String.format("html:<script> alert('%s님, " + id
+				+ " 번째 회원이 되신것을 환영합니다.'); location.replace('../home/main'); </script>", name);
 	}
 
 	@Override

@@ -116,13 +116,12 @@ public class ArticleController extends Controller {
 		}
 		int articleId = Util.getInt(req, "articleId");
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
-		Member member = memberService.getMemberById(loginedMemberId);
-		String memberNickname = member.getNickname();
+	
 		String body = Util.getString(req, "body");
 		String redirectUri = Util.getString(req, "redirectUri");
 
 		
-		int id = articleService.writeArticleReply(articleId, memberNickname, body);
+		int id = articleService.writeArticleReply(articleId, loginedMemberId, body);
 		redirectUri = Util.getNewUri(redirectUri, "lastWorkArticleReplyId", id + "");
 
 		return "html:<script> alert('" + id + "번 댓글이 작성되었습니다.'); location.replace('" + redirectUri + "'); </script>";

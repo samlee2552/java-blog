@@ -10,6 +10,7 @@ public class MemberService extends Service {
 	private MemberDao memberDao;
 
 	public MemberService(Connection dbConn, MailService mailService) {
+		this.mailService = mailService;
 		memberDao = new MemberDao(dbConn);
 	}
 	
@@ -19,7 +20,6 @@ public class MemberService extends Service {
 		int id = memberDao.join(loginId, loginPw, name, nickname, email);
 
 		mailService.send(email, "가입을 환영합니다.", "<a href=\"https://samlee.my.iu.gy/\" target=\"_blank\">사이트로 이동</a>");
-
 		return id;
 	}
 

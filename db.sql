@@ -75,7 +75,7 @@ CREATE TABLE articleReply (
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     articleId INT(10) UNSIGNED NOT NULL,
-    memberNickname char(100) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
     `like` INT(10) UNSIGNED DEFAULT 0 NOT NULL,
     displayStatus TINYINT(1) UNSIGNED NOT NULL,
     `body` TEXT NOT NULL

@@ -163,8 +163,8 @@ public class ArticleService extends Service {
 		return articleDao.modifyArticle(id, cateItemId, title, body);
 	}
 
-	public int writeArticleReply(int articleId, String memberNickname, String body) {
-		return articleDao.writeArticleReply(articleId, memberNickname, body);
+	public int writeArticleReply(int articleId, int memberId, String body) {
+		return articleDao.writeArticleReply(articleId, memberId, body);
 	}
 
 	public List<ArticleReply> getForPrintArticleReplies(int articleId, int actorId) {

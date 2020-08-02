@@ -22,9 +22,16 @@ public class TestController extends Controller {
 			return doActionDbInsert();
 		case "dbSelect":
 			return doActionDbSelect();
+		case "sendMail":
+			return doActionSendMail();
 		}
 
 		return "";
+	}
+
+	private String doActionSendMail() {
+		mailService.send("saml2l@naver.com", "제목입니다", "<a href=\"https://www.naver.com\" target=\"\"_blank>반갑습니다</a>반갑습니다");
+		return "html:성공";
 	}
 
 	private String doActionDbInsert() {

@@ -27,6 +27,14 @@
 	color: white;
 }
 
+.title {
+	font-weight: bold;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 150px;
+}
+
 #paging {
 	text-align: center;
 	margin: 40px 0 30px 0;
@@ -143,15 +151,15 @@
 <div class="article-list-box-1 table-box content">
 	<h1 class="text-align-center">📋 게시판 : ${cateItemName}</h1>
 	<h3 class="text-align-right">🔢 게시물 수: ${totalCount}</h3>
-	<table style="table-layout: fixed;">
+	<table>
 		<thead>
 			<tr height="50">
 				<th>🇳🇴</th>
 				<th class="visible-on-md-up">📅 게시일</th>
 				<th>🔤 제목</th>
-				<th>‍✍</th>
-				<th>📈</th>
-				<th>👍</th>
+				<th title="작성자">‍✍</th>
+				<th title="조회수">📈</th>
+				<th title="추천수">👍</th>
 				<c:if test="${isLogined}">
 					<th></th>
 				</c:if>
@@ -162,15 +170,14 @@
 				<tr height="100">
 					<td width="" style="font-weight: bold"><a
 						href="./detail?id=${article.id}">${article.id}</a></td>
-					<td class="visible-on-md-up" width="10%">${article.regDate.substring(0, 10)}</td>
-					<td title="제목입니다" width="100px" class="title"
-						style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><a
+					<td width="12%" class="visible-on-md-up">${article.regDate.substring(0, 10)}</td>
+					<td title="${article.title}" class="title"><a
 						href="./detail?id=${article.id}">${article.title}</a></td>
-					<td width="">${article.extra.writer}</td>
+					<td width="12%">${article.extra.writer}</td>
 					<td width="">${article.hit}</td>
 					<td width="">${article.like}</td>
 					<c:if test="${isLogined}">
-						<td width="9%">
+						<td width="7%">
 							<div class="tools flex flex-jc-c">
 								<c:if
 									test="${article.extra.deleteAvailable || loginedMemberId == 1}">
