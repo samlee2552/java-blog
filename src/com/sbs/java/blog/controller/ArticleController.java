@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
-import com.sbs.java.blog.dto.Member;
 import com.sbs.java.blog.util.Util;
 
 public class ArticleController extends Controller {
@@ -212,13 +211,12 @@ public class ArticleController extends Controller {
 		articleService.increaseHit(id);
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		Article article = articleService.getForPrintArticle(id, loginedMemberId);
+		
+		List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies(id, loginedMemberId);
 
 		req.setAttribute("article", article);
-
-		List<ArticleReply> articleReplies = articleService.getArticleRepliesByArticleId(id);
-
 		req.setAttribute("articleReplies", articleReplies);
-
+		
 		return "article/detail.jsp";
 	}
 

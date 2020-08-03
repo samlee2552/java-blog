@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.sbs.java.blog.dto.CateItem"%>
-<%@ page import="com.sbs.java.blog.dto.Member"%>
+<%@ page import="com.sbs.java.blog.dto.CateItem"%> <!-- 지워도 될듯  -->
+<%@ page import="com.sbs.java.blog.dto.Member"%>  <!-- 지워도 될듯  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -46,6 +46,39 @@
 	var loginedMember = null;
 </script>
 
+<script>
+	var param = {};
+</script>
+<c:forEach var="pageParameter" items="${param}">
+	<script>
+		param["${pageParameter.key}"] = "${pageParameter.value}";
+	</script>
+</c:forEach>
+
+<script>
+if ( !param.jsAction ) {
+	param.jsAction = '';
+}
+
+var jsActions = param.jsAction.split(',');
+
+for ( var key in jsActions ) {
+	var jsActionFuncName = jsActions[key];
+
+	$(function() {
+		setTimeout(function() {
+			if ( window[jsActionFuncName] ) {
+				window[jsActionFuncName]();
+			}
+			else {
+				console.error("jsAction으로 요청받은, " + jsActionFuncName + " 함수는 존재하지 않아서 실행하지 못했습니다.");
+			}
+		}, 100);
+	});
+}
+</script>
+
+
 <c:if test="${isLogined}">
 	<script>
 		loginedMember = {};
@@ -79,7 +112,7 @@
 			</a>
 			<c:if test="${isLogined}">
 				<div>
-					<a href="${pageContext.request.contextPath}/s/member/memberInfo"
+					<a href="${pageContext.request.contextPath}/s/member/profile"
 						id="loginedMember" class="height-100p flex flex-ai-c">${loginedMember.nickname}</a>
 
 				</div>
@@ -122,7 +155,7 @@
 								<li><a class="block"
 									href="${pageContext.request.contextPath}/s/member/logout">Logout</a></li>
 								<li><a class="block"
-									href="${pageContext.request.contextPath}/s/member/memberInfo">MemberInfo</a></li>
+									href="${pageContext.request.contextPath}/s/member/profile">MemberInfo</a></li>
 							</c:if>
 							<c:if test="${isLogined==false}">
 								<li><a class="block"

@@ -147,7 +147,7 @@ public class ArticleDao extends Dao {
 		DBUtil.update(dbConn, sql);
 	}
 
-	public int writeReply(int articleId, String memberNickname, String body) {
+	public int writeArticleReply(int articleId, String memberNickname, String body) {
 		SecSql sql = SecSql.from("INSERT INTO articleReply ");
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
