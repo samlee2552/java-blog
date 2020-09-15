@@ -22,10 +22,16 @@ import com.sbs.java.blog.util.Util;
 public class App {
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
+	private boolean isDevelServer = true;
 
 	public App(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
+		String profilesActive = System.getProperty("spring.profiles.active");
+	
+		if(profilesActive != null && profilesActive.equals("production")) {
+			isDevelServer = false;
+		}
 	}
 
 	private void loadDbDriver() throws IOException {
@@ -43,7 +49,11 @@ public class App {
 	}
 
 	private String getDbUrl() {
-		return "jdbc:mysql://site31.iu.gy:3306/site31?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
+		
+		if(isDevelServer) {
+			return "jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
+		}
+		return "jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
 	}
 	
 	public void start() throws ServletException, IOException {
@@ -138,10 +148,16 @@ public class App {
 	}
 
 	private String getDbId() {
-		return "site31";
+		if(isDevelServer) {
+			return "sbsst";
+		}
+		return "saml2lLocal";
 	}
 
 	private String getDbPassword() {
+		if(isDevelServer) {
+			return "sbs123414";
+		}
 		return "sbs123414";
 	}
 

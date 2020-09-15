@@ -212,10 +212,10 @@ public class ArticleController extends Controller {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		Article article = articleService.getForPrintArticle(id, loginedMemberId);
 		
-		List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies(id, loginedMemberId);
+		//List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies(id, loginedMemberId);
 
 		req.setAttribute("article", article);
-		req.setAttribute("articleReplies", articleReplies);
+//		req.setAttribute("articleReplies", articleReplies);
 		
 		return "article/detail.jsp";
 	}
