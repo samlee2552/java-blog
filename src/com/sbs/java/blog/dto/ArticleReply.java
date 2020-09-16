@@ -7,20 +7,24 @@ import java.util.Map;
  *
  */
 public class ArticleReply extends Dto {
-	private int articleId;
+	private int id;
+	private String regDate;
 	private String updateDate;
 	private int memberId;
+	private int articleId;
+	private int displayStatus;
 	private String body;
-	private String memberNickName;
 
 	public ArticleReply(Map<String, Object> row) {
 		super(row);
-
-		this.articleId = (int) row.get("articleId");
+		this.id = (int) row.get("id");
+		this.regDate = (String) row.get("regDate");
 		this.updateDate = (String) row.get("updateDate");
+		this.articleId = (int) row.get("articleId");
 		this.memberId = (int) row.get("memberId");
+		this.displayStatus = (int) row.get("displayStatus");
 		this.body = (String) row.get("body");
-		this.memberNickName = (String) row.get("memberNickName");
+
 	}
 
 	@Override
@@ -64,14 +68,6 @@ public class ArticleReply extends Dto {
 	
 	public String getBodyForXTemplate() {
 		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
-	}
-
-	public String getMemberNickName() {
-		return memberNickName;
-	}
-
-	public void setMemberNickName(String memberNickName) {
-		this.memberNickName = memberNickName;
 	}
 
 }

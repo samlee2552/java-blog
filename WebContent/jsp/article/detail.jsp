@@ -1,8 +1,10 @@
+<%@ page import="com.sbs.java.blog.util.Util"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<c:set var="pageTitle" value="게시물 상세내용"></c:set>
 <%@ include file="/jsp/part/head.jspf"%>
 <%@ include file="/jsp/part/toastUiEditor.jspf"%>
-
 <style>
 	.table-box>s {
 	width: 100%;
@@ -190,24 +192,37 @@ function WriteReplyList__showTop() {
 			<tr>
 				<th>번호</th>
 				<th>날짜</th>
+				<th>작성자</th>
 				<th>내용</th>
 				<th>비고</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${articleReplies}" var="articleReply">
-				<tr>
+				<tr data-id="${articleReply.id}">
 					<td class="text-align-center">${articleReply.id}</td>
 					<td class="text-align-center">${articleReply.regDate}</td>
-					<td class="padding-left-10 padding-right-10">
-						<script type="text/x-template">${articleReply.bodyForXTemplate}</script>
-						<div class="toast-editor toast-editor-viewer"></div>
-					</td>
-					<td class="text-align-center"><c:if test="${articleReply.extra.deleteAvailable}">
+					<td class="text-align-center">${articleReply.extra.writer}</td>
+					<td class="padding-left-10 padding-right-10"><script
+							type="text/x-template">${articleReply.bodyForXTemplate}</script>
+						<div class="toast-editor toast-editor-viewer"></div></td>
+					<td class="text-align-center"><c:if
+							test="${articleReply.extra.deleteAvailable}">
+							<c:set var="afterDeleteReplyRedirectUri"
+								value="${Util.getNewUriRemoved(currentUri, 'lastWorkArticleReplyId')}" />
+							<c:set var="afterDeleteReplyRedirectUri"
+								value="${Util.getNewUriAndEncoded(afterDeleteReplyRedirectUri, 'jsAction', 'WriteReplyList__showTop')}" />
+
+							<c:set var="afterModifyReplyRedirectUri"
+								value="${Util.getNewUriRemoved(currentUri, 'lastWorkArticleReplyId')}" />
+							<c:set var="afterModifyReplyRedirectUri"
+								value="${Util.getNewUriAndEncoded(afterModifyReplyRedirectUri, 'jsAction', 'WriteReplyList__showDetail')}" />
+
 							<a onclick="if ( confirm('삭제하시겠습니까?') == false ) return false;"
-								href="./doDeleteReply?id=${articleReply.id}">삭제</a>
+								href="./doDeleteReply?id=${articleReply.id}&redirectUri=${afterDeleteReplyRedirectUri}">삭제</a>
 						</c:if> <c:if test="${articleReply.extra.modifyAvailable}">
-							<a href="./modifyReply?id=${articleReply.id}">수정</a>
+							<a
+								href="./modifyReply?id=${articleReply.id}&redirectUri=${afterModifyReplyRedirectUri}">수정</a>
 						</c:if></td>
 				</tr>
 			</c:forEach>
