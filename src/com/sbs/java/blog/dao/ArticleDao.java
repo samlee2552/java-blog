@@ -159,17 +159,24 @@ public class ArticleDao extends Dao {
 		return DBUtil.insert(dbConn, sql);
 	}
 
-	public List<ArticleReply> getArticleRepliesByArticleId(int id) {
-		SecSql sql = SecSql.from("SELECT * FROM articleReply ");
-		sql.append("WHERE articleId = ?", id);
-		sql.append("ORDER BY id DESC ");
+	public List<ArticleReply> getArticleRepliesByArticleId(int articleId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT AR.*, M.nickname AS extra__writer");
+		sql.append("FROM articleReply AS AR");
+		sql.append("INNER JOIN member AS M");
+		sql.append("ON AR.memberId = M.id");
+		sql.append("WHERE AR.displayStatus = 1");
+		sql.append("AND AR.articleId = ?", articleId);
+		sql.append("ORDER BY AR.id DESC ");
 
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
-
 		List<ArticleReply> articleReplies = new ArrayList<>();
+
 		for (Map<String, Object> row : rows) {
 			articleReplies.add(new ArticleReply(row));
 		}
+
 		return articleReplies;
 	}
 
@@ -237,11 +244,13 @@ public class ArticleDao extends Dao {
 	public List<ArticleReply> getForPrintArticleReplies(int articleId, int actorId) {
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT *");
-		sql.append("FROM articleReply");
-		sql.append("WHERE displayStatus = 1");
-		sql.append("AND articleId = ?", articleId);
-		sql.append("ORDER BY id DESC ");
+		sql.append("SELECT AR.*, M.nickname AS extra__writer");
+		sql.append("FROM articleReply AS AR");
+		sql.append("INNER JOIN member AS M");
+		sql.append("ON AR.memberId = M.id");
+		sql.append("WHERE AR.displayStatus = 1");
+		sql.append("AND AR.articleId = ?", articleId);
+		sql.append("ORDER BY AR.id DESC ");
 
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
 		List<ArticleReply> articleReplies = new ArrayList<>();
