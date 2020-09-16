@@ -53,6 +53,8 @@ public class ArticleController extends Controller {
 			return doActionDoModifyReply();
 		case "modifyReply":
 			return doActionModifyReply();
+		case "doDeleteReply":
+			return actionDoDeleteReply();
 		}
 
 		return "";
@@ -126,6 +128,7 @@ public class ArticleController extends Controller {
 		return "html:<script> alert('" + id + "번 댓글이 작성되었습니다.'); location.replace('" + redirectUri + "'); </script>";
 	}
 
+	//댓글 수정
 	private String doActionDoModifyReply() {
 		if (Util.empty(req, "id")) {
 			return "html:id를 입력해주세요.";
@@ -155,6 +158,35 @@ public class ArticleController extends Controller {
 		redirectUri = Util.getNewUri(redirectUri, "lastWorkArticleReplyId", id + "");
 
 		return "html:<script> alert('" + id + "번 댓글이 수정되었습니다.'); location.replace('" + redirectUri + "'); </script>";
+	}
+	
+	//댓글 삭제
+	private String actionDoDeleteReply() {
+		if (Util.empty(req, "id")) {
+			return "html:id를 입력해주세요.";
+		}
+
+		if (Util.isNum(req, "id") == false) {
+			return "html:id를 정수로 입력해주세요.";
+		}
+
+		int id = Util.getInt(req, "id");
+
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+
+		Map<String, Object> getReplyCheckRsDeleteAvailableRs = articleService.getReplyCheckRsDeleteAvailable(id,
+				loginedMemberId);
+
+		if (Util.isSuccess(getReplyCheckRsDeleteAvailableRs) == false) {
+			return "html:<script> alert('" + getReplyCheckRsDeleteAvailableRs.get("msg")
+					+ "'); history.back(); </script>";
+		}
+
+		articleService.deleteArticleReply(id);
+
+		String redirectUri = Util.getString(req, "redirectUri", "list");
+
+		return "html:<script> alert('" + id + "번 댓글이 삭제되었습니다.'); location.replace('" + redirectUri + "'); </script>";
 	}
 
 	private String doActionModifyReply() {
