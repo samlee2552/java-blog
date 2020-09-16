@@ -36,9 +36,15 @@ public class MemberController extends Controller {
 			return doActionFindLoginPw();
 		case "doFindPw":
 			return doActionDoFindPw();
+		case "profile":
+			return memberProfile();
 		}
 
 		return "";
+	}
+
+	private String memberProfile() {
+		return "member/profile.jsp";
 	}
 
 	// jsp 주소 리턴 메서드 시작
